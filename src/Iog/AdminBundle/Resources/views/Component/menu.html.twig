@@ -1,22 +1,33 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">  
-    <ul class="nav navbar-nav">  
-        <li class="{% if app.request.get('_route') == 'iog_admin_homepage' %} active {% endif %}" ><a href="{{ path('iog_admin_homepage') }}">Home</a></li>
+<nav class="main-menu" data-step="2" data-intro="This is the extendable Main Navigation Menu." data-position="right">
+    <ul>
+        <li>
+            <a href="{{ path('iog_admin_homepage') }}">
+                <i class="icon-home nav-icon"></i>
+                <span class="nav-text">
+                    Dashboard
+                </span>
+            </a>
+        </li>
         {% for key, item in get_admin_menu() %}
-            <li class="
-                {% if app.request.get('_route') in [item['route'], item['route']~'_show', item['route']~'_create', item['route']~'_new'] %}active {% endif %}">
-
-                <a href="{{ path( item['route']) }}">{{ key }}</a>
-            </li>  
+            <li>
+                <a href="{{ path(item['route']) }}">
+                    <i class="icon-{{ item['icon'] }} nav-icon"></i>
+                    <span class="nav-text">
+                        {{ key }}
+                    </span>
+                </a>
+            </li>
         {% endfor %}
-        <li class="dropdown">  
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Logged in as {{ app.user.username }}<b class="caret"></b></a>  
-            <ul class="dropdown-menu">  
-                <li class="socials">
-                    <a href="{{ path('fos_user_security_logout') }}">
-                        Logout
-                    </a>
-                </li>  
-            </ul>  
-        </li> 
-    </ul>  
+    </ul>
+
+    <ul class="logout">
+        <li>
+            <a href="{{ path('fos_user_security_logout') }}">
+                <i class="icon-off nav-icon"></i>
+                <span class="nav-text">
+                    Logout
+                </span>
+            </a>
+        </li>  
+    </ul>
 </nav>

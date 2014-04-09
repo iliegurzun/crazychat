@@ -1,14 +1,520 @@
 {% extends "IogAdminBundle::layout.html.twig" %}
 
 {% block content %}
-<ul class="homepage-items">
-    {% for key, item in items %}
-    <li>
-        <a href="{{ item.route }}">
-            <img src="{{ asset('bundles/iogadmin/images/icons/'~item.icon) }}"/>
-            <label>{{ key }}</label>
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+<section class="widget-group ui-sortable">
+            <div id="messages-widget" class="proton-widget messages lit">
+                    <div class="panel panel-default back">
+                        <div class="panel-heading">
+                            <i class="icon-cog"></i>
+                            <span>Settings</span>
+                            <div class="toggle-widget-setup">
+                                <i class="icon-ok"></i>
+                                <span>DONE</span>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Location</label>
+                                    <div>
+                                        <div id="s2id_autogen1" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Any</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen2" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option selected="selected" value="Any">Any</option>
+                                            <option value="Europe">Europe</option>
+                                            <option value="Asia">Asia</option>
+                                            <option value="North America">North America</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Time</label>
+                                    <div>
+                                        <div id="s2id_autogen3" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">This Week</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen4" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option>Any</option>
+                                            <option>Last Hour</option>
+                                            <option>Today</option>
+                                            <option selected="selected">This Week</option>
+                                            <option>This Month</option>
+                                            <option>This Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-success front">
+                        <div class="panel-heading">
+                            <i class="icon-envelope-alt"></i>
+                            <span>Messages</span>
+                            <i class="icon-cog toggle-widget-setup"></i>
+                        </div>
+                        <div>
+                            <ul class="list-group pending"><li class="list-group-item new-item generated-item"><i><img src="images/user-icons/user9.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Roan Holgersen:</span><span class="description-text"> do you want to go out tonight?</span></div><span class="stat-value">a minut ago</span></li><li class="list-group-item generated-item"><i><img src="Proton%20UI%20-%20Dashboard_files/user2.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Graeme Reuter:</span><span class="description-text">Hi all,  do you want to go out tonight?</span></div><span class="stat-value">a minut ago</span></li><li class="list-group-item generated-item"><i><img src="Proton%20UI%20-%20Dashboard_files/user2.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Sanyu Toset:</span><span class="description-text">Hi,  just saying hi. :)</span></div><span class="stat-value">2 mins ago</span></li>
+                                <li class="list-group-item">
+                                    <i><img src="Proton%20UI%20-%20Dashboard_files/user1.jpg" alt="User Icon"></i>
+                                    <div class="text-holder">
+                                        <span class="title-text">
+                                            Nunc Cenenatis:
+                                        </span>
+                                        <span class="description-text">
+                                            Hi, can you meet me at the office tomorrow morning?
+                                        </span>
+                                    </div>
+                                    <span class="stat-value">
+                                        5 mins ago
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i><img src="Proton%20UI%20-%20Dashboard_files/user5.jpg" alt="User Icon"></i>
+                                    <div class="text-holder">
+                                        <span class="title-text">
+                                            Prasent Neque:
+                                        </span>
+                                        <span class="description-text">
+                                            Just a quick question: do you know the balance on the adsense account?
+                                        </span>
+                                    </div>
+                                    <span class="stat-value">
+                                        17 mins ago
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i><img src="Proton%20UI%20-%20Dashboard_files/user2.jpg" alt="User Icon"></i>
+                                    <div class="text-holder">
+                                        <span class="title-text">
+                                            Flor Demoa:
+                                        </span>
+                                        <span class="description-text">
+                                            Hey, we're going surfing tomorrow. Feel free to join in.
+                                        </span>
+                                    </div>
+                                    <span class="stat-value">
+                                        3 hrs ago
+                                    </span>
+                                </li>
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div><div id="general-stats-widget" class="proton-widget general-stats lit">
+                    <div class="panel panel-default back">
+                        <div class="panel-heading">
+                            <i class="icon-cog"></i>
+                            <span>Settings</span>
+                            <div class="toggle-widget-setup">
+                                <i class="icon-ok"></i>
+                                <span>DONE</span>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Location</label>
+                                    <div>
+                                        <div id="s2id_autogen5" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Europe</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen6" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option value="Any">Any</option>
+                                            <option selected="selected" value="Europe">Europe</option>
+                                            <option value="Asia">Asia</option>
+                                            <option value="North America">North America</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Time</label>
+                                    <div>
+                                        <div id="s2id_autogen7" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">This Year</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen8" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option>Any</option>
+                                            <option>Last Hour</option>
+                                            <option>Today</option>
+                                            <option>This Week</option>
+                                            <option>This Month</option>
+                                            <option selected="selected">This Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-primary front">
+                        <div class="panel-heading">
+                            <i class="icon-sort"></i>
+                            <span>General Stats</span>
+                            <i class="icon-cog toggle-widget-setup"></i>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item animated flash">
+                                <div class="text-holder">
+                                    <span class="title-text">2,515</span>
+                                    <span class="description-text">
+                                        Registered Users
+                                    </span>
+                                </div>
+                                <span class="stat-value">
+                                    + 0.6%
+                                    <i class="icon-sort-up"></i>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="text-holder">
+                                    <span class="title-text">
+                                        $1,132
+                                    </span>
+                                    <span class="description-text">
+                                        Revenue
+                                    </span>
+                                </div>
+                                <span class="stat-value">
+                                    + 2.1%
+                                    <i class="icon-sort-up"></i>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="text-holder">
+                                    <span class="title-text">
+                                        53
+                                    </span>
+                                    <span class="description-text">
+                                        Viking Users
+                                    </span>
+                                </div>
+                                <span class="stat-value">
+                                    0%
+                                    <i class="icon-sort"></i>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="text-holder">
+                                    <span class="title-text">
+                                        24
+                                    </span>
+                                    <span class="description-text">
+                                        Donuts consumed
+                                    </span>
+                                </div>
+                                <span class="stat-value">
+                                    - 6.5%
+                                    <i class="icon-sort-down"></i>
+                                </span>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="text-holder">
+                                    <span class="title-text">
+                                        312
+                                    </span>
+                                    <span class="description-text">
+                                        Orders Received
+                                    </span>
+                                </div>
+                                <span class="stat-value">
+                                    + 12.1%
+                                    <i class="icon-sort-up"></i>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div><div id="latest-users-widget" class="proton-widget latest-users lit">
+                    <div class="panel panel-default back">
+                        <div class="panel-heading">
+                            <i class="icon-cog"></i>
+                            <span>Settings</span>
+                            <div class="toggle-widget-setup">
+                                <i class="icon-ok"></i>
+                                <span>DONE</span>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Location</label>
+                                    <div>
+                                        <div id="s2id_autogen9" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Any</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen10" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option selected="selected" value="Any">Any</option>
+                                            <option value="Europe">Europe</option>
+                                            <option value="Asia">Asia</option>
+                                            <option value="North America">North America</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-info front">
+                        <div class="panel-heading">
+                            <i class="icon-flag"></i>
+                            <span>Latest Users</span>
+                            <i class="icon-cog toggle-widget-setup"></i>
+                        </div>
+                        <div>
+                            <ul class="list-group pending"><li class="list-group-item new-item generated-item"><i><img src="Proton%20UI%20-%20Dashboard_files/user3.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Belshazzar McGee</span></div><span class="stat-value">a minut ago</span></li><li class="list-group-item generated-item animated flash"><i><img src="Proton%20UI%20-%20Dashboard_files/user7.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Artemisios Moore</span></div><span class="stat-value">a minut ago</span></li><li class="list-group-item generated-item"><i><img src="Proton%20UI%20-%20Dashboard_files/user1.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Graeme Grant</span></div><span class="stat-value">2 mins ago</span></li><li class="list-group-item generated-item"><i><img src="Proton%20UI%20-%20Dashboard_files/user10.jpg" alt="User Icon"></i><div class="text-holder"><span class="title-text">Fernando Van</span></div><span class="stat-value">3 mins ago</span></li>
+                                <li class="list-group-item">
+                                    <i><img src="Proton%20UI%20-%20Dashboard_files/user3.jpg" alt="User Icon"></i>
+                                    <div class="text-holder">
+                                        <span class="title-text">
+                                            Etiam Libero
+                                        </span>
+                                    </div>
+                                    <span class="stat-value">
+                                        a minut ago
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i><img src="Proton%20UI%20-%20Dashboard_files/user2.jpg" alt="User Icon"></i>
+                                    <div class="text-holder">
+                                        <span class="title-text">
+                                            Flor Demoa
+                                        </span>
+                                    </div>
+                                    <span class="stat-value">
+                                        12 hours ago
+                                    </span>
+                                </li>
+                                <li class="list-group-item">
+                                    <i><img src="Proton%20UI%20-%20Dashboard_files/user5.jpg" alt="User Icon"></i>
+                                    <div class="text-holder">
+                                        <span class="title-text">
+                                            Prasent Neque
+                                        </span>
+                                    </div>
+                                    <span class="stat-value">
+                                        2 days ago
+                                    </span>
+                                </li>
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+				<div id="task-completion-widget" class="proton-widget task-completion lit">
+                    <div class="panel panel-default back">
+                        <div class="panel-heading">
+                            <i class="icon-cog"></i>
+                            <span>Settings</span>
+                            <div class="toggle-widget-setup">
+                                <i class="icon-ok"></i>
+                                <span>DONE</span>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Origin</label>
+                                    <div>
+                                        <div id="s2id_autogen11" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">North America</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen12" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option value="Any">Any</option>
+                                            <option value="Europe">Europe</option>
+                                            <option value="Asia">Asia</option>
+                                            <option selected="selected" value="North America">North America</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Time</label>
+                                    <div>
+                                        <div id="s2id_autogen13" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">This Month</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen14" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option>Any</option>
+                                            <option>Last Hour</option>
+                                            <option>Today</option>
+                                            <option>This Week</option>
+                                            <option selected="selected">This Month</option>
+                                            <option>This Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-info front">
+                        <div class="panel-heading">
+                            <i class="icon-ok"></i>
+                            <span>Task Completion</span>
+                            <i class="icon-cog toggle-widget-setup"></i>
+                        </div>
+                        <ul class="list-group">
+                            <li class="sub-list">
+                                <ul>
+                                    <li class="list-group-item">
+                                        <span class="title-text">
+                                            Processed orders
+                                        </span>
+                                        <span class="processed-value">
+                                            56
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="title-text">
+                                            Pending orders
+                                        </span>
+                                        <span class="processed-value">
+                                            14
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="title-text">
+                                            Unproc. orders
+                                        </span>
+                                        <span class="processed-value">
+                                            12
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="widget-progress-bar">
+                                <div class="form-group">
+                                    <label>Processed orders: 63%</label>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" style="width: 63%;">
+                                            <span class="sr-only">63% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div><div id="sales-income-widget" class="proton-widget lit">
+                    <div class="panel panel-default back">
+                        <div class="panel-heading">
+                            <i class="icon-cog"></i>
+                            <span>Settings</span>
+                            <div class="toggle-widget-setup">
+                                <i class="icon-ok"></i>
+                                <span>DONE</span>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Products</label>
+                                    <div>
+                                        <div id="s2id_autogen15" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Digital Media</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen16" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option>All</option>
+                                            <option selected="selected">Digital Media</option>
+                                            <option>Books</option>
+                                            <option>Shopping Carts</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Origin</label>
+                                    <div>
+                                        <div id="s2id_autogen17" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">North America</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen18" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option value="Any">Any</option>
+                                            <option value="Europe">Europe</option>
+                                            <option value="Asia">Asia</option>
+                                            <option selected="selected" value="North America">North America</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Time Unit</label>
+                                    <div>
+                                        <div id="s2id_autogen19" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Year</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen20" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option>Day</option>
+                                            <option>Week</option>
+                                            <option>Month</option>
+                                            <option selected="selected">Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-warning front">
+                        <div class="panel-heading">
+                            <i class="icon-shopping-cart"></i>
+                            <span>Sales Income</span>
+                            <i class="icon-cog toggle-widget-setup"></i>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <div id="hero-bar" class="graph" style="height: 225px; position: relative;"><svg style="overflow: hidden; position: relative; left: -0.5px;" xmlns="http://www.w3.org/2000/svg" width="298" version="1.1" height="225"><desc>Created with Raphaël 2.1.2</desc><defs></defs><text font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="end" y="142" x="60.5" style="text-anchor: end; font: 12px sans-serif;"><tspan dy="4">0</tspan></text><path stroke-width="0.5" d="M73,142H273" stroke="#aaaaaa" fill="none" style=""></path><text font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="end" y="112.75" x="60.5" style="text-anchor: end; font: 12px sans-serif;"><tspan dy="4">25,000</tspan></text><path stroke-width="0.5" d="M73,112.75H273" stroke="#aaaaaa" fill="none" style=""></path><text font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="end" y="83.5" x="60.5" style="text-anchor: end; font: 12px sans-serif;"><tspan dy="4">50,000</tspan></text><path stroke-width="0.5" d="M73,83.5H273" stroke="#aaaaaa" fill="none" style=""></path><text font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="end" y="54.25" x="60.5" style="text-anchor: end; font: 12px sans-serif;"><tspan dy="4">75,000</tspan></text><path stroke-width="0.5" d="M73,54.25H273" stroke="#aaaaaa" fill="none" style=""></path><text font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="end" y="25" x="60.5" style="text-anchor: end; font: 12px sans-serif;"><tspan dy="4">100,000</tspan></text><path stroke-width="0.5" d="M73,25H273" stroke="#aaaaaa" fill="none" style=""></path><text transform="matrix(0,-1,1,0,102.3333,426.8333)" font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="154.5" x="256.33333333333337" style="text-anchor: middle; font: 12px sans-serif;"><tspan dy="4">2013</tspan></text><text transform="matrix(0,-1,1,0,69,393.5)" font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="154.5" x="223" style="text-anchor: middle; font: 12px sans-serif;"><tspan dy="4">2012</tspan></text><text transform="matrix(0,-1,1,0,35.6667,359.6667)" font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="154.5" x="189.66666666666669" style="text-anchor: middle; font: 12px sans-serif;"><tspan dy="4">2011</tspan></text><text transform="matrix(0,-1,1,0,2.3333,326.8333)" font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="154.5" x="156.33333333333331" style="text-anchor: middle; font: 12px sans-serif;"><tspan dy="4">2010</tspan></text><text transform="matrix(0,-1,1,0,-31,293.5)" font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="154.5" x="123" style="text-anchor: middle; font: 12px sans-serif;"><tspan dy="4">2009</tspan></text><text transform="matrix(0,-1,1,0,-64.3333,260.1667)" font-weight="normal" font-family="sans-serif" font-size="12px" fill="#888888" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="154.5" x="89.66666666666667" style="text-anchor: middle; font: 12px sans-serif;"><tspan dy="4">2008</tspan></text><rect stroke-width="0" style="" stroke="#000" fill="#0b62a4" ry="0" rx="0" r="0" height="6.254819999999995" width="25" y="135.74518" x="77.16666666666667"></rect><rect stroke-width="0" style="" stroke="#000" fill="#0b62a4" ry="0" rx="0" r="0" height="13.381290000000007" width="25" y="128.61871" x="110.50000000000001"></rect><rect stroke-width="0" style="" stroke="#000" fill="#0b62a4" ry="0" rx="0" r="0" height="26.295749999999998" width="25" y="115.70425" x="143.83333333333334"></rect><rect stroke-width="0" style="" stroke="#000" fill="#0b62a4" ry="0" rx="0" r="0" height="39.59280000000001" width="25" y="102.40719999999999" x="177.16666666666666"></rect><rect stroke-width="0" style="" stroke="#000" fill="#0b62a4" ry="0" rx="0" r="0" height="38.20635" width="25" y="103.79365" x="210.5"></rect><rect stroke-width="0" style="" stroke="#000" fill="#0b62a4" ry="0" rx="0" r="0" height="111.70107" width="25" y="30.29893" x="243.83333333333334"></rect></svg><div style="display: none;" class="morris-hover morris-default-style"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div><div id="expenses-widget" class="proton-widget lit">
+                    <div class="panel panel-default back">
+                        <div class="panel-heading">
+                            <i class="icon-cog"></i>
+                            <span>Settings</span>
+                            <div class="toggle-widget-setup">
+                                <i class="icon-ok"></i>
+                                <span>DONE</span>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Division</label>
+                                    <div>
+                                        <div id="s2id_autogen21" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">All Divisions</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen22" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option selected="selected" value="All">All Divisions</option>
+                                            <option value="RnD">R&amp;D</option>
+                                            <option value="Production">Production</option>
+                                            <option value="Marketing">Marketing</option>
+                                            <option value="Sales">Sales</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Products</label>
+                                    <div>
+                                        <div id="s2id_autogen23" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">All</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen24" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option selected="selected">All</option>
+                                            <option>Digital Media</option>
+                                            <option>Books</option>
+                                            <option>Shopping Carts</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="form-group">
+                                    <label>Filter by Time</label>
+                                    <div>
+                                        <div id="s2id_autogen25" class="select2-container select2"><a href="javascript:void(0)" onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">This Year</span><abbr class="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a><input id="s2id_autogen26" class="select2-focusser select2-offscreen" type="text"><div class="select2-drop select2-display-none select2-with-searchbox">   <div class="select2-search">       <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" type="text">   </div>   <ul class="select2-results">   </ul></div></div><select tabindex="-1" class="select2 select2-offscreen">
+                                            <option>Any</option>
+                                            <option>This Week</option>
+                                            <option>This Month</option>
+                                            <option selected="selected">This Year</option>
+                                            <option>Ten Years</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-danger front">
+                        <div class="panel-heading">
+                            <i class="icon-chevron-sign-down"></i>
+                            <span>Expenses</span>
+                            <i class="icon-cog toggle-widget-setup"></i>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <div id="hero-donut" class="graph" style="margin-top: 10px; height: 185px;"><svg style="overflow: hidden; position: relative; left: -0.5px;" xmlns="http://www.w3.org/2000/svg" width="298" version="1.1" height="185"><desc>Created with Raphaël 2.1.2</desc><defs></defs><path opacity="0" stroke-width="2" d="M149,147.5A55,55,0,0,0,201.60997433567775,76.46283689677848" stroke="#428bca" fill="none" style="opacity: 0;"></path><path stroke-width="3" d="M149,150.5A58,58,0,0,0,204.47960929944196,75.58808254569368L223.13223656390954,69.90217926364241A77.5,77.5,0,0,1,149,170Z" stroke="#ffffff" fill="#428bca" style=""></path><path opacity="1" stroke-width="2" d="M201.60997433567775,76.46283689677848A55,55,0,0,0,98.06970956074967,71.7369194055023" stroke="#5cb85c" fill="none" style="opacity: 1;"></path><path stroke-width="3" d="M204.47960929944196,75.58808254569368A58,58,0,0,0,95.29169371860874,70.60438773671152L72.60456434112452,61.35537910825346A82.5,82.5,0,0,1,227.91496150351662,68.44425534516773Z" stroke="#ffffff" fill="#5cb85c" style=""></path><path opacity="0" stroke-width="2" d="M98.06970956074967,71.7369194055023A55,55,0,0,0,128.23291941388777,143.42865955363365" stroke="#d9534f" fill="none" style="opacity: 0;"></path><path stroke-width="3" d="M95.29169371860874,70.60438773671152A58,58,0,0,0,127.10016956373619,146.20658643837731L119.73729553775094,164.26311118921106A77.5,77.5,0,0,1,77.23459074469272,63.24293188957142Z" stroke="#ffffff" fill="#d9534f" style=""></path><path opacity="0" stroke-width="2" d="M128.23291941388777,143.42865955363365A55,55,0,0,0,148.9827212406895,147.4999972858588" stroke="#5bc0de" fill="none" style="opacity: 0;"></path><path stroke-width="3" d="M127.10016956373619,146.20658643837731A58,58,0,0,0,148.9817787629089,150.49999713781474L148.9756526573352,169.99999617552834A77.5,77.5,0,0,1,119.73729553775094,164.26311118921106Z" stroke="#ffffff" fill="#5bc0de" style=""></path><text stroke-width="0.6545454545454545" transform="matrix(1.5278,0,0,1.5278,-78.9028,-48.2917)" font-weight="800" font-size="15px" fill="#000000" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="82.5" x="149" style="text-anchor: middle; font: 800 15px &quot;Arial&quot;;"><tspan dy="5">R&amp;D</tspan></text><text stroke-width="0.8727272727272728" transform="matrix(1.1458,0,0,1.1458,-21.8021,-13.7813)" font-size="14px" fill="#000000" stroke="none" font="10px &quot;Arial&quot;" text-anchor="middle" y="102.5" x="149" style="text-anchor: middle; font: 14px &quot;Arial&quot;;"><tspan dy="5">40%</tspan></text></svg></div>
+                            </div>
+                        </div>
+                    </div>
+                </div></section>
 {% endblock %}
