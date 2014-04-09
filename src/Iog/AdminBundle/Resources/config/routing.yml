@@ -1,0 +1,18 @@
+iog_admin_homepage:
+    pattern:  /
+    defaults: { _controller: IogAdminBundle:Default:index }
+iog_admin_menu:
+    resource: "@IogAdminBundle/Resources/config/routing/menu.yml"
+    prefix:   /menu
+iog_admin_setting:
+    resource: "@IogAdminBundle/Resources/config/routing/setting.yml"
+    prefix:   /setting
+iog_admin_user:
+    resource: "@IogUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+iog_admin_page:
+    resource: "@IogAdminBundle/Resources/config/routing/page.yml"
+    prefix:   /page
+
+
+

@@ -1,0 +1,44 @@
+Iog\AdminBundle\Entity\Page:
+    type: entity
+    table: iog_page
+    repositoryClass: Iog\AdminBundle\Repository\PageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        path:
+            type: string
+            length: 255
+            column: path
+        seoTitle:
+            type: string
+            length: 255
+            column: seo_title
+        seo_description:
+            type: string
+            length: 255
+        seo_keywords:
+            type: string
+            length: 255
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    oneToMany:
+        blocks:
+            targetEntity: Block
+            mappedBy: page
+            onDelete: CASCADE
+    lifecycleCallbacks: {  }

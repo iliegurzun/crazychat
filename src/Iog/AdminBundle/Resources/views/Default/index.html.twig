@@ -1,0 +1,14 @@
+{% extends "IogAdminBundle::layout.html.twig" %}
+
+{% block content %}
+<ul class="homepage-items">
+    {% for key, item in items %}
+    <li>
+        <a href="{{ item.route }}">
+            <img src="{{ asset('bundles/iogadmin/images/icons/'~item.icon) }}"/>
+            <label>{{ key }}</label>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

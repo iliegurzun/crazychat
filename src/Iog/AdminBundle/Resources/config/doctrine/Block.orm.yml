@@ -1,0 +1,30 @@
+Iog\AdminBundle\Entity\Block:
+    type: entity
+    table: iog_block
+    repositoryClass: Iog\AdminBundle\Repository\BlockRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: text
+            column: Content
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: date
+            gedmo:
+                timestampable: 
+                    on: update
+    manyToOne:
+        page:
+            targetEntity: Page
+            inversedBy: blocks
+            onCascade: DELETE
+    lifecycleCallbacks: {  }

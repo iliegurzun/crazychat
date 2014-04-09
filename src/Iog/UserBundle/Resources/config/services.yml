@@ -1,0 +1,7 @@
+parameters:
+#    iog_user.example.class: Iog\UserBundle\Example
+
+services:
+#    iog_user.example:
+#        class: %iog_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

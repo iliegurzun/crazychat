@@ -1,0 +1,14 @@
+{% extends 'IogAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Menu edit</h1>
+    
+    <form action="#" method="post" name="iog_adminbundle_menu" id="menu-form">
+    {{ form(edit_form) }}
+
+{% render controller('IogAdminBundle:Menu:menuItem', {'menu_id': edit_form.vars.value.id })  %}
+<button class="update-menu" data-url="{{path('menu_update',  {id: edit_form.vars.value.id})}}">Update</button>
+
+{{ form(delete_form) }}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+Iog\UserBundle\Entity\User:
+    type: entity
+    table: iog_user
+    repositoryClass: Iog\UserBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

@@ -1,0 +1,36 @@
+Iog\AdminBundle\Entity\MenuItem:
+    type: entity
+    table: iog_menu_item
+    repositoryClass: Iog\AdminBundle\Repository\MenuItemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        position:
+            type: string
+            length: 255
+            default_value: 0
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    manyToOne:
+        menu:
+            targetEntity: Menu
+            onDelete: Set Null
+        parent:
+            targetEntity: MenuItem
+            onDelete: Set Null
+    lifecycleCallbacks: {  }

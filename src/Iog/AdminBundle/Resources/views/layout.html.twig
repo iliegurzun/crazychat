@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>{% block title %}{{ admin_title() }}{% endblock title %}</title>
+    <head>
+        {% stylesheets filter="?yui_css, cssrewrite"
+            "bundles/iogadmin/css/bootstrap/bootstrap.css"
+            "bundles/iogadmin/css/bootstrap/bootstrap-theme.css"
+            "bundles/iogadmin/css/jquery-ui.min.css"
+            "bundles/iogadmin/css/main.css"
+          %}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen">
+        {% endstylesheets %}
+        {% block stylesheets %}{% endblock stylesheets %}
+        
+        {% javascripts filter="?yui_js"
+            "@IogAdminBundle/Resources/public/js/jquery-1.11.0.js"
+            "@IogAdminBundle/Resources/public/js/bootstrap.js"
+            "@IogAdminBundle/Resources/public/js/jquery-ui.min.js"
+            "@IogAdminBundle/Resources/public/js/jquery.ui.nestedSortable.js"
+            "@IogAdminBundle/Resources/public/js/main.js"
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        
+        {% block javascripts %}{% endblock javascripts %}
+    </head>
+    <body>
+    {% if app.user and app.user.hasRole('ROLE_ADMIN') %}
+        {% include 'IogAdminBundle:Component:menu.html.twig' %}
+    {% endif %}
+    <div id="main">
+        <div class="content-wrapper">
+            <div class="content">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

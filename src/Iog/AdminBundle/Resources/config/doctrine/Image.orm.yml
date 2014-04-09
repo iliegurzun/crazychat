@@ -1,0 +1,34 @@
+Iog\AdminBundle\Entity\Image:
+    type: entity
+    table: iog_image
+    collection: Image
+    fields:
+        id:
+            id: true
+        filename:
+            type: string
+        mime_type:
+            type: string
+            nullable: true
+        original_filename:
+            type: string
+        hash:
+            type: string
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    lifecycleCallbacks:
+        prePersist: [ prepareFile ]
+        preUpdate: [ prepareOldFile, prepareFile ]
+        postPersist: [ uploadFile ]
+        postUpdate: [ uploadFile, removeOldFile ]
+        postRemove: [ removeFile ]
+    repositoryClass: Iog\AdminBundle\Repository\ImageRepository
+    

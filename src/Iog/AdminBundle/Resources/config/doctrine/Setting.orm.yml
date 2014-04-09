@@ -1,0 +1,30 @@
+Iog\AdminBundle\Entity\Setting:
+    type: entity
+    table: iog_setting
+    repositoryClass: Iog\AdminBundle\Repository\SettingRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        value:
+            type: string
+            length: 255
+        description:
+            type: text
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    lifecycleCallbacks: {  }

@@ -1,0 +1,32 @@
+{% extends "IogAdminBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+
+<div id="admin-login">
+    <img src="{{asset('bundles/iogadmin/images/admin-logo.png')}}" class="admin-big-logo"/>
+    <form action="{{ path("fos_user_security_check") }}" method="post" novalidate>
+        <fieldset>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+            <div class="form-row">
+                <label class="label-hide" for="username">Username</label>
+                <input class="label-over" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+            </div>
+            <div class="form-row">
+                <label class="label-hide" for="password">Password</label>
+                <input class="label-over" type="password" id="password" name="_password" required="required" />
+            </div>
+
+            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+        </fieldset>
+        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    </form>
+</div>
+{% endblock content %}

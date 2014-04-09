@@ -1,0 +1,6 @@
+Iog\AdminBundle\Entity\Page:
+  properties:
+    path:
+      - NotBlank: ~
+    title:
+      - NotBlank: ~  

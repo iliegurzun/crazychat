@@ -1,0 +1,18 @@
+Menu:
+    Users:
+        class: "IogUserBundle:User"
+        route: "user"
+        icon:  "icon1.png"
+    Pages:
+        class: "IogAdminBundle:Page"
+        route: "page"
+        icon:  "icon2.png"
+    Menus:
+        class: "IogAdminBundle:Menu"
+        route: "menu"
+        icon:  "icon3.png"
+    Settings:
+        class: "IogAdminBundle:Setting"
+        route: "setting"
+        icon:  "icon4.png"
+Project Name: CMS
