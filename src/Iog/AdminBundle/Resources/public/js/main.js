@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 $(document).ready(function() {
-    
-    labelify(); 
-    if($('.calendar').length > 0) {
+
+    labelify();
+    if ($('.calendar').length > 0) {
         $('.calendar').datepicker({
             startView: 2,
             endDate: new Date(),
@@ -14,19 +14,42 @@ $(document).ready(function() {
             autoclose: true
         });
     }
-  
-    if($('.jqtransform').length) {
+
+    if ($('.jqtransform').length) {
         $('.jqtransform').jqTransform();
     }
 
-    $('.sortable').nestedSortable({
+    $('#menu-sortable').nestedSortable({
         handle: 'div',
         items: 'li',
         toleranceElement: '> div'
     });
-    
-    if($('.update-menu').length) {
+
+    if ($('.update-menu').length) {
         updateMenu($('.update-menu'));
+    }
+    
+    if($('.sidebar-handle').length) {
+        toggleSidebar();
+    }
+    $('.main-menu > ul').find('li').on('mouseover', function() {
+        $(this).addClass('active');
+    }).on('mouseout', function() {
+        $(this).removeClass('active');
+    });
+    
+    
+    if($('#add-menu-item').length) {
+        addMenuItem($('#add-menu-item'));
+    }
+    
+    if($('#update-form').length) {
+        updateMenu($('#update-form'));
+    }
+    
+    if($('.tinymce').length) {
+        tinymce.init({selector:'.tinymce'});
+
     }
 });
 
@@ -56,7 +79,7 @@ var labelify = function() {
 /* end labelify */
 
 var getToPreviousPage = function(object) {
-    object.on('click', function(){
+    object.on('click', function() {
         history.go(-1);
     });
 }
@@ -114,17 +137,49 @@ var addDisabledClass = function()
 
 var updateMenu = function($button) {
     $button.on('click', function(e) {
-       e.preventDefault();
-       e.stopPropagation();
-       $.ajax({
-          url: $button.data('url'),
-          data: {
-              menu: $('#menu-form').serialize(),
-              menu_items: $('.sortable').nestedSortable('toHierarchy', {startDepthCount: 0})
-          },
-          type: 'post'
-       }).done(function(data) {
-           
-       });
+        e.preventDefault();
+        e.stopPropagation();
+        $.ajax({
+            url: $button.data('url'),
+            data: {
+                menu: $('#iog_adminbundle_menu_name').val(),
+                menu_items: $('#menu-sortable').nestedSortable('toHierarchy', {startDepthCount: 0})
+            },
+            type: 'post'
+        }).done(function(data) {
+
+        });
     });
+}
+
+var toggleSidebar = function()
+{
+    $('.sidebar-handle').on('click', function(e) {
+        if($('.sidebar').hasClass('extended')) {
+            $('.sidebar').removeClass('extended').addClass('retracted');
+            $('.wrapper').addClass('extended retracted');
+        } else {
+            $('.sidebar').removeClass('retracted').addClass('extended');
+            $('.wrapper').removeClass('extended retracted');
+        }
+    })
+}
+
+var addMenuItem = function($button)
+{
+    $button.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $.ajax({
+           url: $button.data('href'),
+           data: {
+               menu_item: $('#menu_item').val()
+           },
+           type: 'post'
+        }).done(function(data) {
+           if(data.success == true) {
+               location.reload();
+           }
+        });
+    })
 }

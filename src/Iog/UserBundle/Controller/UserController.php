@@ -25,8 +25,21 @@ class UserController extends Controller
 
         $entities = $em->getRepository('IogUserBundle:User')->findAll();
 
+        $deleteForms = array();
+        foreach($entities as $entity) {
+            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
+        }
+        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            10/*limit per page*/
+        );
+        
         return $this->render('IogUserBundle:User:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
+            'delete_forms' => $deleteForms
         ));
     }
     /**
@@ -38,9 +51,9 @@ class UserController extends Controller
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('IogUserBundle:User')->findAll();
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -50,6 +63,7 @@ class UserController extends Controller
         return $this->render('IogUserBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -67,8 +81,6 @@ class UserController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -80,10 +92,13 @@ class UserController extends Controller
     {
         $entity = new User();
         $form   = $this->createCreateForm($entity);
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('IogUserBundle:User')->findAll();
 
         return $this->render('IogUserBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -100,12 +115,15 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
+        $entities = $em->getRepository('IogUserBundle:User')->findAll();
 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('IogUserBundle:User:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),    
+            'entities' => $entities
+            ));
     }
 
     /**
@@ -121,6 +139,7 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
+        $entities = $em->getRepository('IogUserBundle:User')->findAll();
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -129,6 +148,7 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -145,8 +165,6 @@ class UserController extends Controller
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -166,7 +184,8 @@ class UserController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        $editForm->bind($request);
+        $entities = $em->getRepository('IogUserBundle:User')->findAll();
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -178,6 +197,7 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entities' => $entities
         ));
     }
     /**
@@ -188,6 +208,7 @@ class UserController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
+        $entities = $em->getRepository('IogUserBundle:User')->findAll();
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -216,7 +237,6 @@ class UserController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('user_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

@@ -1,6 +1,10 @@
 iog_admin_homepage:
     pattern:  /
     defaults: { _controller: IogAdminBundle:Default:index }
+    
+iog_admin_dashboard_sortable:
+    pattern: /dashboard-sort
+    defaults: { _controller: IogAdminBundle:Default:dashboardSort }
 iog_admin_menu:
     resource: "@IogAdminBundle/Resources/config/routing/menu.yml"
     prefix:   /menu

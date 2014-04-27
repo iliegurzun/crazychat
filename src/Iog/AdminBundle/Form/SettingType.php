@@ -15,9 +15,36 @@ class SettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('value')
-            ->add('description')
+            ->add('name', 'text', array(
+                    'label' => 'Name',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Name'
+                    )
+                ))
+            ->add('value', 'text', array(
+                    'label' => 'Value',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Value'
+                    )
+                ))
+            ->add('description', 'text', array(
+                    'label' => 'Description',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Description'
+                    )
+                ))
         ;
     }
     

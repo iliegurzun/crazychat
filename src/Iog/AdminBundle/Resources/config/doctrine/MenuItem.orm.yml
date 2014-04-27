@@ -16,6 +16,10 @@ Iog\AdminBundle\Entity\MenuItem:
             type: string
             length: 255
             default_value: 0
+        link:
+            type: string
+            length: 255
+            nullable: true
         created_at:
             type: datetime
             gedmo:
@@ -26,11 +30,27 @@ Iog\AdminBundle\Entity\MenuItem:
             gedmo:
                 timestampable: 
                     on: update
+    oneToMany:
+        children:
+            targetEntity: MenuItem
+            mappedBy: parent
+            orderBy:
+              position: ASC
+      
     manyToOne:
         menu:
             targetEntity: Menu
-            onDelete: Set Null
+            inversedBy: items
+            joinColumn:
+                onDelete: 'CASCADE'
+        page:
+            targetEntity: Page
+            inversedBy: menu_items
+            joinColumn:
+                onDelete: 'SET NULL'
         parent:
             targetEntity: MenuItem
-            onDelete: Set Null
+            inversedBy: children
+            joinColumn:
+                onDelete: 'SET NULL'
     lifecycleCallbacks: {  }

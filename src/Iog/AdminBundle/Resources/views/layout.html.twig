@@ -9,11 +9,13 @@
             "bundles/iogadmin/css/jquery-ui.min.css"
             "bundles/iogadmin/css/font-awesome.css"
             "bundles/iogadmin/css/proton.css"
+            "bundles/iogadmin/css/forms.css"
+            "bundles/iogadmin/css/main.css"
           %}
         <link href="{{ asset_url }}" rel="stylesheet" media="screen">
         {% endstylesheets %}
         {% block stylesheets %}{% endblock stylesheets %}
-        
+
         {% javascripts filter="?yui_js"
             "@IogAdminBundle/Resources/public/js/jquery-1.11.0.js"
             "@IogAdminBundle/Resources/public/js/bootstrap.js"
@@ -21,22 +23,19 @@
             "@IogAdminBundle/Resources/public/js/jquery.ui.nestedSortable.js"
             "@IogAdminBundle/Resources/public/js/modernizr.js"
             "@IogAdminBundle/Resources/public/js/proton.js"
+            "@IogAdminBundle/Resources/public/js/dashboard.js"
             "@IogAdminBundle/Resources/public/js/main.js"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        
+
         {% block javascripts %}{% endblock javascripts %}
     </head>
-    <body>
-    
+    <body class="scrollable">
+
     {% if app.user and app.user.hasRole('ROLE_ADMIN') %}
         {% include 'IogAdminBundle:Component:menu.html.twig' %}
     {% endif %}
-    <div id="main">
-        <div class="content">
-            {% block content %}{% endblock content %}
-        </div>
-    </div>
+    {% block content %}{% endblock content %}
     </body>
 </html>

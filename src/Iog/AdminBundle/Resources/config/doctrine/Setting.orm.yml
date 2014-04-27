@@ -17,6 +17,7 @@ Iog\AdminBundle\Entity\Setting:
             length: 255
         description:
             type: text
+            nullable: true
         created_at:
             type: datetime
             gedmo:

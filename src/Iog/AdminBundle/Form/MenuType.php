@@ -15,7 +15,16 @@ class MenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', 'text', array(
+                    'label' => 'Menu name',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Menu name'
+                    )
+                ))
         ;
     }
     

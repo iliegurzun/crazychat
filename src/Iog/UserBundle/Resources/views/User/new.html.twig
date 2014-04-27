@@ -1,15 +1,74 @@
 {% extends 'IogAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>User creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% include "IogAdminBundle:Component:search_bar.html.twig" with { object_type: 'user', list:  entities}  %}
+<div class="wrapper">
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div id="input-fields-horizontal" class="list-group-item">
+                <h4 class="section-title">Create new User</h4>
+                <form method="post" action="{{ path('user_create') }}" {{ form_enctype(form) }} class="form-horizontal" role="form" novalidate>
+                    {% include 'IogAdminBundle:Component:error_panel.html.twig' with { form: form } %}
+                    <div class="form-group">
+                        {{ form_label(form.first_name) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.first_name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.last_name) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.last_name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.email) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.enabled) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.enabled) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.plainPassword.first) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.plainPassword.first) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.plainPassword.second) }}
+                        <div class="col-lg-8">
+                        {{ form_widget(form.plainPassword.second) }}
+                        </div>
+                    </div>
+                    {#<div class="form-group">
+                        {{ form_label(form.image) }}
+                        <div class="col-lg-8">
+                        {{ form_widget(form.image) }}
+                        </div>
+                    </div>#}
+                    <div class="form-group">
+                         {{ form_label(form.image) }}
+                        <div class="col-lg-8">
+                        {{ form_widget(form.image) }}
+                        {% if form.vars.value.image is defined and form.vars.value.image.webPath|length %}
+                            <img src="{{ asset(form.vars.value.image.webPath) }}" />
+                        {% endif %}
+                        </div>
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <button class="btn btn-success">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

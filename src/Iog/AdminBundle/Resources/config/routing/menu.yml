@@ -31,3 +31,7 @@ menu_delete:
 menu_items:
     pattern: /{menu_id}/items
     defaults: {_controller: 'IogAdminBundle:Menu:menuItem'}
+    
+menu_add_item:
+    pattern: /{id}/add-item
+    defaults: { _controller: 'IogAdminBundle:Menu:addMenuItem' }

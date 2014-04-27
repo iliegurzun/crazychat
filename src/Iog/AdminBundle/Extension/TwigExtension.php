@@ -20,6 +20,8 @@ class TwigExtension extends \Twig_Extension
 
   private $service_container;
   
+  private $document;
+  
   public function __construct($service_container)
   {
     $this->service_container = $service_container;
@@ -44,21 +46,23 @@ class TwigExtension extends \Twig_Extension
     return array(
         'admin_title' => new \Twig_Function_Method($this, 'getAdminTitle'),
         'get_admin_menu' => new \Twig_Function_Method($this, 'getAdminMenu'),
+        'get_admin_menu_sortable' => new \Twig_Function_Method($this, 'getAdminMenuSortable'),
+        'seo_title' => new \Twig_Function_Method($this, 'getDefaultSeoTitle'),
         );
   }
   
-//  public function getDefaultSeoTitle()
-//  {
-//      $dm = $this->service_container->getDoctrine()->getManager();
-//      
-//      $setting = $dm->getRepository('IogAdminBundle:Setting')->findOneBy(array('name' => 'default_seo_title'));
-//      
-//      if($setting && $setting->getValue()) {
-//          return $setting->getValue();
-//      }
-//      return 'Default SEO Title';
-//      
-//  }
+  public function getDefaultSeoTitle()
+  {
+      $dm = $this->service_container->getDoctrine()->getManager();
+      
+      $setting = $dm->getRepository('IogAdminBundle:Setting')->findOneBy(array('name' => 'default_seo_title'));
+      
+      if($setting && $setting->getValue()) {
+          return $setting->getValue();
+      }
+      return '';
+      
+  }
   
 //  public function getAdminTitle()
 //  {
@@ -99,5 +103,77 @@ class TwigExtension extends \Twig_Extension
             return 'No';
         }
         return 'Yes';
+    }
+    
+    public function getAdminMenuSortable($menu, $id = null)
+    {
+//        $ol = '<ol id="{$menu_id}"> {$element}</ol>';
+//        if($id) {
+//            $ol = str_replace('{$menu_id}', $id, $ol);
+//        } else {
+//            $ol = str_replace('{$menu_id}', '', $ol);
+//        }
+//        
+//        $li = '<li id="{$id}">';
+//        $eli = '</li>';
+//        foreach ($menuItems as $menuItem) {
+//          $this->element .= $li;
+//          $this->element = str_replace('{$id}', 'item-'.$menuItem->getId(), $this->element);
+//
+//          $this->element .= '<div>'.$menuItem->getTitle().'</div>'.$eli;
+//
+//          if ( $menuItem->getChildren() ){
+//              $this->getAdminMenuSortable($menuItem->getChildren());
+//          }
+//          
+//          if($this->element) {
+//            $ol = str_replace('{$element}', $this->element, $ol);
+//          } else {
+//              $ol = str_replace('{$element}', '', $ol);
+//          }
+        $this->document = new \DOMDocument;
+        $this->items = $menu->getItems();
+        
+        $list = $this->generateAdminMenuHtml($menu->getDirectItems());
+        $list->setAttribute('id', $id);
+        
+        $this->document->appendChild($list);
+        
+        return $this->document->saveHTML();
+    }
+    
+    private function generateAdminMenuHtml($items){
+        $list = $this->document->createElement('ol');
+        
+        foreach ($items as $menuItem) {
+          $element = $this->document->createElement('li');
+          $element->setAttribute('id', 'item-' . $menuItem->getId());
+
+          $item = $this->document->createElement('div', htmlentities($menuItem->getTitle()));
+          $item->setAttribute('rel', 'tooltip');
+          $item->setAttribute('title', $menuItem->getLink());
+
+          $this->addItemActions($item);
+          $element->appendChild($item);
+
+          if ( $menuItem->getChildren() ){
+              $element->appendChild($this->generateAdminMenuHtml($menuItem->getChildren()));
+          }
+
+          $list->appendChild($element);
+        }
+            
+        return $list;
+    }
+    
+    private function addItemActions(\DOMNode $node){         
+        $remove = $this->document->createElement('i');
+        $remove->setAttribute('class', 'icon-remove menu-controls hide');
+
+        $edit = $this->document->createElement('i');
+        $edit->setAttribute('class', 'icon-edit menu-controls hide');
+        
+        $node->appendChild($remove);
+        $node->appendChild($edit);
     }
 }

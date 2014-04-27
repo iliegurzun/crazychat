@@ -22,4 +22,10 @@ Iog\AdminBundle\Entity\Menu:
             gedmo:
                 timestampable: 
                     on: update
+    oneToMany:
+        items:
+          targetEntity: MenuItem
+          mappedBy: menu
+          orderBy:
+            position: ASC
     lifecycleCallbacks: {  }

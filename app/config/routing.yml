@@ -1,3 +1,10 @@
+iog_web:
+    resource: "@IogWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
+_imagine:
+    resource: .
+    type:     imagine
 iog_admin:
     resource: "@IogAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
@@ -23,4 +30,9 @@ fos_user_change_password:
 iog_user:
     resource: "@IogUserBundle/Resources/config/routing.yml"
     prefix:   /
+iog_web_default:
+    pattern:  /{path}
+    defaults: { _controller: IogWebBundle:Default:index, path: null }
+    requirements:
+      path: ".*"
 

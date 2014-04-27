@@ -1,0 +1,104 @@
+{% block form_row %}
+{% spaceless %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+    {#{% if(form.parent.parent.parent|default(false) is not empty and form.parent.vars.compound|default(false) and form.parent.parent.vars.name in ['attributes', 'blocks'] and form.vars.name in ['value', 'content']) %}#}
+    {% if form.parent.parent and form.parent.parent.vars.name in ['attributes', 'blocks'] and form.vars.name in ['value', 'content'] %}
+      <a href="#" class="remove-attribute btn btn-danger">Remove</a>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block field_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <ul class="error" >
+        {% for error in errors %}
+            <li>{{error.messageTemplate|trans(error.messageParameters, 'validators') }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endspaceless %}
+{% endblock field_errors %}
+
+{% block form_label %}
+{% spaceless %}
+    {% if not compound %}
+        {% set label_attr = label_attr|merge({'for': id}) %}
+    {% endif %}
+    {% if required %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}    
+    {% if form.parent.vars.name not in ['attributes', 'images', 'blocks'] %}
+      <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    {% endif %}
+    {% if name in ['attributes', 'images', 'blocks'] %}          
+      <a href="#" class="add-another btn btn-success" data-form-name="{{ form.parent.vars.name }}" data-rel="{{ name }}" data-count="{{ form|length }}">Add {{ label }}</a>
+    {#{% elseif name == 'images' %}    
+      <a id="add-another-image" data-rel="{{ }} name" href="#" data-image-count="{{ form|length }}">Add Image</a> #}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_label %}
+      
+
+{#{% block textarea_widget %}
+{% spaceless %}
+    {% for attrname, attrvalue in attr %}
+      {% if (attrname == 'class' and attrvalue == 'ckeditor' and attr.help is defined) %}
+        <span id="form_help">{{ attr.help }}</span>
+      {% endif %}      
+    {% endfor %}  
+    <textarea {{ block('widget_attributes') }}>{% if value %}{{ value }}{% else %}&nbsp;{% endif %}</textarea>
+{% endspaceless %}
+{% endblock textarea_widget %}#}
+    
+    
+{% block preview_row %}
+{% if form.vars.value %}
+  {% spaceless %}
+    <div class="form_row">
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% if form.parent.parent and form.parent.parent.name == 'images' %}
+    <a href="#" class="remove-attribute btn btn-danger">Remove</a>
+{% endif %}
+  {% endspaceless %}
+{% else %}
+{% if form.parent.parent and form.parent.parent.name == 'images' %}
+  <a href="#" class="remove-attribute btn btn-danger">Remove</a>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block preview_widget %}
+    {% spaceless %}
+      <img src="{{ asset(form.vars.value) | apply_filter('admin_thumb') }}" />
+    {% endspaceless %}
+{% endblock %}
+      
+{% block text_widget %}
+      <div class="col-lg-8">
+          <input id="{{ id }}" name="{{ full_name }}" type="text" {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %} value="{{ value }}" />
+      </div>
+{% spaceless %}
+    
+{% endspaceless %}
+{% endblock text_widget %}
+      
+{% block textarea_widget %}
+      <div class="col-lg-8">
+          
+          <textarea id="{{ id }}" name="{{ full_name }}" {% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ value }}</textarea>
+      </div>
+{% spaceless %}
+    
+{% endspaceless %}
+{% endblock textarea_widget %}

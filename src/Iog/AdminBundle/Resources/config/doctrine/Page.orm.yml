@@ -20,12 +20,15 @@ Iog\AdminBundle\Entity\Page:
             type: string
             length: 255
             column: seo_title
+            nullable: true
         seo_description:
             type: string
             length: 255
+            nullable: true
         seo_keywords:
             type: string
             length: 255
+            nullable: true
         created_at:
             type: datetime
             gedmo:
@@ -36,9 +39,20 @@ Iog\AdminBundle\Entity\Page:
             gedmo:
                 timestampable: 
                     on: update
+    manyToOne:
+        parent:
+            targetEntity: Page
+            inversedBy: children 
+    
     oneToMany:
         blocks:
             targetEntity: Block
             mappedBy: page
-            onDelete: CASCADE
+            cascade: [ persist, remove ]
+        menu_items:
+            targetEntity: MenuItem
+            mappedBy: page
+        children:
+            targetEntity: Page
+            mappedBy: parent  
     lifecycleCallbacks: {  }

@@ -23,9 +23,24 @@ class MenuController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('IogAdminBundle:Menu')->findAll();
+        
+        $deleteForms = array();
+        
+        foreach($entities as $menu) {
+            $deleteForms[$menu->getId()] = $this->createDeleteForm($menu->getId())->createView();
+        }
+        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
+        
 
         return $this->render('IogAdminBundle:Menu:index.html.twig', array(
-                    'entities' => $entities,
+                    'entities' => $pagination,
+                    'delete_forms' => $deleteForms
         ));
     }
 
@@ -42,8 +57,11 @@ class MenuController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+			$this->get('session')->getFlashBag()->add(
+                            'notice', 'The menu has been successfully created!'
+                    );
 
-            return $this->redirect($this->generateUrl('menu_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('menu_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('IogAdminBundle:Menu:new.html.twig', array(
@@ -65,8 +83,6 @@ class MenuController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -77,10 +93,13 @@ class MenuController extends Controller {
     public function newAction() {
         $entity = new Menu();
         $form = $this->createCreateForm($entity);
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('IogAdminBundle:Menu')->findAll();
 
         return $this->render('IogAdminBundle:Menu:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+                    'entities' => $entities
         ));
     }
 
@@ -112,10 +131,12 @@ class MenuController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('IogAdminBundle:Menu')->find($id);
-
+        $entities = $em->getRepository('IogAdminBundle:Menu')->findAll();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Menu entity.');
         }
+        
+        $menuItems = $em->getRepository('IogAdminBundle:MenuItem')->findBy(array('menu'=>$id ));
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -124,6 +145,8 @@ class MenuController extends Controller {
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'entities' => $entities,
+                    'menu_items' => $menuItems
         ));
     }
 
@@ -148,6 +171,7 @@ class MenuController extends Controller {
      *
      */
     public function updateAction(Request $request, $id) {
+//        var_dump($request->request->all());die;
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('IogAdminBundle:Menu')->find($id);
@@ -157,18 +181,19 @@ class MenuController extends Controller {
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $menuForm = $this->createForm(new MenuType(), $entity);
-        parse_str($request->request->get('menu'), $menu);
-        $menuForm->bind($menu);
-        var_dump($menuForm->getErrorsAsString());die;
-        if ($menuForm->isValid()) {
-            $em->persist($menuForm->getData());
-            $em->flush();
+        if ($menuName = $request->request->get('menu')) {
+            $entity->setName($menuName);
+            $em->persist($entity);
             $this->setPosition($em, $request->request->get('menu_items'));
-            die('1');
+            $em->flush();
 
-            return new Response('1');
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                'success' => true,
+            ));
+			
+//			$this->get('session')->getFlashBag()->add(
+//                            'notice', 'The menu has been successfully created!'
+//                    );
         }
 
         return $this->render('IogAdminBundle:Menu:edit.html.twig', array(
@@ -212,7 +237,6 @@ class MenuController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('menu_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
                         ->getForm()
         ;
     }
@@ -246,7 +270,6 @@ class MenuController extends Controller {
     }
 
     private function setPosition($em, $hierarchy, $parentId = null) {
-        var_dump($hierarchy);die;
         foreach ($hierarchy as $newPosition => $vars) {
             if (isset($vars['children'])) {
                 $this->setPosition($em, $vars['children'], $vars['id']);
@@ -264,6 +287,32 @@ class MenuController extends Controller {
 
             $em->persist($menuItem);
         }
+    }
+    
+    public function addMenuItemAction($id, Request $request)
+    {
+        if($request->isMethod('post')) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $menu = $em->getRepository('IogAdminBundle:Menu')->find($id);
+            if(!$menu) {
+                throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+            }
+            
+            if($request->request->get('menu_item') !=='') {
+                $menuItem = new MenuItem();
+                $menuItem->setMenu($menu);
+                $menuItem->setTitle($request->request->get('menu_item'));
+                $em->persist($menuItem);
+                $em->flush();
+                return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                    'success' => true
+                ));
+            }
+        }
+        return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+                    'success' => false
+                ));
     }
 
 }

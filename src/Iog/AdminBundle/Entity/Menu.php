@@ -108,4 +108,67 @@ class Menu
     {
         return $this->updated_at;
     }
+    
+    public function __toString() {
+        return $this->name;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $items;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add items
+     *
+     * @param \Iog\AdminBundle\Entity\MenuItem $items
+     * @return Menu
+     */
+    public function addItem(\Iog\AdminBundle\Entity\MenuItem $items)
+    {
+        $this->items[] = $items;
+
+        return $this;
+    }
+
+    /**
+     * Remove items
+     *
+     * @param \Iog\AdminBundle\Entity\MenuItem $items
+     */
+    public function removeItem(\Iog\AdminBundle\Entity\MenuItem $items)
+    {
+        $this->items->removeElement($items);
+    }
+
+    /**
+     * Get items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+    
+    public function getDirectItems()
+    {
+      $items = array();
+      
+      foreach($this->getItems() as $item) {
+        if($item->getParent()) continue;
+        
+        $items[] = $item;
+      }
+      
+      
+      return $items;
+    }
 }

@@ -1,49 +1,58 @@
 {% extends 'IogAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>User list</h1>
+{% include "IogAdminBundle:Component:search_bar.html.twig" with { object_type: 'user', list:  entities}  %}
+<div class="wrapper">
+    <div class="panel panel-default panel-block">
+        <div id="data-table" class="panel-heading datatable-heading">
+            <h4 class="section-title">User List</h4>
+        </div>
+        <div id="tableSortable_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <table aria-describedby="tableSortable_info" class="table table-bordered table-striped dataTable" id="tableSortable">
+                <thead>
+                    <tr role="row">
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting_asc">Id</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">First Name</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Last Name</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Email</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Enabled</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Actions</th>
+                    </tr>
+                </thead>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Enabled</th>
-                <th>Last login</th>
-                <th>Locked</th>
-                <th>Expired</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.username }}</a></td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.enabled|yes_no }}</td>
-                <td>{% if entity.lastLogin %}{{ entity.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.locked }}</td>
-                <td>{{ entity.expired|yes_no }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('user_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                {% for user in entities %}
+                    <tr class="gradeA {% if loop.index % 2 == 1  %} odd {% else %} even {% endif %}">
+                        <td class="sorting_1">{{ user.id }}</td>
+                        <td class=" ">{{ user.profile.firstName|default('-')  }}</td>
+                        <td class=" ">{{ user.profile.lastName|default('-') }}</td>
+                        <td class="center ">{{ user.email }}</td>
+                        <td class="center ">{{ user.enabled|yes_no }}</td>
+                        <td class="center ">
+                            <a class="btn btn-success" href="{{ path('user_edit', {id: user.id}) }}">Edit</a>
+                            <form class="index-delete-form" method="post" action="{{ path('user_delete', {id: user.id}) }}" {{ form_enctype(delete_forms[user.id]) }}>
+                                {{ form_widget(delete_forms[user.id]) }}
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="row table-footer-row">
+                <div class="col-sm-12">
+                    <div class="pull-left">
+{#                        <div id="tableSortable_info" class="dataTables_info"></div>#}
 
-        <ul>
-        <li>
-            <a href="{{ path('user_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+                    </div>
+                    <div class="pull-right">
+                        <div class="dataTables_paginate paging_bs_normal">
+                        {{ knp_pagination_render(entities) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     {% endblock %}

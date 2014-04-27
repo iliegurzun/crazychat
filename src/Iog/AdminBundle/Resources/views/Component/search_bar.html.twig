@@ -1,0 +1,54 @@
+<section class="sidebar extended">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="clearfix">
+                <h5>
+                    <span class="title">
+                        {{ admin_title() }}
+                    </span>
+                    <span class="subtitle">
+                        ADMIN PANEL
+                    </span>
+                </h5>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="title">
+                <i class="icon-shopping-cart"></i>
+                <span>
+                    {{ object_type|upper ~ ' LIST' }}
+                </span>
+                <a href="{{ path(object_type~'_new') }}" class="add">
+                    <i class="icon-plus-sign"></i>
+                    <span>
+                        ADD NEW
+                    </span>
+                </a>
+            </div>
+            <div class="input-group">
+                <input class="form-control" type="text">
+                <div class="input-group-btn">
+                    <button class="btn btn-default btn-search" type="button"><i class="icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body tree-body">
+            <div class="scrollable">
+                <div class="jstree jstree-0 jstree-focused jstree-proton" id="proton-tree">
+                    <ul>
+                        {% for item in list %}
+                           <li class="jstree-last jstree-open">
+                            <a id="proton-lvl-0" href="{{ path(object_type~'_edit', {id: item.id}) }}">
+                                {{ item }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-handle">
+        <i class="icon-ellipsis-horizontal"></i>
+        <i class="icon-ellipsis-vertical"></i>
+    </div>
+</section>

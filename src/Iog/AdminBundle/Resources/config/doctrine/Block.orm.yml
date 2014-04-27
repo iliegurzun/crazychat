@@ -9,9 +9,12 @@ Iog\AdminBundle\Entity\Block:
             generator:
                 strategy: AUTO
     fields:
+        name: 
+            type: string
+            length: 255
         content:
             type: text
-            column: Content
+            column: content
         created_at:
             type: date
             gedmo:

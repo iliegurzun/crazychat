@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : Mar 22, 2014, 1:35:36 PM
     Author     : Ilie
 */
-.content-wrapper {
+/*.content-wrapper {
     margin: 20px auto;
     position: relative;
     width: 90%;
@@ -84,10 +84,10 @@ li {
 }
 
 #admin-login input[type='text'], input[type='password'] {
-    -moz-border-radius:5px; /* Firefox */
-    -webkit-border-radius: 5px; /* Safari, Chrome */
-    -khtml-border-radius: 5px; /* KHTML */
-    border-radius: 5px; /* CSS3 */
+    -moz-border-radius:5px;  Firefox 
+    -webkit-border-radius: 5px;  Safari, Chrome 
+    -khtml-border-radius: 5px;  KHTML 
+    border-radius: 5px;  CSS3 
     margin: 10px;
     position: relative;
 }
@@ -100,4 +100,57 @@ li {
 #add-new {
     float: none;
     display:inline-block;
+}*/
+
+body { background: #EDEDED; }
+
+.sidebar .panel-body.tree-body  a:hover {
+    background: #00BFFF;
+}
+.sidebar ul, .sidebar ul li {
+    text-decoration: none;
+    list-style-type: none;
+}
+.sidebar {
+    max-height: none; 
+    opacity: 1;
+}
+.panel.panel-default {
+    background: #FBFBFB;
+}
+#delete-form {
+    bottom: 20px;
+    display: inline;
+    left: 87px;
+    position: absolute;
+}
+.index-delete-form {
+    display: inline-block;
+}
+
+#dataTables_wrapper { text-align: center; }
+
+#menu-sortable { width: 40%; }
+#menu-sortable, #menu-sortable > li ol  { list-style-type: none; }
+
+#menu-sortable li div {
+    background: none repeat scroll 0 0 #DDE4EA;
+    border: 1px solid #CCCCCC;
+    color: #777777;
+    cursor: move;
+    padding: 7px;
+    text-transform: capitalize;
+    margin-bottom : 10px;
+}
+
+.add-another.btn.btn-success {
+    margin-left: 30%;
+    margin-bottom: 15px;
+}     
+.remove-attribute.btn.btn-danger {
+    margin-left: 35%;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
 }

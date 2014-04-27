@@ -24,9 +24,21 @@ class SettingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('IogAdminBundle:Setting')->findAll();
+        $deleteForms = array();
+        foreach($entities as $entity) {
+            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
+        }
+        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
 
         return $this->render('IogAdminBundle:Setting:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
+            'delete_forms' => $deleteForms
         ));
     }
     /**
@@ -38,9 +50,11 @@ class SettingController extends Controller
         $entity = new Setting();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('IogAdminBundle:Setting')->findAll();
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -50,6 +64,7 @@ class SettingController extends Controller
         return $this->render('IogAdminBundle:Setting:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -67,8 +82,6 @@ class SettingController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -80,10 +93,13 @@ class SettingController extends Controller
     {
         $entity = new Setting();
         $form   = $this->createCreateForm($entity);
+        $em = $this->getDoctrine()->getManager();
 
+        $entities = $em->getRepository('IogAdminBundle:Setting')->findAll();
         return $this->render('IogAdminBundle:Setting:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -97,6 +113,7 @@ class SettingController extends Controller
 
         $entity = $em->getRepository('IogAdminBundle:Setting')->find($id);
 
+        $entities = $em->getRepository('IogAdminBundle:Setting')->findAll();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
@@ -105,7 +122,9 @@ class SettingController extends Controller
 
         return $this->render('IogAdminBundle:Setting:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'delete_form' => $deleteForm->createView(),        
+            'entities' => $entities
+        ));
     }
 
     /**
@@ -124,11 +143,13 @@ class SettingController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        $entities = $em->getRepository('IogAdminBundle:Setting')->findAll();
 
         return $this->render('IogAdminBundle:Setting:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -146,8 +167,6 @@ class SettingController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**
@@ -163,6 +182,7 @@ class SettingController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
+        $entities = $em->getRepository('IogAdminBundle:Setting')->findAll();
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
@@ -178,6 +198,7 @@ class SettingController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entities' => $entities
         ));
     }
     /**
@@ -216,7 +237,6 @@ class SettingController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('setting_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

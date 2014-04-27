@@ -1,0 +1,13 @@
+{% extends "IogWebBundle::layout.html.twig" %}
+{% block title %}
+    {{ page.title }}
+{% endblock  %}
+
+{% block content %}
+
+    {% for block in page.blocks %}
+
+        {{ block.content|default()|raw }}
+
+    {% endfor %}
+{% endblock content %}

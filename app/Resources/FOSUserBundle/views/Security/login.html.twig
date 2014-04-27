@@ -3,10 +3,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block content %}
-{% if error %}
-    <div>{{ error|trans }}</div>
-{% endif %}
-
     <form class="login-page" action="{{ path("fos_user_security_check") }}" method="post" novalidate role="form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <section class="wrapper scrollable animated fadeInDown">
@@ -27,6 +23,9 @@
                     <ul class="list-group">
                         <li class="list-group-item">
                             <span class="welcome-text">
+                            {% if error %}
+                                <div class="alert alert-error">{{ error|trans }}</div>
+                            {% endif %}
                             </span>
                             <span class="member">
                             </span>

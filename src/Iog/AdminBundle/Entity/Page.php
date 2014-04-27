@@ -293,4 +293,115 @@ class Page
     {
         return $this->seo_keywords;
     }
+    
+    public function __toString() {
+        if($this->title) {
+            return $this->title;
+        }
+        return '';
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $menu_items;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \Iog\AdminBundle\Entity\Page
+     */
+    private $parent;
+
+
+    /**
+     * Add menu_items
+     *
+     * @param \Iog\AdminBundle\Entity\MenuItem $menuItems
+     * @return Page
+     */
+    public function addMenuItem(\Iog\AdminBundle\Entity\MenuItem $menuItems)
+    {
+        $this->menu_items[] = $menuItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove menu_items
+     *
+     * @param \Iog\AdminBundle\Entity\MenuItem $menuItems
+     */
+    public function removeMenuItem(\Iog\AdminBundle\Entity\MenuItem $menuItems)
+    {
+        $this->menu_items->removeElement($menuItems);
+    }
+
+    /**
+     * Get menu_items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMenuItems()
+    {
+        return $this->menu_items;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Iog\AdminBundle\Entity\Page $children
+     * @return Page
+     */
+    public function addChild(\Iog\AdminBundle\Entity\Page $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Iog\AdminBundle\Entity\Page $children
+     */
+    public function removeChild(\Iog\AdminBundle\Entity\Page $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Iog\AdminBundle\Entity\Page $parent
+     * @return Page
+     */
+    public function setParent(\Iog\AdminBundle\Entity\Page $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Iog\AdminBundle\Entity\Page 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

@@ -2,9 +2,13 @@ Iog\AdminBundle\Entity\Image:
     type: entity
     table: iog_image
     collection: Image
-    fields:
+    id:
         id:
+            type: integer
             id: true
+            generator:
+                strategy: AUTO
+    fields:
         filename:
             type: string
         mime_type:

@@ -24,9 +24,23 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('IogAdminBundle:Page')->findAll();
+        
+        $deleteForms = array();
+        foreach($entities as $entity) {
+            $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
+        }
+        
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $entities,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            5/*limit per page*/
+        );
 
         return $this->render('IogAdminBundle:Page:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => $pagination,
+            'delete_forms' => $deleteForms,
+            'sidebar_entities' => $entities
         ));
     }
     /**
@@ -35,21 +49,26 @@ class PageController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $entity = new Page();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        $entities = $em->getRepository('IogAdminBundle:Page')->findAll();
+        foreach($entity->getBlocks() as $block) {
+            $block->setPage($entity);
+            $em->persist($block);
+        }
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('page_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('page_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('IogAdminBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -67,8 +86,6 @@ class PageController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -80,10 +97,13 @@ class PageController extends Controller
     {
         $entity = new Page();
         $form   = $this->createCreateForm($entity);
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('IogAdminBundle:Page')->findAll();
 
         return $this->render('IogAdminBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -117,6 +137,7 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('IogAdminBundle:Page')->find($id);
+        $entities = $em->getRepository('IogAdminBundle:Page')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -129,6 +150,7 @@ class PageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entities' => $entities
         ));
     }
 
@@ -146,8 +168,6 @@ class PageController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**
@@ -159,14 +179,23 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('IogAdminBundle:Page')->find($id);
-
+        $entities = $em->getRepository('IogAdminBundle:Page')->findAll();
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        foreach($entity->getBlocks() as $block) {
+            $em->remove($block);
+        }
+        $editForm->bind($request);
+        
+        foreach($entity->getBlocks() as $block) {
+            $block->setPage($entity);
+            $em->persist($block);
+        }
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -178,6 +207,8 @@ class PageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'entities' => $entities
+            
         ));
     }
     /**
@@ -216,7 +247,6 @@ class PageController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('page_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

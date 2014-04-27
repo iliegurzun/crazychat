@@ -4,3 +4,18 @@ Iog\AdminBundle\Entity\Page:
       - NotBlank: ~
     title:
       - NotBlank: ~  
+Iog\UserBundle\Entity\Profile:
+    properties:
+        firstName: 
+            - NotBlank: { message: First name should not be blank. }
+        lastName:
+            - NotBlank: { message: Last name should not be blank. }
+Iog\UserBundle\Entity\User:
+    properties:
+        profile:
+            - Valid: ~
+        email:
+            - NotBlank: { message: Email should not be blank. }
+        plainPassword:
+            - NotBlank: { message: Password should not be blank. }
+        

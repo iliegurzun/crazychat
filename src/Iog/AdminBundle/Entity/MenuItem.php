@@ -192,4 +192,109 @@ class MenuItem
     {
         return $this->parent;
     }
+    
+    public function __toString() {
+        return $this->title;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \Iog\AdminBundle\Entity\Page
+     */
+    private $page;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Iog\AdminBundle\Entity\MenuItem $children
+     * @return MenuItem
+     */
+    public function addChild(\Iog\AdminBundle\Entity\MenuItem $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Iog\AdminBundle\Entity\MenuItem $children
+     */
+    public function removeChild(\Iog\AdminBundle\Entity\MenuItem $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set page
+     *
+     * @param \Iog\AdminBundle\Entity\Page $page
+     * @return MenuItem
+     */
+    public function setPage(\Iog\AdminBundle\Entity\Page $page = null)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * Get page
+     *
+     * @return \Iog\AdminBundle\Entity\Page 
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+    /**
+     * @var string
+     */
+    private $link;
+
+
+    /**
+     * Set link
+     *
+     * @param string $link
+     * @return MenuItem
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
 }

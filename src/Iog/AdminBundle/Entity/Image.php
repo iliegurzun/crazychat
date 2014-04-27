@@ -30,11 +30,6 @@ class Image
     private $original_filename;
 
     /**
-     * @var string
-     */
-    private $hash;
-
-    /**
      * @var \DateTime
      */
     private $created_at;
@@ -43,25 +38,25 @@ class Image
      * @var \DateTime
      */
     private $updated_at;
-
-
-    /**
-     * Set id
-     *
-     * @param string $id
-     * @return Image
-     */
+    
     public function setId($id)
     {
         $this->id = $id;
-
         return $this;
     }
 
+    public function __construct()
+    {
+      $this->setHash(uniqid());
+    }
+    
+    public function __toString() {
+        return $this->filename;
+    }
     /**
      * Get id
      *
-     * @return string 
+     * @return integer 
      */
     public function getId()
     {
@@ -77,7 +72,7 @@ class Image
     public function setFilename($filename)
     {
         $this->filename = $filename;
-
+    
         return $this;
     }
 
@@ -100,7 +95,7 @@ class Image
     public function setMimeType($mimeType)
     {
         $this->mime_type = $mimeType;
-
+    
         return $this;
     }
 
@@ -123,7 +118,7 @@ class Image
     public function setOriginalFilename($originalFilename)
     {
         $this->original_filename = $originalFilename;
-
+    
         return $this;
     }
 
@@ -138,29 +133,6 @@ class Image
     }
 
     /**
-     * Set hash
-     *
-     * @param string $hash
-     * @return Image
-     */
-    public function setHash($hash)
-    {
-        $this->hash = $hash;
-
-        return $this;
-    }
-
-    /**
-     * Get hash
-     *
-     * @return string 
-     */
-    public function getHash()
-    {
-        return $this->hash;
-    }
-
-    /**
      * Set created_at
      *
      * @param \DateTime $createdAt
@@ -169,7 +141,7 @@ class Image
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-
+    
         return $this;
     }
 
@@ -192,7 +164,7 @@ class Image
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
-
+    
         return $this;
     }
 
@@ -205,43 +177,166 @@ class Image
     {
         return $this->updated_at;
     }
+    
     /**
-     * @ORM\PrePersist
+     * @var string
      */
+    private $hash;
+
+
+    /**
+     * Set hash
+     *
+     * @param string $hash
+     * @return Image
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    
+        return $this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return string 
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+    
+    public function getAbsolutePath()
+    {
+      return null === $this->filename ? null : $this->getUploadRootDir() . '/'. $this->filename;
+    }
+
+    public function getOldAbsolutePath()
+    {
+      return null === $this->old_filename ? null : $this->getUploadRootDir() . '/'. $this->old_filename;
+    }
+
+    public function getWebPath()
+    {
+      //var_dump();
+      return null === $this->filename ? null : $this->getUploadDir() . '/' . $this->filename;
+    }
+    
+    public function setWebPath() {
+      return $this;
+    }
+
+    protected function getUploadRootDir()
+    {
+      // the absolute directory path where uploaded
+      // documents should be saved
+      return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+      // get rid of the __DIR__ so it doesn't screw up
+      // when displaying uploaded doc/image in the view.
+      return '/uploads/images/' . $this->getHash();
+    }
+    
     public function prepareFile()
     {
-        // Add your code here
+      if (null !== $this->file) {
+        $this->filename = sha1(uniqid(mt_rand(), true)) . '.' . $this->file->guessExtension();
+        $this->mime_type = $this->file->getMimeType();
+        $this->original_filename = $this->file->getClientOriginalName();
+      }
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
     public function prepareOldFile()
     {
-        // Add your code here
+      $this->old_filename = $this->filename;
     }
 
-    /**
-     * @ORM\PostPersist
-     */
     public function uploadFile()
     {
-        // Add your code here
+      if (null === $this->file) {
+        return;
+      }
+      $this->file->move($this->getUploadRootDir(), $this->filename);
+      unset($this->file);
     }
 
-    /**
-     * @ORM\PostUpdate
-     */
-    public function removeOldFile()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PostRemove
-     */
     public function removeFile()
     {
-        // Add your code here
+      if ($file = $this->getAbsolutePath()) {
+        @unlink($file);
+      }
+      
+      $this->removeFolder();
+    }
+
+    public function removeOldFile()
+    {
+      if ($file = $this->getOldAbsolutePath()) {
+        @unlink($file);
+      }
+    }
+    
+    public function removeFolder()
+    {
+      $dir = $this->getUploadRootDir() . '/' . $this->getHash();
+      if(is_dir($dir)) {
+        @rmdir($dir);
+      }
+    }
+    
+    public function hasFileUploaded(\Symfony\Component\Validator\ExecutionContext $context) 
+    {
+      if (is_null($this->getFile()) && !$this->getFilename()) {
+        $context->addViolationAtSubPath('file', 'This value should not be blank.');
+      }
+    }
+    
+    /**
+      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+      */
+    private $file;
+    
+    /**
+     * Set file
+     *
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+     * @return Image
+     */
+    public function setFile(\Symfony\Component\HttpFoundation\File\UploadedFile $file = null)
+    {
+      $this->file = $file;
+      $this->original_filename = null;
+      return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return \Symfony\Component\HttpFoundation\File\UploadedFile 
+     */
+    public function getFile()
+    {
+      return $this->file;
+    }
+
+    public function getHasFile() {
+      if ($this->getFilename()) {
+        return true;
+      }
+      return false;
+    }
+    
+    private $to_be_removed = false;
+  
+    public function getToBeRemoved() {
+      return $this->to_be_removed;
+    }
+
+    public function setToBeRemoved($to_be_removed) {    
+      $this->to_be_removed = $to_be_removed;
     }
 }

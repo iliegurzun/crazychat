@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>{% block title %}{{ seo_title() }}{% endblock title %}</title>
+    <head>
+        {% stylesheets filter="?yui_css, cssrewrite"
+          %}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen">
+        {% endstylesheets %}
+        {% block stylesheets %}{% endblock stylesheets %}
+
+        {% javascripts filter="?yui_js"
+            "@IogAdminBundle/Resources/public/js/jquery-1.11.0.js"
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% block javascripts %}{% endblock javascripts %}
+    </head>
+    <body class="scrollable">
+
+    {% block content %}{% endblock content %}
+    </body>
+</html>

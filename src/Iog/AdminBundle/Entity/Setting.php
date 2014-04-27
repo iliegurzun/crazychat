@@ -164,4 +164,9 @@ class Setting
     {
         return $this->updated_at;
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
