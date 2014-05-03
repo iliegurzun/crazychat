@@ -18,4 +18,7 @@ Iog\UserBundle\Entity\User:
             - NotBlank: { message: Email should not be blank. }
         plainPassword:
             - NotBlank: { message: Password should not be blank. }
-        
+Iog\AdminBundle\Entity\Block:
+    properties:
+        name:
+           - NotBlank: { message: Name should not be blank. } 

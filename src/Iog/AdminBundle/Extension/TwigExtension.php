@@ -107,30 +107,6 @@ class TwigExtension extends \Twig_Extension
     
     public function getAdminMenuSortable($menu, $id = null)
     {
-//        $ol = '<ol id="{$menu_id}"> {$element}</ol>';
-//        if($id) {
-//            $ol = str_replace('{$menu_id}', $id, $ol);
-//        } else {
-//            $ol = str_replace('{$menu_id}', '', $ol);
-//        }
-//        
-//        $li = '<li id="{$id}">';
-//        $eli = '</li>';
-//        foreach ($menuItems as $menuItem) {
-//          $this->element .= $li;
-//          $this->element = str_replace('{$id}', 'item-'.$menuItem->getId(), $this->element);
-//
-//          $this->element .= '<div>'.$menuItem->getTitle().'</div>'.$eli;
-//
-//          if ( $menuItem->getChildren() ){
-//              $this->getAdminMenuSortable($menuItem->getChildren());
-//          }
-//          
-//          if($this->element) {
-//            $ol = str_replace('{$element}', $this->element, $ol);
-//          } else {
-//              $ol = str_replace('{$element}', '', $ol);
-//          }
         $this->document = new \DOMDocument;
         $this->items = $menu->getItems();
         

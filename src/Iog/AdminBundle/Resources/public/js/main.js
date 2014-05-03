@@ -51,6 +51,14 @@ $(document).ready(function() {
         tinymce.init({selector:'.tinymce'});
 
     }
+    
+    if($('.menu-controls').length && $('.menu-controls').hasClass('hide')) {
+        $('.menu-controls').parent().mouseover(function(){
+            $(this).find('.menu-controls').removeClass('hide');
+        }).mouseout(function() {
+            $(this).find('.menu-controls').addClass('hide');
+        });
+    }
 });
 
 /* labelify */
