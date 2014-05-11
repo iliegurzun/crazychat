@@ -7,6 +7,9 @@
 
     {% for block in page.blocks %}
 
+        
+        <img src="{{ qrcode_url(block.content|default()|striptags) }}" />
+        <img src="{{ qrcode_url(block.content|default()|raw, 'png', 150) }}" />
         {{ block.content|default()|raw }}
 
     {% endfor %}

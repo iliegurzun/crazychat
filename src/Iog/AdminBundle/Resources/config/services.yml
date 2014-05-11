@@ -10,3 +10,6 @@ services:
         arguments:    ["@service_container"]
         tags:
             - { name: twig.extension }
+    iog.admin.photo_upload:
+        class: Iog\AdminBundle\Service\PhotoUpload
+        arguments: ['@service_container']

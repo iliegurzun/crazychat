@@ -17,6 +17,8 @@ iog_admin_user:
 iog_admin_page:
     resource: "@IogAdminBundle/Resources/config/routing/page.yml"
     prefix:   /page
-
+iog_admin_gallery:
+    resource: "@IogAdminBundle/Resources/config/routing/gallery.yml"
+    prefix:   /gallery
 
 

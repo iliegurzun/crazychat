@@ -18,6 +18,9 @@ Iog\AdminBundle\Entity\Image:
             type: string
         hash:
             type: string
+        description:
+            type: text
+            nullable: true
         created_at:
             type: datetime
             gedmo:

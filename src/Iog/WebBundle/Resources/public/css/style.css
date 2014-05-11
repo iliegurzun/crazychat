@@ -1,0 +1,75 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 7, 2014, 11:29:26 PM
+    Author     : Ilie
+*/
+
+body {
+    margin: 0;
+    width: 100%;
+    background: #f3f3f3;
+}
+.header {
+    background: none repeat scroll 0 0 #76C7C0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.header ol#main-menu {
+    display: inline;
+    float: right;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+#main-menu li {
+    display: inline-block;
+    float: left;
+    list-style: none outside none;
+    text-decoration: none;
+}
+.header ol li ol {
+    display: none;
+}
+.header-content {
+    margin: 30px auto;
+    width: 1200px;
+}
+
+#main-menu a {
+    color: #FFFFFF;
+    font-family: Myriad Pro;
+    font-size: 17px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-style: regular;
+}
+#main-menu  li i.icon-angle-down {
+    color: #FFFFFF;
+    top: 5px;
+    margin-right: 5px;
+}
+
+#main-menu li {
+    display: inline-block;
+    float: left;
+    list-style: none outside none;
+    margin-left: 45px;
+    text-decoration: none;
+    width: auto;
+}
+
+#carousel-example-generic {
+    clear: both;
+    display: block;
+    margin-top: 80px;
+}
+#carousel-example-generic img {
+    width: 100%;
+}

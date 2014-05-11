@@ -43,7 +43,8 @@ Iog\AdminBundle\Entity\Page:
         parent:
             targetEntity: Page
             inversedBy: children 
-    
+        gallery:
+            targetEntity: Gallery
     oneToMany:
         blocks:
             targetEntity: Block

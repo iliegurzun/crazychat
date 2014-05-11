@@ -3,8 +3,11 @@
     <div class="modal-content">
       {% if title is defined %}
         <div class="modal-header">
-          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-            <h4 class="modal-title">{{ title }}</h4>
+          <div class="alert alert-info alert-block">
+            <i class="icon-alert icon-alert-info"></i>
+            <strong>{{ title }}</strong>
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          </div>
         </div>
       {% endif %}
       <div class="modal-body">

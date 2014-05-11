@@ -404,4 +404,32 @@ class Page
     {
         return $this->parent;
     }
+    /**
+     * @var \Iog\AdminBundle\Entity\Gallery
+     */
+    private $gallery;
+
+
+    /**
+     * Set gallery
+     *
+     * @param \Iog\AdminBundle\Entity\Gallery $gallery
+     * @return Page
+     */
+    public function setGallery(\Iog\AdminBundle\Entity\Gallery $gallery = null)
+    {
+        $this->gallery = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return \Iog\AdminBundle\Entity\Gallery 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
+    }
 }

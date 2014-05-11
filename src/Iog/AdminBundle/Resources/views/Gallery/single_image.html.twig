@@ -1,0 +1,21 @@
+<div class="col-lg-2 gallery-image-item" data-modal-get=''>
+    <i class='icon-remove-sign icon-2x'></i>
+    <img src="{{ image.webPath|apply_filter('user_thumb') }}" />
+</div>
+{% include "IogAdminBundle:Component:modal.html.twig" with { title: "Edit image description or delete it", id: image.id, content: _self.modal_content(image, gallery)} %}
+
+{% macro modal_content(image, gallery) %}
+    {#<div class="form-row">
+      <ul id="recommend-area-error" class="alert alert-danger"></ul>
+    </div>#}
+    <div class="form-group">
+        <div class="col-lg-13">
+            <label class="col-lg-4 control-label label-hide required" for="image_description">Gallery name</label>
+            <textarea id="image_description" name="image_description" class="label-over form-control has-elastic">{{ image.description }}</textarea>
+        </div>
+    </div>
+    <div class="form-row">
+      <button id="recommend-btn" type="submit" class="btn btn-success big">Send</button>
+      <button data-gallery-id="{{ gallery.id }}" data-image-remove-url="{{ path('iog_gallery_image_remove') }}" data-image-id="{{ image.id }}" type="submit" class="btn btn-danger big delete-img">Delete</button>
+    </div>
+  {% endmacro %}

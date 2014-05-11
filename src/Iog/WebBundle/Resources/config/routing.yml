@@ -1,0 +1,4 @@
+iog_web_homepage:
+    pattern: /
+    defaults: { _controller: IogWebBundle:Default:homepage }
+    

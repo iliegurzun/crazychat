@@ -91,6 +91,9 @@ avalanche_imagine:
         user_thumb:
             type:    thumbnail
             options: { size: [100, 100], mode: outbound }
+        carousel_image:
+            type: thumbnail
+            options: { size: [1280, 500], mode: outbound }
             
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
@@ -101,3 +104,10 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         pagination: IogAdminBundle:Component:paginator.html.twig     # sliding pagination controls template
+
+fos_facebook:
+    alias:  facebook
+    app_id: %fb_client_id%
+    secret: %fb_client_secret%
+    cookie: true
+    permissions: [email, user_birthday, user_location]

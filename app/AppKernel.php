@@ -18,6 +18,8 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
+            new FOS\FacebookBundle\FOSFacebookBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Iog\UserBundle\IogUserBundle(),
             new Iog\AdminBundle\IogAdminBundle(),
@@ -25,7 +27,6 @@ class AppKernel extends Kernel {
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

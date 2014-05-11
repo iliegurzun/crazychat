@@ -154,3 +154,48 @@ body { background: #EDEDED; }
     margin-left: 0;
     margin-right: 0;
 }
+#fileupload, #trigger-upload, .image-upload-item p span { display: none; }
+.photo-desc-wrap { float: right; }
+
+.image-upload-item canvas {
+    clear: both;
+    float: left;
+    position: relative;
+}
+
+.image-upload-item .btn.cancel {
+    clear: both;
+    float: left;
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.label-hide {
+  position: absolute;
+  left: 20px;
+  top: 11px;
+}
+.photo-desc-wrap.col-lg-8 {
+    padding-right: 0;
+    width: 67%;
+}
+.photo-desc-wrap.col-lg-8 textarea { height: 100px; }
+
+.col-lg-2.gallery-image-item .icon-remove-sign {
+    margin: 0 auto;
+    position: absolute;
+    right: 70px;
+    top: 40px;
+    display: none;
+    z-index: 9999;
+}
+.gallery-image-item:hover { cursor: pointer; }
+.image-collection { margin-top: 30px; }
+.image-collection img:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    -webkit-transition: opacity 1s linear;
+    cursor: pointer;
+}
+.col-lg-2.gallery-image-item { margin-bottom: 20px; }
+.modal .col-lg-4.control-label.label-hide.required { margin-top: 10px; }

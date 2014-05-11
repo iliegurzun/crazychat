@@ -15,4 +15,8 @@ Menu:
         class: "IogAdminBundle:Setting"
         route: "setting"
         icon:  "gear"
+    Galleries:
+        class: "IogAdminBundle:Gallery"
+        route: "gallery"
+        icon:  "picture"
 Project Name: CMS

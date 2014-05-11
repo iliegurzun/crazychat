@@ -1,0 +1,36 @@
+Iog\AdminBundle\Entity\Gallery:
+    type: entity
+    table: iog_gallery
+    repositoryClass: Iog\AdminBundle\Repository\GalleryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    manyToMany:
+        gallery_images:
+          targetEntity: Image
+          joinTable:
+            name: gallery_image
+            joinColumns:
+              gallery_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              image_id:
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

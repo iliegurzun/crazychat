@@ -17,4 +17,17 @@ class DefaultController extends Controller
             'page' => $page,
         ));
     }
+    
+    public function homepageAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        if(!$page = $this->get('iog.web.page')->getCurrentPage()) {
+            $page = null;
+        }
+        
+        return $this->render('IogWebBundle:Default:homepage.html.twig', array(
+            'page' => $page
+        ));
+    }
 }
