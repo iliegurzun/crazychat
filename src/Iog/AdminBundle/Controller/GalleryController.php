@@ -260,6 +260,9 @@ class GalleryController extends Controller
         foreach ($files as $file) {
             if ($file->saved == 'true') {
                 $image = new Image();
+                if($request->request->get('description')) {
+                    $image->setDescription($request->request->get('description'));
+                }
                 $image_form = $this->createForm(new UploadifyType(), $image);
                 $uploadedFileTmp = new UploadedFile($file->file_path, $file->name, $file->type, $file->size, false, true);
                 $image_form->bind(array('Filedata' => $uploadedFileTmp));
@@ -271,7 +274,7 @@ class GalleryController extends Controller
 //                    $content = $request->request->get('description');
 
                     $file->fileId = $image->getId();
-                    $file->htmlTemplate = $this->renderView('IogAdminBundle:Gallery:single_image.html.twig', array('image' => $image));
+                    $file->htmlTemplate = $this->renderView('IogAdminBundle:Gallery:single_image.html.twig', array('image' => $image, 'gallery' => $gallery));
                 }
             }
         }
@@ -297,5 +300,17 @@ class GalleryController extends Controller
             return new JsonResponse(array('success' => true));
         }
         return new JsonResponse(array('success' => false));
+    }
+    
+    public function updateImageDescAction($image_id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $image = $em->getRepository('IogAdminBundle:Image')->find($image_id);
+        $description = $request->request->get('description');
+        $image->setDescription($description);
+        $em->persist($image);
+        $em->flush();
+        return new JsonResponse(array('success' => true, 'image_id' => $image->getId()));
     }
 }

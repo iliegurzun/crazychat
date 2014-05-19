@@ -34,9 +34,7 @@ body {
     list-style: none outside none;
     text-decoration: none;
 }
-.header ol li ol {
-    display: none;
-}
+
 .header-content {
     margin: 30px auto;
     width: 1200px;
@@ -72,4 +70,21 @@ body {
 }
 #carousel-example-generic img {
     width: 100%;
+}
+.header { position: fixed; }
+
+.header ol li ol {
+    display: none;
+    background: none repeat scroll 0 0 #AA3344;
+    float: left;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-top: 0;
+    position: absolute;
+    text-align: left;
+}
+
+.header ol li ol li a {
+    float: left;
+    text-align: left;
 }

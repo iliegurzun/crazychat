@@ -5,6 +5,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts filter="?yui_js"
+            "@IogAdminBundle/Resources/public/js/tinymce.js"
             "@IogAdminBundle/Resources/public/js/collection.js"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

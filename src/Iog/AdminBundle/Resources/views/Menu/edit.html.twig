@@ -1,6 +1,12 @@
 {% extends 'IogAdminBundle::layout.html.twig' %}
 
 {% block content %}
+    
+    <script>
+        var MenuItemRemoveUrl = "{{ path('menu_remove_item') }}";
+        var getEditModalUrl = "{{ path('menu_edit_modal') }}";
+    </script>
+    
 {% include "IogAdminBundle:Component:search_bar.html.twig" with { object_type: 'menu', list:  entities}  %}
 <div class="wrapper">
         {% if app.session.getFlashBag.has('notice') %}
@@ -62,5 +68,6 @@
         </div>
     </div>
 </div>
-{% include 'IogAdminBundle:Component:modal.html.twig' with {id: 'modal', content: 'asd'} %}
+<div id="append-edit-modal" class="form-group"></div>
+{#{% include 'IogAdminBundle:Component:modal.html.twig' with {id: 'modal', content: 'asd'} %}#}
 {% endblock %}

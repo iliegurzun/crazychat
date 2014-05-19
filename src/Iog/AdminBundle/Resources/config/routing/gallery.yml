@@ -36,3 +36,7 @@ iog_gallery_upload_photos:
 iog_gallery_image_remove:
     pattern: /remove-image
     defaults: { _controller: "IogAdminBundle:Gallery:removeImage" }
+    
+iog_gallery_update_image_desc:
+    pattern: /update-desc/{image_id}
+    defaults: { _controller: "IogAdminBundle:Gallery:updateImageDesc" }

@@ -161,6 +161,8 @@ class TwigExtension extends \Twig_Extension
           $item = $this->document->createElement('div', htmlentities($menuItem->getTitle()));
           $item->setAttribute('rel', 'tooltip');
           $item->setAttribute('title', $menuItem->getLink());
+          $item->setAttribute('data-item-id', $menuItem->getId());
+          
 
           $this->addItemActions($item);
           $element->appendChild($item);
@@ -202,7 +204,7 @@ class TwigExtension extends \Twig_Extension
           $item = $this->document->createElement('a', htmlentities($menuItem->getTitle()));
           $item->setAttribute('href', ($menuItem->getPage() ? $menuItem->getPage()->getPath() : '#'));
 
-          if ( $menuItem->getChildren() ){
+          if ( count($menuItem->getChildren())){
               $this->addItemActions($element, 'icon-angle-down');
               $element->appendChild($this->generateFrontendMenuHtml($menuItem->getChildren()));
 //              $element->setAttribute('class', 'has-submenu');
@@ -216,7 +218,15 @@ class TwigExtension extends \Twig_Extension
             $searchElem->setAttribute('class', 'search');
             $item = $this->document->createElement('a', ' ');
             $this->addItemActions($item, 'icon-search');
-            $item->setAttribute('href', '#');
+            if($menuItem->getPage()) {
+                $url = $this->service_container->get('router')->generate('iog_web_default', array('path' => $menuItem->getPage()->getPath()));
+                $item->setAttribute('href', $url);
+            } elseif($menuItem->getLink()) {
+                $item->setAttribute('href', $menuItem->getLink());
+            } else {
+                $item->setAttribute('href', '#');
+            }
+            
 
             $searchElem->appendChild($item);
             $list->appendChild($searchElem);

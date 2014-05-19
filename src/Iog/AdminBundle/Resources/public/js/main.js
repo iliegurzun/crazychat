@@ -47,10 +47,13 @@ $(document).ready(function() {
         updateMenu($('#update-form'));
     }
     
-    if($('.tinymce').length) {
-        tinymce.init({selector:'.tinymce'});
-
-    }
+//    if($('.tinymce').length) {
+//        tinymce.init({selector:'.tinymce'});
+//
+//    }
+    toggleMenuItemActions();
+    removeMenuItem($('.icon-remove'));
+    editMenuItemModal($('.icon-edit'));
 });
 
 /* labelify */
@@ -182,4 +185,78 @@ var addMenuItem = function($button)
            }
         });
     })
+}
+var toggleMenuItemActions = function() {
+    $('#menu-sortable').find('li').on('mouseover', function() {
+        $(this).find('i').removeClass('hide');
+    }).on('mouseleave', function() {
+       $(this).find('i').addClass('hide'); 
+    });
+}
+
+var removeMenuItem = function($btn)
+{
+    $btn.on('click', function(e) {
+        if(confirm('Are you sure you want to delete this menu item?')) {
+            e.preventDefault();
+            e.stopPropagation();
+            $.ajax({
+                url: MenuItemRemoveUrl,
+                data: {
+                    menu_item_id: $btn.parent().data('item-id')
+                },
+                type: 'POST'
+                
+            }).done(function(data) {
+                if(data.success == true) {
+                    location.reload();
+                } else {
+                    alert('Something went wrong!');
+                }
+            });
+        }
+        
+    });
+    
+}
+
+var editMenuItemModal = function($btn) {
+    $btn.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $.ajax({
+            url: getEditModalUrl,
+            data: {
+                menu_item_id: $btn.parent().data('item-id')
+            },
+            type: 'post'
+            
+        }).done(function(data) {
+            $('#append-edit-modal').html(data.content);
+            $('#edit-menu-item').modal('show');
+            
+            updateMenuItem($('#update-menu-item'));
+            
+        });  
+    })
+}
+
+var updateMenuItem = function($form)
+{
+    $form.on('submit', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        $.ajax({
+            url: $form.attr('action'),
+            data: { 
+                form_data: $form.serialize()
+            },
+            type: 'post'
+            
+        }).done(function(data) {
+            
+        });
+        
+    });
 }

@@ -35,3 +35,15 @@ menu_items:
 menu_add_item:
     pattern: /{id}/add-item
     defaults: { _controller: 'IogAdminBundle:Menu:addMenuItem' }
+    
+menu_remove_item:
+    pattern: /remove-menu-item
+    defaults: { _controller: 'IogAdminBundle:Menu:removeMenuItem' }
+    
+menu_edit_modal:
+    pattern: /get-edit-modal
+    defaults: { _controller: "IogAdminBundle:Menu:getEditModal" }
+    
+menu_submit_edit_modal:
+    pattern: /add-item-link/{menuitem_id}
+    defaults: { _controller: "IogAdminBundle:Menu:submitEditModal" }

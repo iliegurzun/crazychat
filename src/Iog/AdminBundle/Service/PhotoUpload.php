@@ -51,7 +51,7 @@ class PhotoUpload {
         'inline_file_types' => '/\.(gif|jpe?g|png)$/i',
         // Defines which files (based on their names) are accepted for upload:
         'accept_file_types' => '/\.(gif|jpe?g|png)$/i',
-        'max_file_size' => 524288000,
+        'max_file_size' => 5242880000,
         'min_file_size' => 1,
         // The maximum number of files for the upload directory:
         'max_number_of_files' => null,

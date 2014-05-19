@@ -5,12 +5,13 @@
 
 {% block content %}
 
+    {% if page is not null and page.gallery|length %}
+        {% include 'IogWebBundle:Component:gallery.html.twig' with {gallery: page.gallery} %}
+    {% endif %}
     {% for block in page.blocks %}
-
         
-        <img src="{{ qrcode_url(block.content|default()|striptags) }}" />
+        {{ block.content|raw }}
         <img src="{{ qrcode_url(block.content|default()|raw, 'png', 150) }}" />
-        {{ block.content|default()|raw }}
-
+    
     {% endfor %}
 {% endblock content %}
