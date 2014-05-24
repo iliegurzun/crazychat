@@ -65,6 +65,16 @@ class PageType extends AbstractType
                         'placeholder' => 'SEO Keywords'
                     )
                 ))
+            ->add('gallery', 'entity', array(
+                'class' => 'IogAdminBundle:Gallery',
+                'empty_value' => 'Select a gallery',
+                'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                    )
+            ))
             ->add('blocks', 'collection', array(
                 'type' => new BlockType(),
 //                'attr' => array('class' => 'form-control'),

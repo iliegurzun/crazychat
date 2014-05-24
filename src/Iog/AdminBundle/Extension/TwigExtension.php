@@ -53,7 +53,7 @@ class TwigExtension extends \Twig_Extension
   
   public function getDefaultSeoTitle()
   {
-      $dm = $this->service_container->getDoctrine()->getManager();
+      $dm = $this->service_container->get('doctrine')->getManager();
       
       $setting = $dm->getRepository('IogAdminBundle:Setting')->findOneBy(array('name' => 'default_seo_title'));
       
@@ -105,12 +105,22 @@ class TwigExtension extends \Twig_Extension
         return 'Yes';
     }
     
-    public function getAdminMenuSortable($menu, $id = null)
+    public function getAdminMenuSortable($menu, $id = null, $frontend = false)
     {
+        
+        if(is_string($menu)) {
+            $em = $this->service_container->get('doctrine')->getManager();
+            $menu = $em->getRepository('IogAdminBundle:Menu')->findOneByName($menu);
+        }
+
         $this->document = new \DOMDocument;
         $this->items = $menu->getItems();
         
-        $list = $this->generateAdminMenuHtml($menu->getDirectItems());
+        if($frontend == true) {
+            $list = $this->generateFrontendMenuHtml($menu->getDirectItems(), true);   
+        } else {
+            $list = $this->generateAdminMenuHtml($menu->getDirectItems());
+        }
         $list->setAttribute('id', $id);
         
         $this->document->appendChild($list);
@@ -128,6 +138,8 @@ class TwigExtension extends \Twig_Extension
           $item = $this->document->createElement('div', htmlentities($menuItem->getTitle()));
           $item->setAttribute('rel', 'tooltip');
           $item->setAttribute('title', $menuItem->getLink());
+          $item->setAttribute('data-item-id', $menuItem->getId());
+          
 
           $this->addItemActions($item);
           $element->appendChild($item);
@@ -142,14 +154,60 @@ class TwigExtension extends \Twig_Extension
         return $list;
     }
     
-    private function addItemActions(\DOMNode $node){         
+    private function addItemActions(\DOMNode $node, $class = null){   
+       
         $remove = $this->document->createElement('i');
-        $remove->setAttribute('class', 'icon-remove menu-controls hide');
+        if($class) {
+            $remove->setAttribute('class', $class);
+            $node->appendChild($remove);
+        } else {
+            $remove->setAttribute('class', 'icon-remove menu-controls hide');
 
-        $edit = $this->document->createElement('i');
-        $edit->setAttribute('class', 'icon-edit menu-controls hide');
+            $edit = $this->document->createElement('i');
+            $edit->setAttribute('class', 'icon-edit menu-controls hide');
+
+            $node->appendChild($remove);
+            $node->appendChild($edit);
+        }
+    }
+    
+    private function generateFrontendMenuHtml($items, $first = false) {
+        $list = $this->document->createElement('ol');
         
-        $node->appendChild($remove);
-        $node->appendChild($edit);
+        foreach ($items as $menuItem) {
+          $element = $this->document->createElement('li');
+          $element->setAttribute('id', 'item-' . $menuItem->getId());
+
+          $item = $this->document->createElement('a', htmlentities($menuItem->getTitle()));
+          $item->setAttribute('href', ($menuItem->getPage() ? $menuItem->getPage()->getPath() : '#'));
+
+          if ( count($menuItem->getChildren())){
+              $this->addItemActions($element, 'icon-angle-down');
+              $element->appendChild($this->generateFrontendMenuHtml($menuItem->getChildren()));
+//              $element->setAttribute('class', 'has-submenu');
+          }
+          $element->appendChild($item);
+
+          $list->appendChild($element);
+        }
+        if($first == true) {
+            $searchElem = $this->document->createElement('li');
+            $searchElem->setAttribute('class', 'search');
+            $item = $this->document->createElement('a', ' ');
+            $this->addItemActions($item, 'icon-search');
+            if($menuItem->getPage()) {
+                $url = $this->service_container->get('router')->generate('iog_web_default', array('path' => $menuItem->getPage()->getPath()));
+                $item->setAttribute('href', $url);
+            } elseif($menuItem->getLink()) {
+                $item->setAttribute('href', $menuItem->getLink());
+            } else {
+                $item->setAttribute('href', '#');
+            }
+            
+
+            $searchElem->appendChild($item);
+            $list->appendChild($searchElem);
+        }
+        return $list;
     }
 }

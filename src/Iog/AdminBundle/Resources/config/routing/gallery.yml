@@ -1,0 +1,42 @@
+gallery:
+    pattern:  /
+    defaults: { _controller: "IogAdminBundle:Gallery:index" }
+
+gallery_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "IogAdminBundle:Gallery:show" }
+
+gallery_new:
+    pattern:  /new
+    defaults: { _controller: "IogAdminBundle:Gallery:new" }
+
+gallery_create:
+    pattern:  /create
+    defaults: { _controller: "IogAdminBundle:Gallery:create" }
+    requirements: { _method: post }
+
+gallery_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "IogAdminBundle:Gallery:edit" }
+
+gallery_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "IogAdminBundle:Gallery:update" }
+    requirements: { _method: post|put }
+
+gallery_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "IogAdminBundle:Gallery:delete" }
+    requirements: { _method: post|delete }
+    
+iog_gallery_upload_photos:
+    pattern: /upload-photos/{gallery_id}
+    defaults: { _controller: "IogAdminBundle:Gallery:uploadPhotos" }
+    
+iog_gallery_image_remove:
+    pattern: /remove-image
+    defaults: { _controller: "IogAdminBundle:Gallery:removeImage" }
+    
+iog_gallery_update_image_desc:
+    pattern: /update-desc/{image_id}
+    defaults: { _controller: "IogAdminBundle:Gallery:updateImageDesc" }

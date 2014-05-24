@@ -4,13 +4,18 @@
     <title>{% block title %}{{ seo_title() }}{% endblock title %}</title>
     <head>
         {% stylesheets filter="?yui_css, cssrewrite"
+            'bundles/iogadmin/css/bootstrap/bootstrap.css'
+            'bundles/iogadmin/css/font-awesome.css'
+            'bundles/iogweb/css/style.css'
           %}
         <link href="{{ asset_url }}" rel="stylesheet" media="screen">
         {% endstylesheets %}
         {% block stylesheets %}{% endblock stylesheets %}
 
-        {% javascripts filter="?yui_js"
+         {% javascripts filter="?yui_js"
             "@IogAdminBundle/Resources/public/js/jquery-1.11.0.js"
+            "@IogAdminBundle/Resources/public/js/bootstrap.js"
+            "@IogWebBundle/Resources/public/js/main.js"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -18,7 +23,7 @@
         {% block javascripts %}{% endblock javascripts %}
     </head>
     <body class="scrollable">
-
+    {% include 'IogWebBundle:Component:header.html.twig' %}
     {% block content %}{% endblock content %}
     </body>
 </html>

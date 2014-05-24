@@ -5,6 +5,12 @@ iog_web:
 _imagine:
     resource: .
     type:     imagine
+    
+EndroidQrCodeBundle:
+    resource:   "@EndroidQrCodeBundle/Controller/"
+    type:       annotation
+    prefix:     /qrcode
+    
 iog_admin:
     resource: "@IogAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
@@ -27,6 +33,20 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+    
+_security_login:
+    pattern: /loginfb
+
+fb_security_check:
+    pattern: /loginfb_check
+    defaults: { _controller: IogWebBundle:Default:fbUser }
+    
+_security_logout:
+    pattern:  /logout
+    
+fos_facebook_channel:
+    resource: "@FOSFacebookBundle/Resources/config/routing.xml"   
+    
 iog_user:
     resource: "@IogUserBundle/Resources/config/routing.yml"
     prefix:   /

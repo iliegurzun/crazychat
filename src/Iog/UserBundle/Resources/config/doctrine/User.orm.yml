@@ -8,6 +8,12 @@ Iog\UserBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
+    fields:
+        facebookId:
+            type: string
+            length: 255
+            column: facebook_id
+            nullable: true
     oneToOne:
         profile:
             targetEntity: Profile

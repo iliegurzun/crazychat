@@ -8,3 +8,13 @@ services:
     iog.web.page:
         class: Iog\WebBundle\Service\Page
         arguments: ['@service_container']
+        
+#    iog.web.user_provider:
+#        class: Iog\WebBundle\Service\WebUserProvider
+#        arguments: ['@service_container']
+    iog.facebook.user:
+        class: Iog\WebBundle\Service\IogFacebookProvider
+        arguments:
+            facebook: "@fos_facebook.api"
+            userManager: "@fos_user.user_manager"
+            validator: "@validator"

@@ -8,6 +8,8 @@ use Iog\AdminBundle\Entity\Menu;
 use Iog\AdminBundle\Form\MenuType;
 use Iog\AdminBundle\Entity\MenuItem;
 use Iog\AdminBundle\Form\MenuItemType;
+use Iog\AdminBundle\Form\MenuItemPageType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Menu controller.
@@ -313,6 +315,71 @@ class MenuController extends Controller {
         return new \Symfony\Component\HttpFoundation\JsonResponse(array(
                     'success' => false
                 ));
+    }
+    
+    public function removeMenuItemAction(Request $request)
+    {
+        $menuitem_id = $request->request->get('menu_item_id');
+        $em = $this->getDoctrine()->getManager();
+        $menuItem = $em->getRepository('IogAdminBundle:MenuItem')->find($menuitem_id);
+        
+        if($request->isMethod('POST')) {
+            $menu = $menuItem->getMenu();
+            $menu->removeItem($menuItem);
+            $em->persist($menu);
+            $em->remove($menuItem);
+            $em->flush();
+            
+            return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+               'success' => true
+            ));
+        }
+        return new \Symfony\Component\HttpFoundation\JsonResponse(array('success' => false));
+    }
+    
+    public function getEditModalAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $menuItem = $request->request->get('menu_item_id');
+        
+        $menuItem = $em->getRepository('IogAdminBundle:MenuItem')->find($menuItem);
+        
+        $title = 'Edit '. $menuItem->getTitle(). ' item';
+        
+        $form = $this->createForm(new \Iog\AdminBundle\Form\MenuItemPageType(), $menuItem);
+        
+        return new \Symfony\Component\HttpFoundation\JsonResponse(array(
+            'content' => $this->renderView('IogAdminBundle:Menu:menu_item_modal.html.twig', array(
+                            'menu_item' => $menuItem,
+                            'title' => $title,
+                            'form' => $form->createView()
+                        ))
+            ));
+    }
+    
+    public function submitEditModalAction($menuitem_id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $menuItem = $em->getRepository('IogAdminBundle:MenuItem')->find($menuitem_id);
+        
+        if($request->isMethod('post')) {
+            $form = $this->createForm(new MenuItemPageType(), $menuItem);
+            
+            parse_str($request->request->get('form_data'), $data);
+            $form->bind($data);
+            
+            if($form->isValid()) {
+            
+                $em->persist($menuItem);
+
+                $em->flush();
+            
+                return new JsonResponse(array('success' => true));
+            }
+        }
+        return new JsonResponse(array('success' => false));
     }
 
 }

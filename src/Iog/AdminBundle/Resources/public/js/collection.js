@@ -10,7 +10,7 @@ $(function() {
     $(this).attr('data-count', ++anotherCount);
     
     another.append(newAnother);
-    tinymce.init({selector:'.tinymce'});
+//    tinymce.init({selector:'.tinymce'});
     removeCollectionElem($('.remove-attribute'));
   });
 });

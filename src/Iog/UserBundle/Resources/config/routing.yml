@@ -1,3 +1,7 @@
 iog_user_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: IogUserBundle:Default:index }
+    
+iog_user_process_auth:
+    pattern: /process
+    defaults: { _controller: IogUserBundle:Default:processAuth }

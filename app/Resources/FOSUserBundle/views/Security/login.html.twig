@@ -3,6 +3,24 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block content %}
+    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+    <script>
+    function goLogIn(){
+        window.location.href = "{{ path('fos_user_security_check') }}";
+    }
+
+    function onFbInit() {
+        if (typeof(FB) != 'undefined' && FB != null ) {              
+            FB.Event.subscribe('auth.statusChange', function(response) {
+                if (response.session || response.authResponse) {
+                    setTimeout(goLogIn, 500);
+                } else {
+                    window.location.href = "{{ path('fos_user_security_logout') }}";
+                }
+            });
+        }
+    }
+</script>
     <form class="login-page" action="{{ path("fos_user_security_check") }}" method="post" novalidate role="form">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <section class="wrapper scrollable animated fadeInDown">
@@ -47,6 +65,8 @@
                         <button class="btn btn-lg btn-success">LOGIN TO YOUR ACCOUNT</button>
                         <br>
                         <a class="forgot" href="javascript:;">Forgot Your Password?</a>
+                        <br/>
+                        {{ facebook_login_button({'autologoutlink': false}) }}
                     </div>
                 </section>
             </section>
