@@ -13,9 +13,9 @@ class ImageType extends AbstractType
   {
     $builder
       ->add('file', 'file', array(
-          'label' => '',
+          'label' => 'Browse',
           'label_attr' => array(
-              'style' => 'display: none !important;'
+              'class' => 'btn btn-primary btn-file'
           ),
       ));
 //      ->add('preview', new PreviewType(), array(

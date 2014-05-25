@@ -86,9 +86,9 @@ class UserType extends AbstractType {
                         'label_attr' => array(
                             'class' => 'col-lg-4 control-label'
                         ),
-                        'attr' => array(
-                            'class' => 'btn btn-primary btn-file',
-                        )
+//                        'attr' => array(
+//                            'class' => 'btn btn-primary btn-file',
+//                        )
                     ))
         ;
     }

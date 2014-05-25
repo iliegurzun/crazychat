@@ -236,6 +236,8 @@ body { background: #EDEDED; }
     font-size: 700;
 }
 
-.col-lg-8.or {
+.col-lg-8.menu-page-choice {
     float: right;
 }
+
+#iog_userbundle_user_image input { margin-left: -9999px; }
