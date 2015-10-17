@@ -1,0 +1,243 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 22, 2014, 1:35:36 PM
+    Author     : Ilie
+*/
+/*.content-wrapper {
+    margin: 20px auto;
+    position: relative;
+    width: 90%;
+    height: 100%;
+}
+.label-hide {
+    color: #8D9FA0;
+    font-weight: 500;
+    margin-left: 45px;
+    margin-top: 11px;
+    position: absolute;
+}
+ul.homepage-items li {
+    display: inline-block;
+
+}
+ul, ul > li {
+    list-style-type: none;
+}
+.content ul li a {
+    display: block;
+    overflow: hidden;
+    width: 100px;
+    text-align: center;
+}
+body {
+    background: url('/../bundles/iogadmin/images/admin-background.jpg') repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background-attachment:fixed;
+    background-position:center; 
+}
+.content {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 30px;
+}
+.records_list {
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+table.records_list thead {
+    width: 100%;
+}
+table.records_list thead tr th {
+    text-align: center;
+}
+#main {
+    margin-bottom: 10px;
+}
+ol.sortable {
+    width: 20%;
+}
+.sortable li {
+    list-style: none outside none;
+    margin: 7px 0 0;
+    padding: 0;
+}
+li {
+    line-height: 20px;
+}
+
+.sortable li div {
+    background: none repeat scroll 0 0 #DDE4EA;
+    border: 1px solid #CCCCCC;
+    color: #777777;
+    cursor: move;
+    margin: 0;
+    padding: 7px;
+    text-transform: capitalize;
+}
+#admin-login {
+    margin: 0 auto;
+    position: relative;
+    width: 100px;
+}
+
+#admin-login input[type='text'], input[type='password'] {
+    -moz-border-radius:5px;  Firefox 
+    -webkit-border-radius: 5px;  Safari, Chrome 
+    -khtml-border-radius: 5px;  KHTML 
+    border-radius: 5px;  CSS3 
+    margin: 10px;
+    position: relative;
+}
+.admin-big-logo {
+    width: 200%;
+    margin: 0 auto;
+    position: relative;
+    margin-left: -15px;
+}
+#add-new {
+    float: none;
+    display:inline-block;
+}*/
+
+body { background: #EDEDED; }
+
+.sidebar .panel-body.tree-body  a:hover {
+    background: #00BFFF;
+}
+.sidebar ul, .sidebar ul li {
+    text-decoration: none;
+    list-style-type: none;
+}
+.sidebar {
+    max-height: none; 
+    opacity: 1;
+}
+.panel.panel-default {
+    background: #FBFBFB;
+}
+#delete-form {
+    bottom: 20px;
+    display: inline;
+    left: 87px;
+    position: absolute;
+}
+.index-delete-form {
+    display: inline-block;
+}
+
+#dataTables_wrapper { text-align: center; }
+
+#menu-sortable { width: 40%; }
+#menu-sortable, #menu-sortable > li ol  { list-style-type: none; }
+
+#menu-sortable li div {
+    background: none repeat scroll 0 0 #DDE4EA;
+    border: 1px solid #CCCCCC;
+    color: #777777;
+    cursor: move;
+    padding: 7px;
+    text-transform: capitalize;
+    margin-bottom : 10px;
+}
+
+.add-another.btn.btn-success {
+    margin-left: 30%;
+    margin-bottom: 15px;
+}     
+.remove-attribute.btn.btn-danger {
+    margin-left: 35%;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+#fileupload, #trigger-upload, .image-upload-item p span { display: none; }
+.photo-desc-wrap { float: right; }
+
+.image-upload-item canvas {
+    clear: both;
+    float: left;
+    position: relative;
+}
+
+.image-upload-item .btn.cancel {
+    clear: both;
+    float: left;
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.label-hide {
+  position: absolute;
+  left: 20px;
+  top: 11px;
+}
+.photo-desc-wrap.col-lg-8 {
+    padding-right: 0;
+    width: 67%;
+}
+.photo-desc-wrap.col-lg-8 textarea { height: 100px; }
+
+.col-lg-2.gallery-image-item .icon-remove-sign {
+    margin: 0 auto;
+    position: absolute;
+    right: 70px;
+    top: 40px;
+    display: none;
+    z-index: 9999;
+}
+.gallery-image-item:hover { cursor: pointer; }
+.image-collection { margin-top: 30px; }
+.image-collection img:not(.modal-image):hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    -webkit-transition: opacity 1s linear;
+    cursor: pointer;
+}
+.col-lg-2.gallery-image-item { margin-bottom: 20px; }
+.modal .col-lg-4.control-label.label-hide.required { margin-top: 10px; }
+
+.modal-body .form-group {
+    float: right;
+    width: 80%;
+}
+.modal-body > img {
+    margin-bottom: 20px;
+}
+.modal-body textarea { height: 100px; }
+
+.icon-remove.menu-controls {
+    float: right;
+    margin-top: 3px;
+    z-index: 1;
+}
+.icon-edit.menu-controls {
+    float: right;
+    margin-right: 15px;
+    margin-top: 4px;
+}
+
+.icon-remove.menu-controls.hide:hover {
+    display: block !important;
+}
+
+#edit-menu-item .modal-body {
+    height: auto;
+    position: absolute;
+}
+#edit-menu-item .form-group { width: 100%; }
+
+#edit-menu-item .form-group h3 {
+    margin-bottom: 23px;
+    text-align: center;
+    font-size: 700;
+}
+
+.col-lg-8.menu-page-choice {
+    float: right;
+}
+
+#iog_userbundle_user_image input { margin-left: -9999px; }

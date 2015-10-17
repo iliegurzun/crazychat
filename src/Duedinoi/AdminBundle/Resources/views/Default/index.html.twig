@@ -1,0 +1,9 @@
+{% extends "DuedinoiAdminBundle::layout.html.twig" %}
+
+{% block content %}
+<section class="widget-group ui-sortable" data-sortable-url='{{ path('duedinoi_admin_dashboard_sortable') }}'>
+    {% include 'DuedinoiAdminBundle:Component\\Dashboard:page.html.twig' with { pages: dashboard_items.Pages } %}
+    {% include 'DuedinoiAdminBundle:Component\\Dashboard:setting.html.twig' %}
+    {% include 'DuedinoiAdminBundle:Component\\Dashboard:menu.html.twig' %}
+</section>
+{% endblock %}

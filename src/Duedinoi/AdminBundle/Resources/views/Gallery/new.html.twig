@@ -1,0 +1,29 @@
+{% extends 'DuedinoiAdminBundle::layout.html.twig' %}
+
+{% form_theme form 'DuedinoiAdminBundle:Component:fields.html.twig' %}
+
+{% block content %}
+{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'gallery', list:  entities}  %}
+<div class="wrapper">
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div id="input-fields-horizontal" class="list-group-item">
+                <h4 class="section-title">Create new gallery</h4>
+                <form method="post" action="{{ path('gallery_create') }}" {{ form_enctype(form) }} class="form-horizontal" role="form" novalidate>
+                    {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: form } %}
+                    <div class="form-group">
+                        {{ form_label(form.name) }}
+                        {{ form_widget(form.name) }}
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <button class="btn btn-success">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

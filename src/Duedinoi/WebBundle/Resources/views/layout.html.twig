@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>{% block title %}{{ seo_title() }}{% endblock title %}</title>
+    <head>
+        {% stylesheets filter="?yui_css, cssrewrite"
+            'bundles/duedinoiadmin/css/bootstrap/bootstrap.css'
+            'bundles/duedinoiadmin/css/font-awesome.css'
+            'bundles/duedinoiweb/css/style.css'
+          %}
+        <link href="{{ asset_url }}" rel="stylesheet" media="screen">
+        {% endstylesheets %}
+        {% block stylesheets %}{% endblock stylesheets %}
+
+         {% javascripts filter="?yui_js"
+            "@DuedinoiAdminBundle/Resources/public/js/jquery-1.11.0.js"
+            "@DuedinoiAdminBundle/Resources/public/js/bootstrap.js"
+            "@DuedinoiWebBundle/Resources/public/js/main.js"
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% block javascripts %}{% endblock javascripts %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+    {% block content %}
+    {% endblock content %}
+    {% block footer %}
+        {%  include "DuedinoiWebBundle:Component:footer.html.twig" %}
+    {% endblock %}
+    </body>
+</html>

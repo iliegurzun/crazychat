@@ -1,0 +1,17 @@
+{% macro render_errors(parent) %}
+{{ form_errors(parent) }}
+  {% for child in parent %}
+    {% if not child.vars.valid %}
+<li>{% if child.vars.name|length <= 2 %}<b>Child #{{ child.vars.name + 1 }}:</b>{% endif %}{{ form_errors(child) }}</li>           
+    {% endif %}
+    {% if child.children|length > 0 %}
+      {{ _self.render_errors(child) }}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+    
+{% if form is defined and not form.vars.valid %}
+    <ul class="alert alert-error">
+      {{ _self.render_errors(form) }}
+    </ul>
+{% endif %}

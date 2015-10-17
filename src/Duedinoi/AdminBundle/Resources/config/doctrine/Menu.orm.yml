@@ -1,0 +1,31 @@
+Duedinoi\AdminBundle\Entity\Menu:
+    type: entity
+    table: duedinoi_menu
+    repositoryClass: Duedinoi\AdminBundle\Repository\MenuRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    oneToMany:
+        items:
+          targetEntity: MenuItem
+          mappedBy: menu
+          orderBy:
+            position: ASC
+    lifecycleCallbacks: {  }

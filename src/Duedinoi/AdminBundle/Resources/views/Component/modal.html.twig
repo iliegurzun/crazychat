@@ -1,0 +1,23 @@
+<div id="{{ id }}" save-url="{{ url|default() }}" aria-hidden="true" class="modal fade" aria-labelledby="myModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      {% if title is defined %}
+        <div class="modal-header">
+          <div class="alert alert-info alert-block">
+            <i class="icon-alert icon-alert-info"></i>
+            <strong>{{ title }}</strong>
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+          </div>
+        </div>
+      {% endif %}
+      <div class="modal-body">
+          {{ content }}
+      </div>
+      {% if has_footer is defined %}
+        <div class="modal-footer">
+         {{ has_footer }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

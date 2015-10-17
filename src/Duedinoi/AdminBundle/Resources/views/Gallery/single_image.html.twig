@@ -1,0 +1,20 @@
+<div class="col-lg-2 gallery-image-item" data-modal-get=''>
+    <img src="{{ image.webPath|apply_filter('user_thumb') }}" />
+</div>
+{% include "DuedinoiAdminBundle:Component:modal.html.twig" with { title: "Edit image description or delete it", id: image.id, content: _self.modal_content(image, gallery)} %}
+
+{% macro modal_content(image, gallery) %}
+    {#<div class="form-row">
+      <ul id="recommend-area-error" class="alert alert-danger"></ul>
+    </div>#}
+    <img class="modal-image" src="{{ image.webPath|apply_filter('user_thumb') }}" />
+    <div class="form-group">
+        <div class="col-lg-13">
+            <textarea id="image-description-{{image.id}}" name="image_description" class="label-over form-control has-elastic">{{ image.description }}</textarea>
+        </div>
+    </div>
+    <div class="form-row">
+      <button data-url="{{ path('duedinoi_gallery_update_image_desc', {image_id: image.id}) }}" type="submit" class="btn btn-success big edit-photo-btn">Save</button>
+      <button data-gallery-id="{{ gallery.id }}" data-image-remove-url="{{ path('duedinoi_gallery_image_remove') }}" data-image-id="{{ image.id }}" type="submit" class="btn btn-danger big delete-img">Delete</button>
+    </div>
+  {% endmacro %}

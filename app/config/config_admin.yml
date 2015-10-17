@@ -1,0 +1,26 @@
+Menu:
+    Users:
+        class: "DuedinoiUserBundle:User"
+        route: "user"
+        icon:  "user"
+    Pages:
+        class: "DuedinoiAdminBundle:Page"
+        route: "page"
+        icon:  "folder-open"
+    Menus:
+        class: "DuedinoiAdminBundle:Menu"
+        route: "menu"
+        icon:  "sitemap"
+    Settings:
+        class: "DuedinoiAdminBundle:Setting"
+        route: "setting"
+        icon:  "gear"
+    Galleries:
+        class: "DuedinoiAdminBundle:Gallery"
+        route: "gallery"
+        icon:  "picture"
+    Countries:
+        class: "DuedinoiAdminBundle:Country"
+        route: "country"
+        icon:  "picture"
+Project Name: CMS

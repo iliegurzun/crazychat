@@ -1,0 +1,24 @@
+Duedinoi\AdminBundle\Entity\Page:
+  properties:
+    path:
+      - NotBlank: ~
+    title:
+      - NotBlank: ~  
+Duedinoi\UserBundle\Entity\Profile:
+    properties:
+        firstName: 
+            - NotBlank: { message: First name should not be blank. }
+        lastName:
+            - NotBlank: { message: Last name should not be blank. }
+Duedinoi\UserBundle\Entity\User:
+    properties:
+        profile:
+            - Valid: ~
+        email:
+            - NotBlank: { message: Email should not be blank. }
+        plainPassword:
+            - NotBlank: { message: Password should not be blank. }
+Duedinoi\AdminBundle\Entity\Block:
+    properties:
+        name:
+           - NotBlank: { message: Name should not be blank. } 

@@ -1,0 +1,28 @@
+Duedinoi\UserBundle\Entity\User:
+    type: entity
+    table: duedinoi_user
+    repositoryClass: Duedinoi\UserBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        facebookId:
+            type: string
+            length: 255
+            column: facebook_id
+            nullable: true
+    oneToOne:
+        profile:
+            targetEntity: Profile
+            joinColumn:
+                name: profile_id
+                referencedColumnName: id
+                onDelete: 'CASCADE'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
+    lifecycleCallbacks: {  }

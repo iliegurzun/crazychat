@@ -1,0 +1,33 @@
+<nav class="main-menu" data-step="2" data-intro="This is the extendable Main Navigation Menu." data-position="right">
+    <ul>
+        <li>
+            <a href="{{ path('duedinoi_admin_homepage') }}">
+                <i class="icon-home nav-icon"></i>
+                <span class="nav-text">
+                    Dashboard
+                </span>
+            </a>
+        </li>
+        {% for key, item in get_admin_menu() %}
+            <li>
+                <a href="{{ path(item['route']) }}">
+                    <i class="icon-{{ item['icon'] }} nav-icon"></i>
+                    <span class="nav-text">
+                        {{ key }}
+                    </span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <ul class="logout">
+        <li>
+            <a href="{{ path('fos_user_security_logout') }}">
+                <i class="icon-off nav-icon"></i>
+                <span class="nav-text">
+                    Logout
+                </span>
+            </a>
+        </li>  
+    </ul>
+</nav>

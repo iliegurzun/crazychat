@@ -1,0 +1,56 @@
+{% extends 'DuedinoiAdminBundle::layout.html.twig' %}
+
+{% block content %}
+{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'menu', list:  entities}  %}
+<div class="wrapper">
+    <div class="panel panel-default panel-block">
+        <div id="data-table" class="panel-heading datatable-heading">
+            <h4 class="section-title">Menu List</h4>
+        </div>
+        <div id="tableSortable_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <table aria-describedby="tableSortable_info" class="table table-bordered table-striped dataTable" id="tableSortable">
+                <thead>
+                    <tr role="row">
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting_asc">Id</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Title</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Path</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Description</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                {% for menu in entities %}
+                    <tr class="gradeA {% if loop.index % 2 == 1  %} odd {% else %} even {% endif %}">
+                        <td class="sorting_1">{{ menu.id }}</td>
+                        <td class=" ">{{ menu.name|default('-')  }}</td>
+                        <td class=" ">{{ menu.createdAt|date('Y-m-d') }}</td>
+                        <td class=" ">{{ menu.updatedAt|date('Y-m-d') }}</td>
+                        <td class="center ">
+                            <a class="btn btn-success" href="{{ path('menu_edit', {id: menu.id}) }}">Edit</a>
+                            <form class="index-delete-form" method="post" action="{{ path('menu_delete', {id: menu.id}) }}" {{ form_enctype(delete_forms[menu.id]) }}>
+                                {{ form_widget(delete_forms[menu.id]) }}
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="row table-footer-row">
+                <div class="col-sm-12">
+                    <div class="pull-left">
+{#                        <div id="tableSortable_info" class="dataTables_info"></div>#}
+
+                    </div>
+                    <div class="pull-right">
+                        <div class="dataTables_paginate paging_bs_normal">
+                        {{ knp_pagination_render(entities) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}

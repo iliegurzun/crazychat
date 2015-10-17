@@ -1,0 +1,6 @@
+parameters:
+
+services:
+    duedinoi.web.page:
+        class: Duedinoi\WebBundle\Service\Page
+        arguments: ['@service_container']

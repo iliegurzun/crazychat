@@ -1,0 +1,56 @@
+{% extends 'DuedinoiAdminBundle::layout.html.twig' %}
+
+{% block content %}
+{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'gallery', list:  sidebar_entities}  %}
+<div class="wrapper">
+    <div class="panel panel-default panel-block">
+        <div id="data-table" class="panel-heading datatable-heading">
+            <h4 class="section-title">Gallery List</h4>
+        </div>
+        <div id="tableSortable_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <table aria-describedby="tableSortable_info" class="table table-bordered table-striped dataTable" id="tableSortable">
+                <thead>
+                    <tr role="row">
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting_asc">Id</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Title</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Path</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Description</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                {% for page in entities %}
+                    <tr class="gradeA {% if loop.index % 2 == 1  %} odd {% else %} even {% endif %}">
+                        <td class="sorting_1">{{ page.id }}</td>
+                        <td class=" ">{{ page.name|default('-')  }}</td>
+                        <td class=" ">{{ page.createdAt|date('Y-m-d') }}</td>
+                        <td class=" ">{{ page.updatedAt|date('Y-m-d') }}</td>
+                        <td class="center ">
+                            <a class="btn btn-success" href="{{ path('gallery_edit', {id: page.id}) }}">Edit</a>
+                            <form class="index-delete-form" method="post" action="{{ path('gallery_delete', {id: page.id}) }}" {{ form_enctype(delete_forms[page.id]) }}>
+                                {{ form_widget(delete_forms[page.id]) }}
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="row table-footer-row">
+                <div class="col-sm-12">
+                    <div class="pull-left">
+{#                        <div id="tableSortable_info" class="dataTables_info"></div>#}
+
+                    </div>
+                    <div class="pull-right">
+                        <div class="dataTables_paginate paging_bs_normal">
+                        {{ knp_pagination_render(entities) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}

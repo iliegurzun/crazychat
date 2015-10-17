@@ -1,0 +1,33 @@
+Duedinoi\AdminBundle\Entity\Block:
+    type: entity
+    table: duedinoi_block
+    repositoryClass: Duedinoi\AdminBundle\Repository\BlockRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name: 
+            type: string
+            length: 255
+        content:
+            type: text
+            column: content
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: date
+            gedmo:
+                timestampable: 
+                    on: update
+    manyToOne:
+        page:
+            targetEntity: Page
+            inversedBy: blocks
+            onCascade: DELETE
+    lifecycleCallbacks: {  }

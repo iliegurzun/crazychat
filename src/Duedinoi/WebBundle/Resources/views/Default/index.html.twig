@@ -1,0 +1,17 @@
+{% extends "IogWebBundle::layout.html.twig" %}
+{% block title %}
+    {{ page.title }}
+{% endblock  %}
+
+{% block content %}
+
+    {% if page is not null and page.gallery|length %}
+        {% include 'IogWebBundle:Component:gallery.html.twig' with {gallery: page.gallery} %}
+    {% endif %}
+    {% for block in page.blocks %}
+        
+        {{ block.content|raw }}
+        <img src="{{ qrcode_url(block.content|default()|raw, 'png', 150) }}" />
+    
+    {% endfor %}
+{% endblock content %}

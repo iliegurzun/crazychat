@@ -1,0 +1,55 @@
+{% extends "DuedinoiAdminBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block content %}
+    <form class="login-page" action="{{ path("fos_user_security_check") }}" method="post" novalidate role="form">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <section class="wrapper scrollable animated fadeInDown">
+                <section class="panel panel-default">
+                    <div class="panel-heading">
+                        <div>
+{#                            <img src="images/proton-logo.png" alt="proton-logo">#}
+                            <h1>
+                                <span class="title">
+                                    {{ admin_title() }}
+                                </span>
+                                <span class="subtitle">
+                                    Login with your admin account
+                                </span>
+                            </h1>
+                        </div>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="welcome-text">
+                            {% if error %}
+                                <div class="alert alert-error">{{ error|trans }}</div>
+                            {% endif %}
+                            </span>
+                            <span class="member">
+                            </span>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="login-text">
+                            </span>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control input-lg" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="_password" required="required" class="form-control input-lg" id="password" placeholder="Password">
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="panel-footer">
+                        <button class="btn btn-lg btn-success">LOGIN TO YOUR ACCOUNT</button>
+                        <br>
+                        <a class="forgot" href="javascript:;">Forgot Your Password?</a>
+                    </div>
+                </section>
+            </section>
+        </form>
+</div>
+{% endblock content %}

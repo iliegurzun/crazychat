@@ -1,0 +1,19 @@
+Duedinoi\AdminBundle\Entity\Country:
+    type: entity
+    table: null
+    repositoryClass: Duedinoi\AdminBundle\Entity\CountryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+    oneToMany:
+        cities:
+            targetEntity: City
+            mappedBy: country
+    lifecycleCallbacks: {  }

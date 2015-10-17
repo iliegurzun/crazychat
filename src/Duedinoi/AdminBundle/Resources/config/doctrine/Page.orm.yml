@@ -1,0 +1,59 @@
+Duedinoi\AdminBundle\Entity\Page:
+    type: entity
+    table: duedinoi_page
+    repositoryClass: Duedinoi\AdminBundle\Repository\PageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        path:
+            type: string
+            length: 255
+            column: path
+        seoTitle:
+            type: string
+            length: 255
+            column: seo_title
+            nullable: true
+        seo_description:
+            type: string
+            length: 255
+            nullable: true
+        seo_keywords:
+            type: string
+            length: 255
+            nullable: true
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    manyToOne:
+        parent:
+            targetEntity: Page
+            inversedBy: children 
+        gallery:
+            targetEntity: Gallery
+    oneToMany:
+        blocks:
+            targetEntity: Block
+            mappedBy: page
+            cascade: [ persist, remove ]
+        menu_items:
+            targetEntity: MenuItem
+            mappedBy: page
+        children:
+            targetEntity: Page
+            mappedBy: parent  
+    lifecycleCallbacks: {  }

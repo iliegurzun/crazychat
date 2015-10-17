@@ -1,0 +1,60 @@
+{% extends 'DuedinoiAdminBundle::layout.html.twig' %}
+
+{% block content %}
+{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'setting', list:  entities}  %}
+<div class="wrapper">
+        {% if app.session.getFlashBag.has('notice') %}
+        <div id="Sortable_Responsive_Media_Table" class="row-fluid">
+	   <div class="span12 span-table-title">
+                <div class="alert alert-info alert-block">
+                {% for notice in app.session.getFlashBag.get('notice') %}
+                    <i class="icon-alert icon-alert-info"></i>
+                    <strong>{{ notice }}</strong>
+                {% endfor %}
+        	</div>
+	   </div>
+	</div>
+        {% endif %}
+			   
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div id="input-fields-horizontal" class="list-group-item">
+                <h4 class="section-title">Edit {{ entity }} setting</h4>
+                <form method="post" action="{{ path('setting_update',{id: edit_form.vars.value.id}) }}" {{ form_enctype(edit_form) }} class="form-horizontal" role="form" novalidate>
+                    {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: edit_form } %}
+                    
+                    <div class="form-group">
+                        {{ form_label(edit_form.name) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.name) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.value) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.value) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.description) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.description) }}
+                        </div>
+                    </div>
+                    {{ form_rest(edit_form) }}
+                    
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <button class="btn btn-success" id="update-form" data-url="{{ path('setting_update',{id: edit_form.vars.value.id}) }}">Edit</button>
+                        </div>
+                    </div>
+                </form>
+                <form id="delete-form" method="post" action="{{ path('setting_delete', {id: entity.id}) }}" {{ form_enctype(delete_form) }}>
+                    {{ form_widget(delete_form) }}
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

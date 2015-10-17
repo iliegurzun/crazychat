@@ -1,0 +1,28 @@
+duedinoi_admin_country:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/country.yml"
+    prefix:   /country
+
+duedinoi_admin_homepage:
+    pattern:  /
+    defaults: { _controller: DuedinoiAdminBundle:Default:index }
+    
+duedinoi_admin_dashboard_sortable:
+    pattern: /dashboard-sort
+    defaults: { _controller: DuedinoiAdminBundle:Default:dashboardSort }
+duedinoi_admin_menu:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/menu.yml"
+    prefix:   /menu
+duedinoi_admin_setting:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/setting.yml"
+    prefix:   /setting
+duedinoi_admin_user:
+    resource: "@DuedinoiUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+duedinoi_admin_page:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/page.yml"
+    prefix:   /page
+duedinoi_admin_gallery:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/gallery.yml"
+    prefix:   /gallery
+
+

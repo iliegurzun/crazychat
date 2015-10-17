@@ -1,0 +1,40 @@
+Duedinoi\UserBundle\Entity\Profile:
+    type: entity
+    table: duedinoi_profile
+    repositoryClass: Duedinoi\UserBundle\Repository\ProfileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: 255
+            column: first_name
+            nullable: true
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+            nullable: true
+        gender:
+            type: integer
+            nullable: true
+        dateOfBirth:
+            type: datetime
+            nullable: true
+            column: date_of_birth
+    oneToOne:
+        image:
+            targetEntity: Duedinoi\AdminBundle\Entity\Image
+            joinColumn:
+                name: image_id
+                referencedColumnName: id
+                onDelete: 'CASCADE'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
+    lifecycleCallbacks: {  }

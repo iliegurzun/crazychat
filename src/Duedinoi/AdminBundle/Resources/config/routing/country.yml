@@ -1,0 +1,30 @@
+country:
+    path:     /
+    defaults: { _controller: "DuedinoiAdminBundle:Country:index" }
+
+country_show:
+    path:     /{id}/show
+    defaults: { _controller: "DuedinoiAdminBundle:Country:show" }
+
+country_new:
+    path:     /new
+    defaults: { _controller: "DuedinoiAdminBundle:Country:new" }
+
+country_create:
+    path:     /create
+    defaults: { _controller: "DuedinoiAdminBundle:Country:create" }
+    methods:  POST
+
+country_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DuedinoiAdminBundle:Country:edit" }
+
+country_update:
+    path:     /{id}/update
+    defaults: { _controller: "DuedinoiAdminBundle:Country:update" }
+    methods:  [POST, PUT]
+
+country_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DuedinoiAdminBundle:Country:delete" }
+    methods:  [POST, DELETE]

@@ -1,0 +1,49 @@
+menu:
+    pattern:  /
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:index" }
+
+menu_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:show" }
+
+menu_new:
+    pattern:  /new
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:new" }
+
+menu_create:
+    pattern:  /create
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:create" }
+    requirements: { _method: post }
+
+menu_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:edit" }
+
+menu_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:update" }
+    requirements: { _method: post|put }
+
+menu_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:delete" }
+    requirements: { _method: post|delete }
+menu_items:
+    pattern: /{menu_id}/items
+    defaults: {_controller: 'DuedinoiAdminBundle:Menu:menuItem'}
+    
+menu_add_item:
+    pattern: /{id}/add-item
+    defaults: { _controller: 'DuedinoiAdminBundle:Menu:addMenuItem' }
+    
+menu_remove_item:
+    pattern: /remove-menu-item
+    defaults: { _controller: 'DuedinoiAdminBundle:Menu:removeMenuItem' }
+    
+menu_edit_modal:
+    pattern: /get-edit-modal
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:getEditModal" }
+    
+menu_submit_edit_modal:
+    pattern: /add-item-link/{menuitem_id}
+    defaults: { _controller: "DuedinoiAdminBundle:Menu:submitEditModal" }

@@ -1,0 +1,323 @@
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(../fonts/open-sans.woff2) format('woff2');
+}
+
+* {
+    margin:0;
+    padding:0;
+    font-family: "Open Sans";
+}
+ul {
+    list-style:none
+}
+a,
+button,
+a:hover {
+    outline:0;
+    text-decoration:underline;
+    cursor:pointer;
+    color:#fff;
+    text-decoration: none;
+}
+a:hover {text-decoration:none;}
+a img {
+    border:0;
+    display:block;
+}
+a:active,
+a:focus {
+    outline:0
+}
+fieldset {
+    border:0
+}
+input,
+textarea {
+    font-size: 12px;
+    color: #677678;
+    outline:none!important;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    border-radius:0
+}
+textarea {
+    color:#8d9fa0;
+    border:1px solid #c3cece;
+}
+select { font-size:12px; }
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right:5px;
+    vertical-align:-1px;
+    width:13px;
+    height:13px
+}
+div {
+    zoom:1
+}
+.clearfix {
+    overflow:visible!important
+}
+.clearfix:after {
+    content:".";
+    display:block;
+    height:0;
+    clear:both;
+    visibility:hidden
+}
+img {
+    vertical-align: middle;
+}
+img {
+    border: 0 none;
+}
+p a {
+    font-weight:500;
+    text-decoration:underline;
+}
+.no-top-padding {
+    padding-top:0!important;
+}
+.no-underline {
+    text-decoration:none!important;
+}
+.no-underline:hover {
+    text-decoration:underline!important;
+}
+.underline {
+    text-decoration:underline!important;
+}
+.underline:hover {
+    text-decoration:none!important;
+}
+#logo {
+    float: left;
+    margin: -4px auto 0;
+    width: 207px;
+}
+body #header {
+    height: 85px;
+    margin-bottom: 50px;
+}
+.menu-wrap #header {
+    margin: auto;
+    width: 960px;
+}
+#header {
+    height: 51px;
+    margin-bottom: 30px;
+    margin-top: 3px;
+    overflow: hidden;
+    padding-top: 20px;
+}
+body.landing-page #header {
+    height: 70px;
+    margin-bottom: 105px;
+    padding-top: 24px;
+}
+#nav {
+    float: right;
+    font-size: 13px;
+    font-weight: 800;
+    height: 36px;
+}
+#nav > li {
+    background: #fff none repeat scroll 0 0;
+    display: inline;
+    float: right;
+    margin-left: 21px;
+    position: relative;
+}
+
+#nav > li > a {
+    border: 1px solid #64C389;
+    border-radius: 5px;
+    color: #64C389;
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.already-account {
+    float: right;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 7px;
+    text-align: center;
+}
+.landing-page .background-page {
+    overflow: hidden;
+}
+.background-page {
+    height: auto;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+}
+.background-page .bg {
+    left: 0;
+    max-height: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 85px;
+    width: 100%;
+    z-index: -1;
+}
+.menu-wrap {
+    background: #fff none repeat scroll 0 0;
+    width: 100%;
+}
+body.landing-page .background-page #page {
+    margin-top: 0;
+}
+#page{
+    margin: -87px auto 0;
+    width: 960px;
+}
+.container {
+    width: 960px;
+    margin: 90px auto 0;
+}
+.intro-wrap { float: left;}
+
+#intro {
+    color: #fff;
+    margin-top: 15px;
+    text-align: center;
+    width: 515px;
+}
+body.landing-page #content.sign-up {
+    background-color: rgba(0, 0, 0, 0.20);
+    float: right;
+    margin-bottom: 100px;
+}
+body.landing-page #content {
+    color: #fff;
+    background: #fff none repeat scroll 0 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+body.landing-page #content .c-header {
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    padding: 14px 10px;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+body.landing-page #content .c-header h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+body.landing-page #content .c-main {
+    overflow: hidden;
+    padding: 26px;
+    position: relative;
+}
+#form-sign-up {
+    color: #8d9fa0;
+}
+
+fieldset {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+.form-row {
+    margin-top: 20px;
+    position: relative;
+}
+#form-sign-up .form-row:first-child {
+    margin-top: 0;
+}
+#form-sign-up .form-row input[type="text"],
+#form-sign-up .form-row input[type="email"],
+#form-sign-up .form-row input[type="password"] {
+    width: 336px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    box-shadow: none;
+}
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="password"] {
+    border: 1px solid #c3cdce;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 #edf2f2 inset;
+    color: #8d9fa0;
+    font-weight: 700;
+    height: 34px;
+    padding: 0 16px;
+    width: 335px;
+}
+#form-sign-up .form-row input[type="*"]:-moz-placeholder,
+#form-sign-up .form-row input[type="*"]::-moz-placeholder,
+#form-sign-up .form-row input[type="text"]:-ms-input-placeholder,
+#form-sign-up .form-row input[type="text"]::-webkit-input-placeholder {
+    color: #ffffff !important;
+}
+button.green,
+a.green,
+button.green:hover,
+a.green:hover {
+    background: #64C389;
+    color: #ffffff;
+}
+.btn.big {
+    width: 140px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.info-block p,
+.user-item p {color: #8A898F;}
+.info-block h3 {color: #394B63;}
+.info-block .col-lg-6 { margin-bottom: 40px; }
+.last-registered {background: #EFF3F2;}
+.picture-circle {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+}
+.user-item.col-lg-2 {
+    overflow: hidden;
+    word-break: break-all;
+    height: 230px;
+}
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #64C389;
+}
+.second-hero {
+    background: url("../images/duedinoi-bottom-image.jpg") no-repeat;
+    position: absolute;
+    z-index: -1;
+    min-height: 380px;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.last-registered h3 {
+    font-size: 40px;
+    margin-bottom: 45px;
+    color: #fff;
+}
+.footer {
+    background: #30343D;
+    width: 100%;
+    min-height: 120px;
+    float: left;
+    color: #fff;
+}
+/*.second-hero {margin-top:-20px;}*/

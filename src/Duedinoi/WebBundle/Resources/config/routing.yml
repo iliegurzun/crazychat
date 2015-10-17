@@ -1,0 +1,4 @@
+duedinoi_web_homepage:
+    pattern: /{_locale}
+    defaults: { _controller: DuedinoiWebBundle:Default:homepage, _locale: 'it' }
+    

@@ -1,0 +1,20 @@
+register:
+    name: "Name"
+    email: "Email"
+    password: "Password"
+    birth_date: "Date of birth"
+    sex.male: "Male"
+    sex.female: "Female"
+    date.year: "Year"
+    date.month: "Month"
+    date.day: "Day"
+    login: "Login"
+    already_have_account: "You already have an account?"
+    signup_header: "First time on Duedinoi?"
+    submit_button: "Sign up"
+    terms_conditions: "I have read and accepted the <a href='#' class='underline'>Conditions of Use</a>, <a href='#' class='underline'>Privacy Statement</a> and <a href='#' class='underline'>Cookies</a>"
+homepage:
+    left_title: "Lorem ipsum"
+    left_content: "Lorem ipsum dolor sit..."
+default:
+    years: "years"

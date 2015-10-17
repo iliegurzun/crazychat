@@ -1,0 +1,81 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% block body_class %}landing-page{% endblock %}
+{% block content %}
+    <div class="background-page">
+        <img class="bg" src="{{ asset("bundles/duedinoiweb/images/duedinoi-hero-image.jpg") }}">
+        {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+        <div class="clearfix" id="page">
+            <div class="intro-wrap">
+                <div id="intro">
+                    <h3 style="font-size:41px;font-weight:bold;">{{ 'homepage.left_title'|trans }}</h3>
+                    <span>{{ 'homepage.left_content'|trans }}</span>
+                </div>
+            </div>
+            <div class="sign-up clearfix" id="content">
+                <div class="c-header">
+                    <h3>{{ 'register.signup_header'|trans }}</h3>
+                </div>
+
+                <form novalidate="" method="post" action="{{ path('fos_user_registration_register') }}" autocomplete="off" class="c-main" id="form-sign-up">
+                    <fieldset>
+                        <div class="form-row">
+                            {{ form_widget(form.name) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_widget(form.email) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_widget(form.plainPassword) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_widget(form.dateOfBirth) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_widget(form.gender) }}
+                        </div>
+                        <button type="submit" class="btn green big">{{ 'register.submit_button'|trans }}</button>
+                    </fieldset>
+                </form>
+                {#<span>{{ 'register.terms_conditions'|trans|raw }}</span>#}
+            </div>
+            <!--ends content -->
+        </div>
+    </div>
+    <div class="info-block container">
+        <div class="col-lg-6 text-center">
+            <img src="{{ asset('bundles/duedinoiweb/images/duedinoi-icon-1.png') }}"/>
+            <h3>{{ 'homepage.middle_1_title'|trans }}</h3>
+            <p>{{ 'homepage.middle_1_content'|trans }}</p>
+        </div>
+        <div class="col-lg-6 text-center">
+            <img src="{{ asset('bundles/duedinoiweb/images/duedinoi-icon-2.png') }}"/>
+            <h3>{{ 'homepage.middle_2_title'|trans }}</h3>
+            <p>{{ 'homepage.middle_2_content'|trans }}</p>
+        </div>
+        <div class="col-lg-6 text-center">
+            <img src="{{ asset('bundles/duedinoiweb/images/duedinoi-icon-3.png') }}"/>
+            <h3>{{ 'homepage.middle_3_title'|trans }}</h3>
+            <p>{{ 'homepage.middle_3_content'|trans }}</p>
+        </div>
+        <div class="col-lg-6 text-center">
+            <img src="{{ asset('bundles/duedinoiweb/images/duedinoi-icon-4.png') }}"/>
+            <h3>{{ 'homepage.middle_4_title'|trans }}</h3>
+            <p>{{ 'homepage.middle_4_content'|trans }}</p>
+        </div>
+    </div>
+    <div class="last-registered">
+        <div class="container text-center">
+            <h3>{{ 'homepage.last_registered_title'|trans }}</h3>
+            {% for user in users %}
+                {% include "DuedinoiWebBundle:Component:homepage_user.html.twig" with {user: user} %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="second-hero">
+        <div class="text-center">
+            <h3>{{ 'homepage.second_hero'|trans }}</h3>
+            <a class="btn green big">{{ 'default.register'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<ol class="sortable">
+    {% for item in items %}
+    <li id="item-{{item.id}}" rel="tooltip"><div>{{ item.title }}</div></li>
+    {% endfor %}
+</ol>
+
+<form class="add-menu-item" action="{{ path('menu_items',{'menu_id': menu.id}) }}" method="post" {{form_enctype(form) }} novalidate>
+    {% form_theme form _self %}
+    {% block iog_adminbundle_menu %}
+    <div id="iog_adminbundle_menu">
+        <input id="iog_adminbundle_menu_title" type="text" maxlength="255" required="required" name="iog_adminbundle_menu[title]">
+        <button id="add-new">Add new</button>
+    </div>
+    {% endblock %}
+</form>

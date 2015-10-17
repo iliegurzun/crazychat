@@ -1,0 +1,41 @@
+Duedinoi\AdminBundle\Entity\Image:
+    type: entity
+    table: duedinoi_image
+    collection: Image
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        filename:
+            type: string
+        mime_type:
+            type: string
+            nullable: true
+        original_filename:
+            type: string
+        hash:
+            type: string
+        description:
+            type: text
+            nullable: true
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    lifecycleCallbacks:
+        prePersist: [ prepareFile ]
+        preUpdate: [ prepareOldFile, prepareFile ]
+        postPersist: [ uploadFile ]
+        postUpdate: [ uploadFile, removeOldFile ]
+        postRemove: [ removeFile ]
+    repositoryClass: Duedinoi\AdminBundle\Repository\ImageRepository
+    

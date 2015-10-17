@@ -1,0 +1,56 @@
+Duedinoi\AdminBundle\Entity\MenuItem:
+    type: entity
+    table: duedinoi_menu_item
+    repositoryClass: Duedinoi\AdminBundle\Repository\MenuItemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        position:
+            type: string
+            length: 255
+            default_value: 0
+        link:
+            type: string
+            length: 255
+            nullable: true
+        created_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+    oneToMany:
+        children:
+            targetEntity: MenuItem
+            mappedBy: parent
+            orderBy:
+              position: ASC
+      
+    manyToOne:
+        menu:
+            targetEntity: Menu
+            inversedBy: items
+            joinColumn:
+                onDelete: 'CASCADE'
+        page:
+            targetEntity: Page
+            inversedBy: menu_items
+            joinColumn:
+                onDelete: 'SET NULL'
+        parent:
+            targetEntity: MenuItem
+            inversedBy: children
+            joinColumn:
+                onDelete: 'SET NULL'
+    lifecycleCallbacks: {  }

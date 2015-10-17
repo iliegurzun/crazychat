@@ -1,0 +1,54 @@
+<?php
+
+namespace Duedinoi\AdminBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+class CountryType extends AbstractType
+{
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('name', 'text', array(
+                'label' => 'Name',
+                'label_attr' => array(
+                    'class' => 'col-lg-4 control-label'
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Name'
+                )
+            ))
+            ->add('cities', 'collection', array(
+                'type' => new CityType,
+                'allow_add' => true,
+                'allow_delete' => true,
+//                'class' => 'DuedinoiAdminBundle:City'
+            ))
+        ;
+    }
+    
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Duedinoi\AdminBundle\Entity\Country'
+        ));
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'duedinoi_adminbundle_country';
+    }
+}
