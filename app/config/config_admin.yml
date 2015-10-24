@@ -23,4 +23,8 @@ Menu:
         class: "DuedinoiAdminBundle:Country"
         route: "country"
         icon:  "picture"
-Project Name: CMS
+    Cities:
+        class: "DuedinoiAdminBundle:City"
+        route: "city"
+        icon: "gear"
+Project Name: Crazy Chat

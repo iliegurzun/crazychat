@@ -33,6 +33,7 @@ fos_user_change_password:
 duedinoi_user:
     resource: "@DuedinoiUserBundle/Resources/config/routing.yml"
     prefix:   /{_locale}
+
 duedinoi_web_default:
     pattern:  /{_locale}/{path}
     defaults: { _controller: DuedinoiWebBundle:Default:index, path: null, locale: 'it' }

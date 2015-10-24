@@ -26,11 +26,17 @@ class Page {
           $repo = $em->getRepository('DuedinoiAdminBundle:Page');
           $path = $this->container->get('request')->getPathInfo();
           $routeName = $this->container->get('router')->match($path);
+          $pagePath = '';
+          if (isset($routeName['path'])) {
+              $pagePath = $routeName['path'];
+          }
+          $locale = $routeName['_locale'];
           $routeName = $routeName['_route'];
+
           if ($routeName != 'duedinoi_web_default') {
             $path = $this->container->get('router')->getRouteCollection()->get($routeName)->getPattern();
           }
-          $this->currentPage = $repo->findOneByPath($path);
+          $this->currentPage = $repo->findOneByPath($pagePath);
         }
         
         return $this->currentPage;

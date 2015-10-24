@@ -8,12 +8,6 @@ Duedinoi\UserBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
-    fields:
-        facebookId:
-            type: string
-            length: 255
-            column: facebook_id
-            nullable: true
     oneToOne:
         profile:
             targetEntity: Profile
@@ -21,6 +15,17 @@ Duedinoi\UserBundle\Entity\User:
                 name: profile_id
                 referencedColumnName: id
                 onDelete: 'CASCADE'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
+    manyToOne:
+        country:
+            targetEntity: Duedinoi\AdminBundle\Entity\Country
+            joinColumn:
+                name: country_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
             fetch: EAGER
             cascade:
                 - persist

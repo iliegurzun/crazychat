@@ -5,7 +5,6 @@ use Duedinoi\UserBundle\Entity\Profile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Duedinoi\AdminBundle\Form\ImageType;
 
 /**
  * Class RegisterType
@@ -14,6 +13,7 @@ use Duedinoi\AdminBundle\Form\ImageType;
 class RegisterType extends AbstractType
 {
     protected $translator;
+    
     public function __construct($translator)
     {
         $this->translator = $translator;
@@ -22,9 +22,11 @@ class RegisterType extends AbstractType
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options) 
+    {
+        
         $builder
-            ->add('name', 'text', array(
+            ->add('username', 'text', array(
                 'label' => " ",
                 'label_attr' => array(
                     'class' => 'col-lg-4 control-label'
@@ -50,6 +52,7 @@ class RegisterType extends AbstractType
                 )
             ))
             ->add('dateOfBirth', 'date', array(
+                'property_path' => 'profile.dateOfBirth',
                 'label'  => $this->translator->trans('register.birth_date'),
                 'widget' => 'choice',
                 'format'    => 'dd MM yyyy',
@@ -61,11 +64,24 @@ class RegisterType extends AbstractType
                 )
             ))
             ->add('gender', 'choice', array(
+                'property_path' => 'profile.gender',
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => array(
                     Profile::GENDER_MALE => $this->translator->trans('register.sex.male'),
                     Profile::GENDER_FEMALE => $this->translator->trans('register.sex.female')
+                )
+            ))
+            ->add('country', 'entity', array(
+                'class' => 'DuedinoiAdminBundle:Country',
+                'empty_value' => $this->translator->trans('register.choose_country')
+            ))
+            ->add('city', 'text', array(
+                'property_path' => 'profile.city',
+                'label'         => ' ',
+                'attr'          => array(
+                    'class'         => 'form-control',
+                    'placeholder'   => $this->translator->trans('register.choose_city'),
                 )
             ))
         ;
@@ -76,8 +92,8 @@ class RegisterType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Duedinoi\UserBundle\Entity\User',
-            'novalidate' => 'novalidate'
+            'data_class'        => 'Duedinoi\UserBundle\Entity\User',
+            'validation_groups' =>  array('registration'),
         ));
     }
 
@@ -88,6 +104,6 @@ class RegisterType extends AbstractType
      */
     public function getName()
     {
-        return 'register';
+        return 'fos_user_registration';
     }
 }

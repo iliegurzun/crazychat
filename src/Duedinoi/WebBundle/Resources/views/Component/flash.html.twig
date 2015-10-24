@@ -1,0 +1,87 @@
+{% for flashMessage in app.session.flashbag.get('alert') %}
+    <script type="text/javascript">
+        $.growl({
+            message: "{{ flashMessage|raw }}"
+        }, {
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            offset: 20,
+            mouse_over: "pause",
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            type: 'warning',
+            delay: 10000,
+            icon_type: "img"
+        });
+    </script>
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('error') %}
+    <script type="text/javascript">
+        $.growl({
+            message: "{{ flashMessage|raw }}"
+        }, {
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            offset: 20,
+            mouse_over: "pause",
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            type: 'error',
+            delay: 10000,
+            icon_type: "img"
+        });
+    </script>
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('info') %}
+    <script type="text/javascript">
+        $.growl({
+            message: "{{ flashMessage|raw }}"
+        }, {
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            offset: 20,
+            mouse_over: "pause",
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            type: 'info',
+            delay: 10000,
+            icon_type: "img"
+        });
+    </script>
+{% endfor %}
+
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <script type="text/javascript">
+        $.growl({
+            message: '{{ flashMessage|raw }}'
+        }, {
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            offset: 20,
+            mouse_over: "pause",
+            animate: {
+                enter: 'animated fadeInDown',
+                exit: 'animated fadeOutUp'
+            },
+            type: 'success',
+            delay: 10000,
+            icon_type: "img"
+        });
+    </script>
+{% endfor %}

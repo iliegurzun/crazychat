@@ -67,6 +67,7 @@ class City
     public function setCountry(\Duedinoi\AdminBundle\Entity\Country $country = null)
     {
         $this->country = $country;
+        $country->addCity($this);
 
         return $this;
     }
@@ -79,5 +80,10 @@ class City
     public function getCountry()
     {
         return $this->country;
+    }
+    
+    public function __toString() 
+    {
+        return $this->getName();
     }
 }

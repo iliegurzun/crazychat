@@ -26,6 +26,39 @@ Duedinoi\UserBundle\Entity\Profile:
             type: datetime
             nullable: true
             column: date_of_birth
+        city:
+            type: string
+            length: 255
+            nullable: true
+        relationship:
+            type: string
+            length: 50
+            nullable: true
+        sign:
+            type: string
+            length: 50
+            nullable: true
+        hobby:
+            type: text
+            nullable: true
+        studies:
+            type: text
+            nullable: true
+        description:
+            type: text
+            nullable: true
+        voteNotification:
+            type: boolean
+            nullable: true
+            column: vote_notification
+        commentNotification:
+            type: boolean
+            nullable: true
+            column: comment_notification
+        messageNotification:
+            type: boolean
+            nullable: true
+            column: message_notification
     oneToOne:
         image:
             targetEntity: Duedinoi\AdminBundle\Entity\Image

@@ -15,6 +15,17 @@ class CityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('country', 'entity', array(
+                'class' => 'DuedinoiAdminBundle:Country',
+                'label' => 'Country',
+                'label_attr' => array(
+                    'class' => 'col-lg-4 control-label'
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Country'
+                )
+            ))
             ->add('name', 'text', array(
                 'label' => 'Name',
                 'label_attr' => array(

@@ -14,6 +14,43 @@ class Profile
 
     /** const int */
     const GENDER_FEMALE = 1;
+    
+    const STATUS_SINGLE = 'single';
+    
+    const STATUS_MARIED = 'maried';
+    
+    const STATUS_DIVORCED = 'divorced';
+    
+    const STATUS_ENGAGED = 'engaged';
+    
+    const STATUS_SEPARATED = 'separated';
+    
+    const STATUS_WIDOWED = 'widowed';
+    
+    const SIGN_ARIES = 'aries';
+    
+    const SIGN_TAURUS = 'taurus';
+    
+    const SIGN_GEMINI = 'gemini';
+    
+    const SIGN_CANCER = 'cancer';
+    
+    const SIGN_LEO = 'leo';
+    
+    const SIGN_VIRGO = 'virgo';
+    
+    const SIGN_LIBRA = 'libra';
+    
+    const SIGN_SCORPIO = 'scorpio';
+    
+    const SIGN_SAGITTARIUS = 'sagittarius';
+    
+    const SIGN_CAPRICORN = 'capricorn';
+    
+    const SIGN_AQUARIUS = 'aquarius';
+    
+    const SIGN_PISCES = 'pisces';
+    
     /**
      * @var integer
      */
@@ -38,6 +75,36 @@ class Profile
      * @var \DateTime
      */
     protected $dateOfBirth;
+    
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $relationship;
+
+    /**
+     * @var string
+     */
+    private $sign;
+
+    /**
+     * @var string
+     */
+    private $hobby;
+
+    /**
+     * @var string
+     */
+    private $studies;
+
+    /**
+     * @var string
+     */
+    private $description;
 
     /**
      * Get id
@@ -179,5 +246,236 @@ class Profile
         $age = $now->format('Y') - $this->getDateOfBirth()->format('Y');
 
         return $age;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return Profile
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set relationship
+     *
+     * @param string $relationship
+     *
+     * @return Profile
+     */
+    public function setRelationship($relationship)
+    {
+        $this->relationship = $relationship;
+
+        return $this;
+    }
+
+    /**
+     * Get relationship
+     *
+     * @return string
+     */
+    public function getRelationship()
+    {
+        return $this->relationship;
+    }
+
+    /**
+     * Set sign
+     *
+     * @param string $sign
+     *
+     * @return Profile
+     */
+    public function setSign($sign)
+    {
+        $this->sign = $sign;
+
+        return $this;
+    }
+
+    /**
+     * Get sign
+     *
+     * @return string
+     */
+    public function getSign()
+    {
+        return $this->sign;
+    }
+
+    /**
+     * Set hobby
+     *
+     * @param string $hobby
+     *
+     * @return Profile
+     */
+    public function setHobby($hobby)
+    {
+        $this->hobby = $hobby;
+
+        return $this;
+    }
+
+    /**
+     * Get hobby
+     *
+     * @return string
+     */
+    public function getHobby()
+    {
+        return $this->hobby;
+    }
+
+    /**
+     * Set studies
+     *
+     * @param string $studies
+     *
+     * @return Profile
+     */
+    public function setStudies($studies)
+    {
+        $this->studies = $studies;
+
+        return $this;
+    }
+
+    /**
+     * Get studies
+     *
+     * @return string
+     */
+    public function getStudies()
+    {
+        return $this->studies;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Profile
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    /**
+     * @var boolean
+     */
+    private $voteNotification;
+
+    /**
+     * @var boolean
+     */
+    private $commentNotification;
+
+    /**
+     * @var boolean
+     */
+    private $messageNotification;
+
+
+    /**
+     * Set voteNotification
+     *
+     * @param boolean $voteNotification
+     *
+     * @return Profile
+     */
+    public function setVoteNotification($voteNotification)
+    {
+        $this->voteNotification = $voteNotification;
+
+        return $this;
+    }
+
+    /**
+     * Get voteNotification
+     *
+     * @return boolean
+     */
+    public function getVoteNotification()
+    {
+        return $this->voteNotification;
+    }
+
+    /**
+     * Set commentNotification
+     *
+     * @param boolean $commentNotification
+     *
+     * @return Profile
+     */
+    public function setCommentNotification($commentNotification)
+    {
+        $this->commentNotification = $commentNotification;
+
+        return $this;
+    }
+
+    /**
+     * Get commentNotification
+     *
+     * @return boolean
+     */
+    public function getCommentNotification()
+    {
+        return $this->commentNotification;
+    }
+
+    /**
+     * Set messageNotification
+     *
+     * @param boolean $messageNotification
+     *
+     * @return Profile
+     */
+    public function setMessageNotification($messageNotification)
+    {
+        $this->messageNotification = $messageNotification;
+
+        return $this;
+    }
+
+    /**
+     * Get messageNotification
+     *
+     * @return boolean
+     */
+    public function getMessageNotification()
+    {
+        return $this->messageNotification;
     }
 }

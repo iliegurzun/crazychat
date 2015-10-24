@@ -1,4 +1,4 @@
-{% extends "IogWebBundle::layout.html.twig" %}
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
 {% block title %}
     {{ page.title }}
 {% endblock  %}
@@ -9,9 +9,6 @@
         {% include 'IogWebBundle:Component:gallery.html.twig' with {gallery: page.gallery} %}
     {% endif %}
     {% for block in page.blocks %}
-        
-        {{ block.content|raw }}
-        <img src="{{ qrcode_url(block.content|default()|raw, 'png', 150) }}" />
-    
+        {{ block.content|raw }}    
     {% endfor %}
 {% endblock content %}

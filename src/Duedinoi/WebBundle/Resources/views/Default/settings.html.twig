@@ -1,0 +1,29 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% block content %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
+    <div class="container-fluid egg-green">
+        <div class="container no-margin-top">
+            <h3 class="page-title">
+                {{ 'title.settings'|trans }}
+            </h3>
+            <form method="post" action="{{ path('duedinoi_settings') }}">
+                <div class="form-row">
+                    {{ form_widget(form.voteNotification) }}
+                    {{ form_label(form.voteNotification) }}
+                </div>
+                <div class="form-row">
+                    {{ form_widget(form.commentNotification) }}
+                    {{ form_label(form.commentNotification) }}
+                </div>
+                <div class="form-row">
+                    {{ form_widget(form.messageNotification) }}
+                    {{ form_label(form.messageNotification) }}
+                </div>
+                {{ form_rest(form) }}
+                <button type="submit" class="btn green big">{{ 'save'|trans }}</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

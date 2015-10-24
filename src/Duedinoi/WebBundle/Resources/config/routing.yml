@@ -1,4 +1,9 @@
 duedinoi_web_homepage:
     pattern: /{_locale}
-    defaults: { _controller: DuedinoiWebBundle:Default:homepage, _locale: 'it' }
-    
+    defaults: { _controller: DuedinoiWebBundle:Default:homepage, _locale: 'it' } 
+duedinoi_edit_profile:
+    pattern: /{_locale}/edit-profile
+    defaults: { _controller: DuedinoiWebBundle:Default:editProfile, _locale: 'it' }
+duedinoi_settings:
+    pattern: /{_locale}/settings
+    defaults: { _controller: DuedinoiWebBundle:Default:settings, _locale: 'it' }

@@ -24,7 +24,7 @@
                         <li class="list-group-item">
                             <span class="welcome-text">
                             {% if error %}
-                                <div class="alert alert-error">{{ error|trans }}</div>
+                                <div class="alert alert-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
                             </span>
                             <span class="member">

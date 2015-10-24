@@ -4,20 +4,18 @@ Duedinoi\AdminBundle\Entity\Page:
       - NotBlank: ~
     title:
       - NotBlank: ~  
-Duedinoi\UserBundle\Entity\Profile:
-    properties:
-        firstName: 
-            - NotBlank: { message: First name should not be blank. }
-        lastName:
-            - NotBlank: { message: Last name should not be blank. }
 Duedinoi\UserBundle\Entity\User:
+    constraints:
+        - Duedinoi\WebBundle\Validator\Constraints\UniqueUser: { groups: [registration] }
     properties:
         profile:
             - Valid: ~
         email:
-            - NotBlank: { message: Email should not be blank. }
+            - NotBlank: { groups: [registration] }
         plainPassword:
-            - NotBlank: { message: Password should not be blank. }
+            - NotBlank: { groups: [registration] }
+        username:
+            - NotBlank: { groups: [registration] }
 Duedinoi\AdminBundle\Entity\Block:
     properties:
         name:

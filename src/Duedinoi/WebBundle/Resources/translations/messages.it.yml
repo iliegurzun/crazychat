@@ -13,6 +13,9 @@ register:
     signup_header: "Prima volta su Duedinoi?"
     submit_button: "Avanti"
     terms_conditions: "Dichiaro di aver letto a accettato le <a href='#' class='underline'>Condizioni di utillizzo</a>, <a href='#' class='underline'>l'Informativa sulla privacy</a> e la <a href='#' class='underline'>Normativa sui cookie</a>"
+    username_taken: "Questo nome utente è già stato preso"
+    email_taken: "Questo email utente è già stato preso"
+
 homepage:
     left_title: "Lorem ipsum"
     left_content: "Lorem ipsum dolor sit..."
@@ -29,3 +32,33 @@ homepage:
 default:
     years: "anni"
     register: "Iscriviti"
+
+menu:
+    dashboard: "Pagina Principale"
+    edit_profile: "Il mio profilo"
+    photos: "Foto"
+    messages: "Messaggi"
+    notifications: "Notifiche"
+    settings: "Impostazioni"
+sign:
+    aries: "Montone"
+    taurus: "Toro"
+    gemini: "Gemelli"
+    cancer: "Cancro"
+    leo: "Leone"
+    virgo: "Vergine"
+    libra: "Libra"
+    scorpio: "Scorpione"
+    sagittarius: "Sagittario"
+    capricorn: "Capricorno"
+    aquarius: "Acquario"
+    pisces: "Pesci"
+profile:
+    vote_notification: "Ricevere notifice di voto"
+    comment_notification: "Ricevere notifice di commenti"
+    message_notification: "Messagi Ricevuti"
+title:
+    edit_profile: "Modificare il tuo profilo"
+    settings: "Cambiare le impostazioni dell'account"
+save: "Salva"
+    

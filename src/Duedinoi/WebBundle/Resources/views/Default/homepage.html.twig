@@ -17,23 +17,37 @@
                     <h3>{{ 'register.signup_header'|trans }}</h3>
                 </div>
 
-                <form novalidate="" method="post" action="{{ path('fos_user_registration_register') }}" autocomplete="off" class="c-main" id="form-sign-up">
+                <form method="post" action="{{ path('duedinoi_web_homepage') }}" autocomplete="off" class="c-main" id="form-sign-up">
                     <fieldset>
                         <div class="form-row">
-                            {{ form_widget(form.name) }}
+                            {{ form_errors(form.username) }}
+                            {{ form_widget(form.username) }}
                         </div>
                         <div class="form-row">
+                            {{ form_errors(form.email) }}
                             {{ form_widget(form.email) }}
                         </div>
                         <div class="form-row">
+                            {{ form_errors(form.plainPassword) }}
                             {{ form_widget(form.plainPassword) }}
                         </div>
                         <div class="form-row">
+                            {{ form_errors(form.dateOfBirth) }}
                             {{ form_widget(form.dateOfBirth) }}
                         </div>
                         <div class="form-row">
+                            {{ form_errors(form.gender) }}
                             {{ form_widget(form.gender) }}
                         </div>
+                        <div class="form-row full-width">
+                            {{ form_errors(form.country) }}
+                            {{ form_widget(form.country) }}
+                        </div>
+                        <div class="form-row full-width">
+                            {{ form_errors(form.city) }}
+                            {{ form_widget(form.city) }}
+                        </div>
+                        {{ form_rest(form) }}
                         <button type="submit" class="btn green big">{{ 'register.submit_button'|trans }}</button>
                     </fieldset>
                 </form>

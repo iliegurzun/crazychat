@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default navbar-static-top orange no-margin-bottom">
+    <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
+    <div class="container-fluid">
+        <div id="bs-example-navbar-collapse-8" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
+                    <a href="#">{{ 'menu.dashboard'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_edit_profile'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_edit_profile') }}">{{ 'menu.edit_profile'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
+                    <a href="#">{{ 'menu.photos'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
+                    <a href="#">{{ 'menu.messages'|trans }}</a></li>
+                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
+                    <a href="#">{{ 'menu.notifications'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_settings'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_settings') }}">{{ 'menu.settings'|trans }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
