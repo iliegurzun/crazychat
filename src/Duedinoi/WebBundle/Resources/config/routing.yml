@@ -7,3 +7,12 @@ duedinoi_edit_profile:
 duedinoi_settings:
     pattern: /{_locale}/settings
     defaults: { _controller: DuedinoiWebBundle:Default:settings, _locale: 'it' }
+duedinoi_dashboard:
+    pattern: /{_locale}/dashboard
+    defaults: { _controller: DuedinoiWebBundle:Default:dashboard, _locale: 'it' }
+duedinoi_my_profile:
+    pattern: /{_locale}/my-profile
+    defaults: { _controller: DuedinoiWebBundle:Default:myProfile, _locale: 'it' }
+duedinoi_user_profile:
+    pattern: /{_locale}/{userslug}/profile
+    defaults: { _controller: DuedinoiWebBundle:Default:userProfile, _locale: 'it' }

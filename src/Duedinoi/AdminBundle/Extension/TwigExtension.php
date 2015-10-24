@@ -217,7 +217,7 @@ class TwigExtension extends \Twig_Extension
 
     public function getUserImage(User $user)
     {
-        $userImage = 'bundles/Duedinoiweb/images/duedinoi-hero-image-crop.jpg';
+        $userImage = 'bundles/duedinoiweb/images/duedinoi-hero-image-crop.jpg';
         if ($user->getProfile()->getImage() instanceof Image) {
             $userImage = $user->getProfile()->getImage()->getWebPath();
         }

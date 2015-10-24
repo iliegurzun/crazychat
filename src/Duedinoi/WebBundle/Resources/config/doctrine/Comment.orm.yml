@@ -1,0 +1,45 @@
+Duedinoi\WebBundle\Entity\Comment:
+    type: entity
+    table: comment
+    repositoryClass: Duedinoi\WebBundle\Entity\CommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        createdAt:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+            column: created_at
+        updatedAt:
+            type: date
+            gedmo:
+                timestampable: 
+                    on: update
+            column: updated_at
+        status:
+            type: boolean
+        content:
+            type: text
+    manyToOne:
+        author:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: comments
+            onCascade: DELETE
+            joinColumn:
+                name: author_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
+        user:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: receivedComments
+            onCascade: DELETE
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
+    lifecycleCallbacks: {  }

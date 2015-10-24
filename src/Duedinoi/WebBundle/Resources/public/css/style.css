@@ -34,8 +34,8 @@ a:focus {
 fieldset {
     border:0
 }
-input,
-textarea {
+#form-sign-up input,
+#form-sign-up textarea {
     font-size: 12px;
     color: #677678;
     outline:none!important;
@@ -248,9 +248,9 @@ fieldset {
     color: #fff;
     box-shadow: none;
 }
-.form-row input[type="text"],
-.form-row input[type="email"],
-.form-row input[type="password"] {
+#form-sign-up .form-row input[type="text"],
+#form-sign-up .form-row input[type="email"],
+#form-sign-up .form-row input[type="password"] {
     border: 1px solid #c3cdce;
     border-radius: 5px;
     box-shadow: 0 2px 2px 0 #edf2f2 inset;
@@ -356,10 +356,35 @@ input::-moz-placeholder {
 .orange li.active {
     background: #2d3847 !important;
 }
-
+.orange-text {
+    color: #fa7724 !important;
+}
 .egg-green {background: #ecf4e0;}
 .no-margin-bottom {margin-bottom: 0px;}
 
+.form-control {float: left;}
+.edit-profile input,
+.edit-profile textarea,
+.edit-profile select {
+    border: 1px solid #b3c0ba;
+    height: 40px;
+    border-radius: 3px;
+    float: left;
+    clear: both;
+    width: 100%;
+}
+.edit-profile label {
+    float: left;
+    color: #3b495e;
+}
+.edit-profile textarea {height: auto;}
+.no-padding {padding: 0;}
+.picture-circle-dashboard {
+    width: 109px;
+    height: 109px;
+    border-radius: 50%;
+    overflow: hidden;
+}
 /*::-webkit-input-placeholder {
    color: red;
 }

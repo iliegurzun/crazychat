@@ -432,4 +432,13 @@ class Page
     {
         return $this->gallery;
     }
+    
+    public function getBlocksForLanguage($language = 'it')
+    {
+        $blocksForLang = $this->getBlocks()->filter(function($item) use ($language) {
+            return $item->getLanguage() == $language;
+        });
+        
+        return $blocksForLang;
+    }
 }

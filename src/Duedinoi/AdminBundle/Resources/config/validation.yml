@@ -16,7 +16,3 @@ Duedinoi\UserBundle\Entity\User:
             - NotBlank: { groups: [registration] }
         username:
             - NotBlank: { groups: [registration] }
-Duedinoi\AdminBundle\Entity\Block:
-    properties:
-        name:
-           - NotBlank: { message: Name should not be blank. } 

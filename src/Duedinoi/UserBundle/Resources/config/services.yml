@@ -1,5 +1,5 @@
 parameters:
-#    iog_user.example.class: Iog\UserBundle\Example
+    duedinoi_user.activity_listener.class: Duedinoi\UserBundle\EventListener\ActivityListener
 
 services:
 #    iog_user.example:
@@ -11,3 +11,9 @@ services:
         factory_method: getRepository
         arguments:
             - Duedinoi\UserBundle\Entity\User
+            
+    duedinoi_user.activity_listener:
+        class: %duedinoi_user.activity_listener.class%
+        arguments: [@security.context, @fos_user.user_manager]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }

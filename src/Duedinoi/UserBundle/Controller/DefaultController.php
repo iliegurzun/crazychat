@@ -17,7 +17,6 @@ class DefaultController extends Controller
     public function processAuthAction(Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        var_dump($user);die;
         if(is_string($this->get('security.context')->getToken()->getUser()) && $this->get('security.context')->getToken()->getUser()!=='anon.') {
             if(!$user) {
                 $user = $this->get('iog.facebook.user')->loadUserByUsername(null);

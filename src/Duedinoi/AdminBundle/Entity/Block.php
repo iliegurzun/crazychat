@@ -33,7 +33,11 @@ class Block
      * @var \Duedinoi\AdminBundle\Entity\Page
      */
     private $page;
-
+    
+    /**
+     * @var string
+     */
+    private $language;
 
     /**
      * Get id
@@ -136,32 +140,28 @@ class Block
     {
         return $this->page;
     }
-    /**
-     * @var string
-     */
-    private $name;
-
 
     /**
-     * Set name
+     * Set language
      *
-     * @param string $name
+     * @param string $language
+     *
      * @return Block
      */
-    public function setName($name)
+    public function setLanguage($language)
     {
-        $this->name = $name;
+        $this->language = $language;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get language
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
+    public function getLanguage()
     {
-        return $this->name;
+        return $this->language;
     }
 }

@@ -4,20 +4,56 @@ namespace Duedinoi\WebBundle\Form;
 use Duedinoi\UserBundle\Entity\Profile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use FOS\UserBundle\Form\Type\ChangePasswordFormType;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 /**
  * Class RegisterType
  * @package Duedinoi\WebBundle
  */
-class EditProfileType extends RegisterType
+class EditProfileType extends AbstractType
 {
+    protected $translator;
+    
+    public function __construct($translator) 
+    {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options) 
     {
-        parent::buildForm($builder, $options);
-        $builder->remove('password')
-                ->remove('gender')
+        $builder
+                
+                ->add('username', 'text', array(
+                    'label'         => $this->translator->trans('profile.username')
+                ))
+                ->add('email', 'text', array(
+                    'label'         => $this->translator->trans('profile.email')
+                ))
+                ->add('dateOfBirth', 'date', array(
+                    'property_path' => 'profile.dateOfBirth',
+                    'label'         => $this->translator->trans('register.birth_date'),
+                    'widget'        => 'choice',
+                    'format'        => 'dd MM yyyy',
+                    'years'         => array(1990, 1991, 1992, 1993, 1994),
+                    'placeholder'   => array(
+                        'year'      => $this->translator->trans('register.date.year'),
+                        'month'     => $this->translator->trans('register.date.month'),
+                        'day'       => $this->translator->trans('register.date.day')
+                    )
+                ))
+                ->add('country', 'entity', array(
+                    'label'         => $this->translator->trans('profile.country'),
+                    'class'         => 'DuedinoiAdminBundle:Country',
+                    'empty_value'   => $this->translator->trans('register.choose_country')
+                ))
+                ->add('city', 'text', array(
+                    'property_path' => 'profile.city',
+                    'label'         => $this->translator->trans('profile.city'),
+                    'attr'          => array(
+                        'class'         => 'form-control',
+                        'placeholder'   => $this->translator->trans('register.choose_city'),
+                    )
+                ))
                 ->add('gender', 'choice', array(
                     'property_path' => 'profile.gender',
                     'expanded'      => false,
@@ -27,20 +63,22 @@ class EditProfileType extends RegisterType
                         Profile::GENDER_FEMALE => $this->translator->trans('register.sex.female')
                     )
                 ))
+                
                 ->add('relationship', 'choice', array(
-                    'property_path' => 'profile.relationship',
-                    'choices' => array(
-                        Profile::STATUS_SINGLE    => $this->translator->trans('relationship.single'),
-                        Profile::STATUS_MARIED    => $this->translator->trans('relationship.maried'),
-                        Profile::STATUS_DIVORCED  => $this->translator->trans('relationship.divorced'),
-                        Profile::STATUS_ENGAGED   => $this->translator->trans('relationship.engaged'),
-                        Profile::STATUS_SEPARATED => $this->translator->trans('relationship.separated'),
-                        Profile::STATUS_WIDOWED   => $this->translator->trans('relationship.widowed'),
+                    'property_path'     => 'profile.relationship',
+                    'choices'           => array(
+                        Profile::STATUS_SINGLE              => $this->translator->trans('relationship.single'),
+                        Profile::STATUS_IN_A_RELATIONSHIP   => $this->translator->trans('relationship.relationship'),
+                        Profile::STATUS_MARRIED              => $this->translator->trans('relationship.married'),
+                        Profile::STATUS_DIVORCED            => $this->translator->trans('relationship.divorced'),
+                        Profile::STATUS_ENGAGED             => $this->translator->trans('relationship.engaged'),
+                        Profile::STATUS_SEPARATED           => $this->translator->trans('relationship.separated'),
+                        Profile::STATUS_WIDOWED             => $this->translator->trans('relationship.widowed'),
                     )
                 ))
                 ->add('sign', 'choice', array(
-                    'property_path' => 'profile.sign',
-                    'choices' => array(
+                    'property_path'     => 'profile.sign',
+                    'choices'           => array(
                         Profile::SIGN_ARIES         => $this->translator->trans('sign.aries'),
                         Profile::SIGN_TAURUS        => $this->translator->trans('sign.taurus'),
                         Profile::SIGN_GEMINI        => $this->translator->trans('sign.gemini'),
@@ -64,6 +102,26 @@ class EditProfileType extends RegisterType
                 ->add('description', 'textarea', array(
                     'property_path' => 'profile.description'
                 ))
+                ->add('current_password', 'password', array(
+                    'label'             => 'form.current_password',
+                    'translation_domain'=> 'FOSUserBundle',
+                    'mapped'            => false,
+                    'constraints'       => new UserPassword(),
+                    'required'          => false
+                ))
+                ->add('plainPassword', 'repeated', array(
+                'type'              => 'password',
+                'options'           => array('translation_domain' => 'FOSUserBundle'),
+                'first_options'     => array('label' => 'form.new_password'),
+                'second_options'    => array('label' => 'form.new_password_confirmation'),
+                'invalid_message'   => 'fos_user.password.mismatch',
+                'required'          => false
+            ))
             ;
+    }
+    
+    public function getName()
+    {
+        return 'edit_profile';
     }
 }

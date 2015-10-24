@@ -17,7 +17,7 @@ class Profile
     
     const STATUS_SINGLE = 'single';
     
-    const STATUS_MARIED = 'maried';
+    const STATUS_MARRIED = 'married';
     
     const STATUS_DIVORCED = 'divorced';
     
@@ -27,6 +27,23 @@ class Profile
     
     const STATUS_WIDOWED = 'widowed';
     
+    const STATUS_IN_A_RELATIONSHIP = 'relationship';
+    
+    public static $relationshipsString = array(
+        self::STATUS_SINGLE             => 'relationship.single',
+        self::STATUS_MARRIED            => 'relationship.married',
+        self::STATUS_DIVORCED           => 'relationship.divorced',
+        self::STATUS_ENGAGED            => 'relationship.engaged',
+        self::STATUS_SEPARATED          => 'relationship.separated',
+        self::STATUS_WIDOWED            => 'relationship.widowed',
+        self::STATUS_IN_A_RELATIONSHIP  => 'relationship.relationship',
+    );
+    
+    public static $gendersString = array(
+        self::GENDER_MALE   => 'gender.male',
+        self::GENDER_FEMALE => 'gender.female'
+    );
+
     const SIGN_ARIES = 'aries';
     
     const SIGN_TAURUS = 'taurus';
@@ -477,5 +494,19 @@ class Profile
     public function getMessageNotification()
     {
         return $this->messageNotification;
+    }
+    
+    public function getRelationshipStatus()
+    {
+        if (isset(self::$relationshipsString[$this->getRelationship()])) {
+            return self::$relationshipsString[$this->getRelationship()];
+        }
+        
+        return;
+    }
+    
+    public function getGenderString()
+    {
+        return self::$gendersString[$this->getGender()];
     }
 }

@@ -1,0 +1,9 @@
+<form method="post" action="#">
+    <div class="form-row">
+        {{ form_widget(form.content) }}
+        {{ form_errors(form.content) }}
+    </div>
+    {{ form_rest(form) }}
+    
+    <button>{{ 'comment_submit'|trans }}</button>
+</form>

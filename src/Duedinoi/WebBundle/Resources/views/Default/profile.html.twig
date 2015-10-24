@@ -1,0 +1,56 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% block content %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
+    <div class="container-fluid egg-green">
+        <div class="container">
+            <div class="col-lg-4">
+            </div>
+            <div class="col-lg-6">
+                <h3 class="col-lg-12">{{ user.username }}</h3>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.gender'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.getGenderString|trans }}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.relationship'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.relationshipStatus|trans }}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.city'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.city|default()}}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.birthday'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.dateOfBirth|date('m/d/Y')|default()}}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.hobby'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.hobby|striptags|nl2br}}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.sign'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.sign }}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.study'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.study|default() }}</p>
+                </div>
+                <div class="col-lg-12">
+                    <p class="orange-text col-lg-4"> {{ 'profile.description'|trans }}</p>
+                    <p class="col-lg-8">{{user.profile.description|default() }}</p>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <h3>{{ 'profile.comments'|trans }}</h3>
+                {% for comment in user.activeComments %}
+                    {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
+                {% endfor %}
+                {% if form is defined %}
+                    {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

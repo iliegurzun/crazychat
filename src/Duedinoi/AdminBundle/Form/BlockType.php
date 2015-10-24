@@ -15,14 +15,17 @@ class BlockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                    'label' => 'Block name',
+            ->add('language', 'choice', array(
+                    'label' => 'Language',
                     'label_attr' => array(
                         'class' => 'col-lg-4 control-label'
                     ),
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Block name'
+                    ),
+                    'choices'=> array(
+                        'en' => 'English',
+                        'it' => 'Italian'
                     )
                 ))
             ->add('content', 'textarea', array(

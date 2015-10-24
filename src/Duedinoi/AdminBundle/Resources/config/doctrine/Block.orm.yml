@@ -9,9 +9,6 @@ Duedinoi\AdminBundle\Entity\Block:
             generator:
                 strategy: AUTO
     fields:
-        name: 
-            type: string
-            length: 255
         content:
             type: text
             column: content
@@ -25,6 +22,9 @@ Duedinoi\AdminBundle\Entity\Block:
             gedmo:
                 timestampable: 
                     on: update
+        language:
+            type: string
+            length: 50
     manyToOne:
         page:
             targetEntity: Page

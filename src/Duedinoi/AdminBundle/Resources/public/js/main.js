@@ -46,11 +46,11 @@ $(document).ready(function() {
     if($('#update-form').length) {
         updateMenu($('#update-form'));
     }
-    
-    if($('.tinymce').length) {
-        tinymce.init({selector:'.tinymce'});
-
-    }
+//    
+//    if($('.tinymce').length) {
+//        tinymce.init({selector:'.tinymce'});
+//
+//    }
     
     if($('.menu-controls').length && $('.menu-controls').hasClass('hide')) {
         $('.menu-controls').parent().mouseover(function(){

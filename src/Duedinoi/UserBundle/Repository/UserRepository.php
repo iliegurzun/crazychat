@@ -3,6 +3,7 @@
 namespace Duedinoi\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * UserRepository
@@ -20,6 +21,25 @@ class UserRepository extends EntityRepository
             ->orderBy('u.id', 'desc')
             ->setMaxResults($limit);
 
+        return $qb->getQuery()->execute();
+    }
+    
+    public function findActiveExcept($user = null)
+    {
+        $delay = new \DateTime('2 minutes ago');
+        $qb = $this
+                ->createQueryBuilder('u')
+                ->andWhere('u.lastActivityAt > :delay')
+                ->setParameter('delay', $delay)
+                ->andWhere('u.roles NOT LIKE :admin')
+                ->setParameter('admin', '%ROLE_ADMIN%')
+                ;
+        if ($user instanceof UserInterface) {
+            $qb
+                ->andWhere('u.id != :user_id')
+                ->setParameter('user_id', $user->getId());
+        }
+        
         return $qb->getQuery()->execute();
     }
 }

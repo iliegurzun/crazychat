@@ -57,8 +57,30 @@ profile:
     vote_notification: "Ricevere notifice di voto"
     comment_notification: "Ricevere notifice di commenti"
     message_notification: "Messagi Ricevuti"
+    gender: "Genre"
+    relationship: "Stato civile"
+    city: "Citta"
+    birthday: "Data di nascita"
+    hobby: "Hobby"
+    sign: "Segno"
+    study: "Studi"
+    description: "Descrizione"
 title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
 save: "Salva"
+submit: "Aggiornare"
+remove_account: "Rimuovi account"
+relationship:
+    single: "Singolo"
+    married: "Sposato"
+    divorced: "Divorziato"
+    engaged: "Impegnato"
+    separated: "Separati"
+    widowed: "Vedova"
+    relationship: "In una relazione"
+gender:
+    male: "Uomo"
+    female: "Donna"
+    
     

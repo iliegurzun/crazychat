@@ -1,14 +1,19 @@
 {% extends "DuedinoiWebBundle::layout.html.twig" %}
-{% block title %}
-    {{ page.title }}
-{% endblock  %}
 
 {% block content %}
-
-    {% if page is not null and page.gallery|length %}
-        {% include 'IogWebBundle:Component:gallery.html.twig' with {gallery: page.gallery} %}
-    {% endif %}
-    {% for block in page.blocks %}
-        {{ block.content|raw }}    
-    {% endfor %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
+    <div class="container-fluid">
+        <div class="container no-margin-top">
+            <h3 class="page-title">
+                {{ page.title }}
+            </h3>
+            {% if page is not null and page.gallery|length %}
+                {% include 'IogWebBundle:Component:gallery.html.twig' with {gallery: page.gallery} %}
+            {% endif %}
+            {% for block in page.blocksForLanguage(app.request.get('_locale')) %}
+                {{ block.content|raw|nl2br }}    
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

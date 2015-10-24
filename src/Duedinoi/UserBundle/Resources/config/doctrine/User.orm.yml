@@ -8,6 +8,20 @@ Duedinoi\UserBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
+    fields:
+        lastActivityAt:
+            type: datetime
+            column: last_activity_at
+            nullable: true
+        slug:
+            type: string
+            length: 128
+            gedmo:
+              slug:
+                separator: "-"
+                style: default
+                fields:
+                  - username
     oneToOne:
         profile:
             targetEntity: Profile
@@ -30,4 +44,11 @@ Duedinoi\UserBundle\Entity\User:
             cascade:
                 - persist
                 - remove
+    oneToMany:
+        comments:
+            targetEntity: Duedinoi\WebBundle\Entity\Comment
+            mappedBy: author
+        receivedComments:
+            targetEntity: Duedinoi\WebBundle\Entity\Comment
+            mappedBy: user
     lifecycleCallbacks: {  }

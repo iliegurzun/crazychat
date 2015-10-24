@@ -4,6 +4,7 @@ namespace Duedinoi\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;
 use Duedinoi\UserBundle\Entity\Profile;
+use Duedinoi\WebBundle\Entity\Comment;
 
 //use Doctrine\ORM\Mapping\Annotation as ORM;
 use Doctrine\ORM\Mapping as ORM;
@@ -22,15 +23,36 @@ class User extends BaseUser {
      * @var \Duedinoi\UserBundle\Entity\Profile
      */
     private $profile;
+    
+    /**
+     * @var \DateTime
+     */
+    private $lastActivityAt;
 
     /**
      * @var \Duedinoi\AdminBundle\Entity\Country
      */
     private $country;
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comments;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $receivedComments;
+    
+    /**
+     * @var string
+     */
+    private $slug;
+    
     public function __construct() {
         parent::__construct();
         $this->profile = new Profile();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->receivedComments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -102,5 +124,143 @@ class User extends BaseUser {
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set lastActivityAt
+     *
+     * @param \DateTime $lastActivityAt
+     *
+     * @return User
+     */
+    public function setLastActivityAt($lastActivityAt)
+    {
+        $this->lastActivityAt = $lastActivityAt;
+
+        return $this;
+    }
+
+    /**
+     * Get lastActivityAt
+     *
+     * @return \DateTime
+     */
+    public function getLastActivityAt()
+    {
+        return $this->lastActivityAt;
+    }
+    
+    /**
+     * @return Bool Whether the user is active or not
+     */
+    public function isActiveNow()
+    {
+        // Delay during wich the user will be considered as still active
+        $delay = new \DateTime('2 minutes ago');
+
+        return ( $this->getLastActivityAt() > $delay );
+    }
+    
+
+
+    /**
+     * Add comment
+     *
+     * @param \Duedinoi\WebBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\Duedinoi\WebBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \Duedinoi\WebBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Duedinoi\WebBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add receivedComment
+     *
+     * @param \Duedinoi\WebBundle\Entity\Comment $receivedComment
+     *
+     * @return User
+     */
+    public function addReceivedComment(\Duedinoi\WebBundle\Entity\Comment $receivedComment)
+    {
+        $this->receivedComments[] = $receivedComment;
+
+        return $this;
+    }
+
+    /**
+     * Remove receivedComment
+     *
+     * @param \Duedinoi\WebBundle\Entity\Comment $receivedComment
+     */
+    public function removeReceivedComment(\Duedinoi\WebBundle\Entity\Comment $receivedComment)
+    {
+        $this->receivedComments->removeElement($receivedComment);
+    }
+
+    /**
+     * Get receivedComments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReceivedComments()
+    {
+        return $this->receivedComments;
+    }
+    
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return User
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    
+    public function getActiveComments()
+    {
+        $activeComments = $this->getReceivedComments()->filter(function($item) {
+            return Comment::STATUS_ACTIVE == $item->getStatus();
+        });
+
+        return $activeComments;
     }
 }
