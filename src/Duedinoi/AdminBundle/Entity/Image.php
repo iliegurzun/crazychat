@@ -3,6 +3,7 @@
 namespace Duedinoi\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Duedinoi\UserBundle\Entity\User;
 
 /**
  * Image
@@ -39,6 +40,34 @@ class Image
      */
     private $updated_at;
     
+    
+    /**
+     * @var string
+     */
+    private $hash;
+    
+    /**
+      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+      */
+    private $file;
+    
+    private $to_be_removed = false;
+    
+    /**
+     * @var string
+     */
+    private $description;
+    
+     /**
+     * @var \Duedinoi\UserBundle\Entity\User
+     */
+    private $user;
+    
+    /**
+     * @var boolean
+     */
+    private $isProfilePicture;
+    
     public function setId($id)
     {
         $this->id = $id;
@@ -48,6 +77,7 @@ class Image
     public function __construct()
     {
       $this->setHash(uniqid());
+      $this->setIsProfilePicture(false);
     }
     
     public function __toString() {
@@ -179,12 +209,6 @@ class Image
     }
     
     /**
-     * @var string
-     */
-    private $hash;
-
-
-    /**
      * Set hash
      *
      * @param string $hash
@@ -296,11 +320,6 @@ class Image
     }
     
     /**
-      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-      */
-    private $file;
-    
-    /**
      * Set file
      *
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
@@ -329,8 +348,6 @@ class Image
       }
       return false;
     }
-    
-    private $to_be_removed = false;
   
     public function getToBeRemoved() {
       return $this->to_be_removed;
@@ -339,11 +356,6 @@ class Image
     public function setToBeRemoved($to_be_removed) {    
       $this->to_be_removed = $to_be_removed;
     }
-    /**
-     * @var string
-     */
-    private $description;
-
 
     /**
      * Set description
@@ -366,5 +378,62 @@ class Image
     public function getDescription()
     {
         return $this->description;
+    }
+   
+    /**
+     * Set user
+     *
+     * @param \Duedinoi\UserBundle\Entity\User $user
+     *
+     * @return Image
+     */
+    public function setUser(\Duedinoi\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Duedinoi\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set isProfilePicture
+     *
+     * @param boolean $isProfilePicture
+     *
+     * @return Image
+     */
+    public function setIsProfilePicture($isProfilePicture)
+    {
+        $this->isProfilePicture = $isProfilePicture;
+
+        return $this;
+    }
+
+    /**
+     * Get isProfilePicture
+     *
+     * @return boolean
+     */
+    public function getIsProfilePicture()
+    {
+        return $this->isProfilePicture;
+    }
+    
+    public function belongsTo(User $user)
+    {
+        if ($this->getUser() instanceof User) {
+            return $this->getUser()->getId() === $user->getId();
+        }
+        
+        return false;
     }
 }

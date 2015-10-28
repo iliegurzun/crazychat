@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Duedinoi\WebBundle\Form\EditProfileType;
 use Duedinoi\WebBundle\Form\SettingsType;
+use Duedinoi\WebBundle\Form\ContactType;
+use Duedinoi\AdminBundle\Entity\ContactMessage;
+use Duedinoi\AdminBundle\Form\ImageType;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Duedinoi\AdminBundle\Entity\Image;
 
 class DefaultController extends Controller
 {
@@ -133,6 +138,28 @@ class DefaultController extends Controller
     public function photosAction(Request $request)
     {
         $user = $this->getUser();
+        $image = new \Duedinoi\AdminBundle\Entity\Image();
+        $image->setUser($user);
+        $form = $this->createForm(new ImageType(), $image);
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($image);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('photo.uploaded')
+                );
+                
+                return $this->redirect($this->generateUrl('duedinoi_photos'));
+            }
+        }
+        
+        return $this->render('DuedinoiWebBundle:Default:photos.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user
+        ));
     }
     
     public function dashboardAction(Request $request)
@@ -192,6 +219,83 @@ class DefaultController extends Controller
         return $this->render('DuedinoiWebBundle:Default:profile.html.twig', array(
             'user' => $user,
             'form' => $form->createView()
+        ));
+    }
+    
+    public function contactAction(Request $request)
+    {
+        $message = new ContactMessage();
+        $form = $this->createForm(new ContactType($this->container->get('translator')), $message);
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
+                
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('contact.message_sent')
+                );
+                
+                return $this->redirect($this->generateUrl('duedinoi_contact'));
+            }
+        }
+        
+        return $this->render('DuedinoiWebBundle:Default:contact.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+    
+    public function profilePictureAction($id, Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $imageRepo = $em->getRepository("DuedinoiAdminBundle:Image");
+        $image = $imageRepo->find($id);
+        if (!$image instanceof Image) {
+            throw $this->createNotFoundException();
+        }
+        if (!$image->belongsTo($user)) {
+            throw $this->createAccessDeniedException();
+        }
+        foreach ($user->getPhotos() as $photo) {
+            $photo->setIsProfilePicture(false);
+            $em->persist($photo);
+        }
+        $image->setIsProfilePicture(true);
+        $em->persist($image);
+        $em->flush();
+        
+        return new JsonResponse(array(
+            'success' => true
+        ));
+    }
+    
+    public function messagesAction()
+    {
+        /* @var $provider \FOS\MessageBundle\Provider\Provider */
+        $provider = $this->get('fos_message.provider');
+        $inboxThreads = $provider->getInboxThreads();
+        $sentboxThreads = $provider->getSentThreads();
+        $threads = array_merge($inboxThreads, $sentboxThreads);
+        
+        return $this->render('DuedinoiWebBundle:Default:messages.html.twig', array(
+            'threads' => $threads
+        ));
+    }
+    
+    public function threadAction($userslug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
+        if(!$user instanceof \Duedinoi\UserBundle\Entity\User) {
+            throw $this->createNotFoundException();
+        }
+        $form = $this->get('fos_message.new_thread_form.factory.default')->create();
+        
+        return $this->render('DuedinoiWebBundle:Default:thread.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 }

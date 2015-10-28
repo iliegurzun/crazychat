@@ -29,6 +29,10 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /{_locale}/profile
+    
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /{_locale}/message
 
 duedinoi_user:
     resource: "@DuedinoiUserBundle/Resources/config/routing.yml"

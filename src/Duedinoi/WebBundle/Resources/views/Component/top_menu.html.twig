@@ -9,11 +9,11 @@
                 <li class="{{ app.request.get('_route') in ['duedinoi_edit_profile', 'duedinoi_my_profile`'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_my_profile') }}">{{ 'menu.edit_profile'|trans }}</a>
                 </li>
-                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
-                    <a href="#">{{ 'menu.photos'|trans }}</a>
+                <li class="{{ app.request.get('_route') in ['duedinoi_photos'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_photos') }}">{{ 'menu.photos'|trans }}</a>
                 </li>
-                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
-                    <a href="#">{{ 'menu.messages'|trans }}</a></li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_messages'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_messages') }}">{{ 'menu.messages'|trans }}</a></li>
                 <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
                     <a href="#">{{ 'menu.notifications'|trans }}</a>
                 </li>

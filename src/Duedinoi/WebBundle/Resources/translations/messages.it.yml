@@ -82,5 +82,8 @@ relationship:
 gender:
     male: "Uomo"
     female: "Donna"
+contact:
+    title: "Contatto"
+    description: "Per eventuali problemi si prega di contattare i nostri tecnici"
     
     

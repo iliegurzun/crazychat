@@ -161,6 +161,7 @@ body.landing-page #header {
     overflow-x: hidden;
     position: relative;
     width: 100%;
+    max-height: 640px;
 }
 .background-page .bg {
     left: 0;
@@ -198,6 +199,7 @@ body.landing-page #content.sign-up {
     background-color: rgba(0, 0, 0, 0.20);
     float: right;
     margin-bottom: 100px;
+    width: 370px;
 }
 body.landing-page #content {
     color: #fff;
@@ -221,8 +223,19 @@ body.landing-page #content .c-header h3 {
 }
 body.landing-page #content .c-main {
     overflow: hidden;
-    padding: 26px;
+    padding: 0 20px 0px;
     position: relative;
+    padding-top: 0px;
+}
+input,
+textarea,
+select {
+    border: 1px solid #b3c0ba;
+    height: 40px;
+    border-radius: 3px;
+    float: left;
+    clear: both;
+    width: 100%;
 }
 #form-sign-up {
     color: #8d9fa0;
@@ -234,37 +247,64 @@ fieldset {
     padding: 0;
 }
 .form-row {
+    float: left;
     margin-top: 20px;
     position: relative;
-}
-#form-sign-up .form-row:first-child {
-    margin-top: 0;
+    width: 100%;
 }
 #form-sign-up .form-row input[type="text"],
 #form-sign-up .form-row input[type="email"],
+#form-sign-up .form-row select,
 #form-sign-up .form-row input[type="password"] {
-    width: 336px;
-    background-color: rgba(0, 0, 0, 0);
-    color: #fff;
-    box-shadow: none;
-}
-#form-sign-up .form-row input[type="text"],
-#form-sign-up .form-row input[type="email"],
-#form-sign-up .form-row input[type="password"] {
-    border: 1px solid #c3cdce;
+    border: 1px solid #bebfb7;
     border-radius: 5px;
-    box-shadow: 0 2px 2px 0 #edf2f2 inset;
     color: #8d9fa0;
     font-weight: 700;
     height: 34px;
     padding: 0 16px;
     width: 335px;
 }
+
+#form-sign-up .form-row:first-child {
+    margin-top: 0 !important;
+}
+#form-sign-up .form-row input[type="text"],
+#form-sign-up .form-row input[type="email"],
+#form-sign-up .form-row input[type="password"] {
+    width: 330px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+    box-shadow: none;
+    height: 40px;
+}
+
+
 #form-sign-up .form-row input[type="*"]:-moz-placeholder,
 #form-sign-up .form-row input[type="*"]::-moz-placeholder,
 #form-sign-up .form-row input[type="text"]:-ms-input-placeholder,
 #form-sign-up .form-row input[type="text"]::-webkit-input-placeholder {
     color: #ffffff !important;
+}
+
+#form-sign-up select {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #bebfb7;
+    border-radius: 5px;
+    height: 40px;
+    width: 330px;
+    appearance:none;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; 
+}
+
+#form-sign-up select option {
+    background: rgba(0,0,0,0.3);
+    color:#fff;
+    /*text-shadow:0 1px 0 rgba(0,0,0,0.4);*/
+}
+
+#form-sign-up input::-moz-placeholder { 
+    color:#FFF !important;
 }
 button.green,
 a.green,
@@ -278,6 +318,8 @@ a.green:hover {
     height: 50px;
     font-weight: bold;
     font-size: 20px;
+    margin-bottom: 30px;
+    margin-top: 20px;
 }
 .info-block p,
 .user-item p {color: #8A898F;}
@@ -322,26 +364,6 @@ a.green:hover {
     color: #fff;
 }
 
-.full-width select {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border: 1px solid;
-    border-radius: 5px;
-    height: 35px;
-    width: 100%;
-    appearance:none;
-    -moz-appearance:none; /* Firefox */
-    -webkit-appearance:none; 
-}
-
-select option {
-    background: rgba(0,0,0,0.3);
-    color:#fff;
-    /*text-shadow:0 1px 0 rgba(0,0,0,0.4);*/
-}
-
-input::-moz-placeholder { 
-    color:#FFF !important;
-}
 .no-margin-top {margin-top: 0!important;}
 .orange{
     background: #fa7724 !important;
@@ -363,21 +385,12 @@ input::-moz-placeholder {
 .no-margin-bottom {margin-bottom: 0px;}
 
 .form-control {float: left;}
-.edit-profile input,
-.edit-profile textarea,
-.edit-profile select {
-    border: 1px solid #b3c0ba;
-    height: 40px;
-    border-radius: 3px;
-    float: left;
-    clear: both;
-    width: 100%;
-}
+
 .edit-profile label {
     float: left;
     color: #3b495e;
 }
-.edit-profile textarea {height: auto;}
+textarea {height: auto;}
 .no-padding {padding: 0;}
 .picture-circle-dashboard {
     width: 109px;
@@ -385,6 +398,46 @@ input::-moz-placeholder {
     border-radius: 50%;
     overflow: hidden;
 }
+.full-width {width: 100%;}
+.page-heading {
+    background: url(../images/crazychat-contact.png) no-repeat;
+    width: 100%;
+    height: 200px;
+    color: #fff;
+    text-align: center;
+}
+.user-photo {
+    width: 100%;
+    border: 6px solid #fff;
+    box-shadow: -1px -1px 1px #e7e7e7;
+    border-radius: 3px;
+}
+.profile-picture {
+    background: #263341 none repeat scroll 0 0;
+    bottom: 6px;
+    color: #fff;
+    height: 44px;
+    left: 0;
+    margin-left: 21px;
+    opacity: 0.9;
+    position: absolute;
+    text-align: center;
+    width: 81.5%;
+    z-index: 1;
+}
+.profile-picture.active {
+    background: #dd7838;
+}
+.remove-photo {
+    position: absolute;
+    right: 21px;
+    top: 6px;
+    z-index: 1;
+    display: none;
+}
+.remove-photo:hover {display: block !important;}
+.mb-30 {margin-bottom: 30px;}
+
 /*::-webkit-input-placeholder {
    color: red;
 }

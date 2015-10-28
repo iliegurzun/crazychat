@@ -5,6 +5,7 @@ namespace Duedinoi\UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Duedinoi\UserBundle\Entity\Profile;
 use Duedinoi\WebBundle\Entity\Comment;
+use FOS\MessageBundle\Model\ParticipantInterface;
 
 //use Doctrine\ORM\Mapping\Annotation as ORM;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  */
-class User extends BaseUser {
+class User extends BaseUser implements ParticipantInterface 
+{
 
     /**
      * @var integer
@@ -44,15 +46,27 @@ class User extends BaseUser {
     private $receivedComments;
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $threads;
+    
+    /**
      * @var string
      */
     private $slug;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $photos;
     
     public function __construct() {
         parent::__construct();
         $this->profile = new Profile();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->receivedComments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->threads = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -160,8 +174,6 @@ class User extends BaseUser {
 
         return ( $this->getLastActivityAt() > $delay );
     }
-    
-
 
     /**
      * Add comment
@@ -262,5 +274,96 @@ class User extends BaseUser {
         });
 
         return $activeComments;
+    }
+    
+    /**
+     * Add photo
+     *
+     * @param \Duedinoi\AdminBundle\Entity\Image $photo
+     *
+     * @return User
+     */
+    public function addPhoto(\Duedinoi\AdminBundle\Entity\Image $photo)
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Remove photo
+     *
+     * @param \Duedinoi\AdminBundle\Entity\Image $photo
+     */
+    public function removePhoto(\Duedinoi\AdminBundle\Entity\Image $photo)
+    {
+        $this->photos->removeElement($photo);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+    
+    public function hasProfilePicture()
+    {
+        /* @var $photo \Duedinoi\AdminBundle\Entity\Image */
+        foreach ($this->getPhotos() as $photo) {
+            if ($photo->getIsProfilePicture()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    public function getProfilePicture()
+    {
+        foreach ($this->getPhotos() as $photo) {
+            if ($photo->getIsProfilePicture()) {
+                return $photo;
+            }
+        }
+        
+        return;
+    }
+
+    /**
+     * Add thread
+     *
+     * @param \Duedinoi\WebBundle\Entity\Thread $thread
+     *
+     * @return User
+     */
+    public function addThread(\Duedinoi\WebBundle\Entity\Thread $thread)
+    {
+        $this->threads[] = $thread;
+
+        return $this;
+    }
+
+    /**
+     * Remove thread
+     *
+     * @param \Duedinoi\WebBundle\Entity\Thread $thread
+     */
+    public function removeThread(\Duedinoi\WebBundle\Entity\Thread $thread)
+    {
+        $this->threads->removeElement($thread);
+    }
+
+    /**
+     * Get threads
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getThreads()
+    {
+        return $this->threads;
     }
 }

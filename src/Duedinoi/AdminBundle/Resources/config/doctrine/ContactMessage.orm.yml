@@ -1,0 +1,35 @@
+Duedinoi\AdminBundle\Entity\ContactMessage:
+    type: entity
+    table: null
+    repositoryClass: Duedinoi\AdminBundle\Entity\ContactMessageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        subject:
+            type: string
+            length: 255
+        message:
+            type: text
+        createdAt:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+            column: created_at
+        updatedAt:
+            type: date
+            gedmo:
+                timestampable: 
+                    on: update
+            column: updated_at
+    lifecycleCallbacks: {  }

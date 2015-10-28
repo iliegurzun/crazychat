@@ -32,4 +32,8 @@ security:
         - { path: ^/.*/admin/.*, role: ROLE_ADMIN }
         - { path: ^/.*/edit-profile, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/settings, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/my-profile, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/dashboard, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/photos, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/.*/profile, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

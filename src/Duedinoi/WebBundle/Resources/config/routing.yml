@@ -13,6 +13,21 @@ duedinoi_dashboard:
 duedinoi_my_profile:
     pattern: /{_locale}/my-profile
     defaults: { _controller: DuedinoiWebBundle:Default:myProfile, _locale: 'it' }
+duedinoi_contact:
+    pattern: /{_locale}/contact-us
+    defaults: { _controller: DuedinoiWebBundle:Default:contact, _locale: 'it' }
+duedinoi_photos:
+    pattern: /{_locale}/photos
+    defaults: { _controller: DuedinoiWebBundle:Default:photos, _locale: 'it' }
+duedinoi_profile_picture:
+    pattern: /{_locale}/profile-picture/{id}
+    defaults: { _controller: DuedinoiWebBundle:Default:profilePicture, _locale: 'it' }
+duedinoi_messages:
+    pattern: /{_locale}/messages
+    defaults: { _controller: DuedinoiWebBundle:Default:messages, _locale: it }
+duedinoi_thread:
+    pattern: /{_locale}/messages/{userslug}
+    defaults: { _controller: DuedinoiWebBundle:Default:thread, _locale: it }
 duedinoi_user_profile:
     pattern: /{_locale}/{userslug}/profile
     defaults: { _controller: DuedinoiWebBundle:Default:userProfile, _locale: 'it' }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel {
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
             new Duedinoi\UserBundle\DuedinoiUserBundle(),
             new Duedinoi\AdminBundle\DuedinoiAdminBundle(),
             new Duedinoi\WebBundle\DuedinoiWebBundle(),
