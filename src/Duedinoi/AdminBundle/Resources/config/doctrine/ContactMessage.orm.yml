@@ -1,6 +1,6 @@
 Duedinoi\AdminBundle\Entity\ContactMessage:
     type: entity
-    table: null
+    table: duedinoi_contact_message
     repositoryClass: Duedinoi\AdminBundle\Entity\ContactMessageRepository
     id:
         id:

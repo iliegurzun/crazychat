@@ -8,7 +8,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,7 +20,8 @@ security:
                 check_path: fos_user_security_check
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       
+            logout:
+                path: fos_user_security_logout
                 target: /
             anonymous:    true
     access_control:
@@ -34,6 +35,7 @@ security:
         - { path: ^/.*/settings, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/my-profile, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/dashboard, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/messages/.*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/photos, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/.*/profile, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

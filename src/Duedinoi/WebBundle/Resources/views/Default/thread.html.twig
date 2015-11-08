@@ -12,8 +12,23 @@
                 <h3 class="page-title col-lg-12 no-padding">
                     {{ 'title.active_users'|trans }}
                 </h3>
-                {{ form(form) }}
+                <div id="response" class="col-lg-12"></div>
+                <form method="post" action="{{ path('duedinoi_thread', {userslug: user.slug}) }}" id="send-message">
+                {{ form_rest(form) }}
+                    <button class="button green-button">{{'message.send'|trans }}</button>
+                </form>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var loadurl = "{{ path('duedinoi_load_messages', {userslug: user.slug}) }}";
+    </script>
+    {% javascripts filter="?yui_js"
+            "@DuedinoiWebBundle/Resources/public/js/client.js"
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

@@ -98,6 +98,12 @@ avalanche_imagine:
         user_photo:
             type: thumbnail
             options: { size: [260, 260], mode: outbound }
+        profile_picture:
+            type: thumbnail
+            options: { size: [448, 445], mode: outbound }
+        comment_picture:
+            type: thumbnail
+            options: { size: [50, 50], mode: outbound }
             
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

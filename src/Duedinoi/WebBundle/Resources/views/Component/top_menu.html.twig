@@ -14,8 +14,8 @@
                 </li>
                 <li class="{{ app.request.get('_route') in ['duedinoi_messages'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_messages') }}">{{ 'menu.messages'|trans }}</a></li>
-                <li class="{{ app.request.get('_route') in [] ? 'active' : '' }}">
-                    <a href="#">{{ 'menu.notifications'|trans }}</a>
+                <li class="{{ app.request.get('_route') in ['duedinoi_notifications'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_notifications') }}">{{ 'menu.notifications'|trans }}</a>
                 </li>
                 <li class="{{ app.request.get('_route') in ['duedinoi_settings'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_settings') }}">{{ 'menu.settings'|trans }}</a>

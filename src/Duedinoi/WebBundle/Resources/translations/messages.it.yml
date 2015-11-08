@@ -65,6 +65,16 @@ profile:
     sign: "Segno"
     study: "Studi"
     description: "Descrizione"
+    webcam: "Chatta"
+    message: "Invia un messaggio"
+    like: "Mi piace"
+    become_friends: "Aggiungere come amico"
+    report_photo: "Segnala una foto di queste utente"
+    block_comment: "Blocca i commenti"
+    comments: "Commenti"
+    username: "Nome Utente"
+    email: "Email"
+    country: "Provincia"
 title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
@@ -85,5 +95,32 @@ gender:
 contact:
     title: "Contatto"
     description: "Per eventuali problemi si prega di contattare i nostri tecnici"
+    name: "Nome"
+    email: "Email"
+    subject: "Soggetto"
+    message: "Tuo messaggio"
+    submit: "Invia"
+footer_menu:
+    homepage: "Home"
+    about: "Chi siamo"
+    contact: "Contact"
+    terms: "Condizioni"
+    privacy: "Privacy"
+    help: "Aiudo"
+login:
+    title: "Accedi a CrazyChat"
+    subtitle: "Effettua il login qui sotto"
+    username_email: "Email/Pseudonimo"
+    remember_me: "Memorizza la password"
+    forgot_password: "Password dimenticata?"
+    submit: "Accedi"
+    login_message: "Non hai ancora un account?"
+    register: "Iscriviti aqui!"
     
+notification:
+    view_profile: "viewed your profile."
+about:
+    title: "Chi siamo"
+    description: "Entra anche tu nella nostra community!"
+logout: "Esci"
     

@@ -1,19 +1,18 @@
-function getContent( timestamp )
+function getContent(timestamp)
 {
-	var queryString = { 'timestamp' : timestamp };
-	
-	$.get ( 'server.php' , queryString , function ( data )
-	{
-		var obj = jQuery.parseJSON( data );
-		$( '#response' ).html( obj.content );
-		
-		// reconecta ao receber uma resposta do servidor
-		getContent( obj.timestamp );
-	});
+    var queryString = {'timestamp': timestamp};
+    $.get(loadurl, queryString, function (data)
+    {
+        $('#response').html(data.content);
+        // reconecta ao receber uma resposta do servidor
+        getContent(data.timestamp);
+    }).fail(function (data) {
+        getContent(timestamp);
+    });
 }
 
-$( document ).ready ( function ()
+$(document).ready(function ()
 {
-	getContent();
+    getContent();
 });
 

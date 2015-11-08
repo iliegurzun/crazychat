@@ -100,7 +100,7 @@ class User extends BaseUser implements ParticipantInterface
     }
 
     public function __toString() {
-        return $this->getProfile()->getName();
+        return $this->getUsername();
     }
 
     /**

@@ -31,3 +31,12 @@ duedinoi_thread:
 duedinoi_user_profile:
     pattern: /{_locale}/{userslug}/profile
     defaults: { _controller: DuedinoiWebBundle:Default:userProfile, _locale: 'it' }
+duedinoi_load_messages:
+    pattern: /{_locale}/load-messages/{userslug}
+    defaults: { _controller: DuedinoiWebBundle:Default:loadMessages, _locale: 'it' }
+duedinoi_notifications:
+    pattern: /{_locale}/notifications
+    defaults: { _controller: DuedinoiWebBundle:Default:notifications, _locale: it }
+duedinoi_about:
+    pattern: /{_locale}/about-us
+    defaults: { _controller: DuedinoiWebBundle:Default:about, _locale: it }

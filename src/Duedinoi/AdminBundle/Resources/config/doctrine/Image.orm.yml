@@ -47,7 +47,7 @@ Duedinoi\AdminBundle\Entity\Image:
         prePersist: [ prepareFile ]
         preUpdate: [ prepareOldFile, prepareFile ]
         postPersist: [ uploadFile ]
-        postUpdate: [ uploadFile, removeOldFile ]
+#        postUpdate: [ uploadFile, removeOldFile ]
         postRemove: [ removeFile ]
     repositoryClass: Duedinoi\AdminBundle\Repository\ImageRepository
     

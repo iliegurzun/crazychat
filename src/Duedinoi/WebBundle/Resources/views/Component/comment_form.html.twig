@@ -1,9 +1,15 @@
-<form method="post" action="#">
-    <div class="form-row">
-        {{ form_widget(form.content) }}
-        {{ form_errors(form.content) }}
-    </div>
-    {{ form_rest(form) }}
-    
-    <button>{{ 'comment_submit'|trans }}</button>
-</form>
+<div class="col-lg-12 no-padding">
+<div class="col-lg-1">
+    <img src="{{ get_user_image(app.user)|apply_filter('comment_picture') }}" class="comment-picture"/>
+</div>
+<div class="col-lg-11 comment-form">
+    <form method="post" action="#">
+        <div class="form-row no-margin-top">
+            {{ form_widget(form.content) }}
+            {{ form_errors(form.content) }}
+        </div>
+        {{ form_rest(form) }}
+
+        <button class="button green-button">{{ 'comment_submit'|trans }}</button>
+    </form>
+</div>

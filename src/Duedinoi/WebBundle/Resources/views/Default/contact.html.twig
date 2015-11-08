@@ -7,10 +7,8 @@
             <h1>{{ 'contact.title'|trans }}</h1>
             <span>{{ 'contact.description'|trans }}</span>
         </div>
-        
-        
-        <div class="container no-margin-top">
-            <form method="post" action="{{ path('duedinoi_contact') }}">
+        <div class="container no-margin-top special">
+            <form method="post" action="{{ path('duedinoi_contact') }}" class="contact-form">
                 <div class="col-lg-12 no-padding">
                     <div class="col-lg-6">
                         <div class="form-row">
@@ -33,11 +31,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 no-padding-right">
                     <div class="form-row">
                         {{ form_widget(form.message) }}
                         {{ form_errors(form.message) }}
                     </div>
+                </div>
+                <div class="col-lg-12">
+                    {{ form_rest(form) }}
+                    <button class="button green-button custom-padding">{{ 'contact.submit'|trans }}</button>
                 </div>
             </form>
         </div>

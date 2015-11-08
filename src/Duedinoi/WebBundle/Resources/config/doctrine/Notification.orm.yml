@@ -1,7 +1,7 @@
-Duedinoi\WebBundle\Entity\Comment:
+Duedinoi\WebBundle\Entity\Notification:
     type: entity
-    table: duedinoi_comment
-    repositoryClass: Duedinoi\WebBundle\Entity\CommentRepository
+    table: duedinoi_notification
+    repositoryClass: Duedinoi\WebBundle\Entity\NotificationRepository
     id:
         id:
             type: integer
@@ -9,6 +9,11 @@ Duedinoi\WebBundle\Entity\Comment:
             generator:
                 strategy: AUTO
     fields:
+        status:
+            type: integer
+        type:
+            type: string
+            length: 255
         createdAt:
             type: datetime
             gedmo:
@@ -21,25 +26,25 @@ Duedinoi\WebBundle\Entity\Comment:
                 timestampable: 
                     on: update
             column: updated_at
-        status:
-            type: boolean
-        content:
-            type: text
     manyToOne:
-        author:
+        fromUser:
             targetEntity: Duedinoi\UserBundle\Entity\User
-            inversedBy: comments
-            onCascade: DELETE
             joinColumn:
-                name: author_id
+                name: from_user_id
                 referencedColumnName: id
-                onDelete: 'SET NULL'
-        user:
+        toUser:
             targetEntity: Duedinoi\UserBundle\Entity\User
-            inversedBy: receivedComments
-            onCascade: DELETE
             joinColumn:
-                name: user_id
+                name: to_user_id
                 referencedColumnName: id
-                onDelete: 'SET NULL'
+        photo:
+            targetEntity: Duedinoi\AdminBundle\Entity\Image
+            joinColumn:
+                name: photo_id
+                referencerdColumnName: id
+        comment:
+            targetEntity: Comment
+            joinColumn:
+                name: comment_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }
