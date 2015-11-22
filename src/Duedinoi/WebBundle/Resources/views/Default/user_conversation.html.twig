@@ -1,0 +1,20 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% block content %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
+    <div class="container-fluid egg-green">
+        <div class="container no-margin-top">
+            <div class="col-lg-2 pull-left">
+            </div>
+
+            <div class="col-lg-10">
+                <h3 class="page-title col-lg-12 no-padding">
+                    {{ 'title.active_users'|trans }}
+                    <div id="response"></div>
+                </h3>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

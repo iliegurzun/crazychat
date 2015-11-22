@@ -17,19 +17,19 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        if ( !$page = $this->get('duedinoi.web.page')->getCurrentPage()) {
+        if (!$page = $this->get('duedinoi.web.page')->getCurrentPage()) {
             throw $this->createNotFoundException('Not found');
         }
-        
+
         return $this->render('DuedinoiWebBundle:Default:index.html.twig', array(
             'page' => $page,
         ));
     }
-    
+
     public function homepageAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        if(!$page = $this->get('duedinoi.web.page')->getCurrentPage()) {
+        if (!$page = $this->get('duedinoi.web.page')->getCurrentPage()) {
             $page = null;
         }
         $form = $this->createForm(new RegisterType($this->container->get('translator')));
@@ -43,7 +43,7 @@ class DefaultController extends Controller
 
         $user = $userManager->createUser();
         $user->setEnabled(true);
-        
+
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
 
@@ -52,9 +52,9 @@ class DefaultController extends Controller
         }
 
         $form->setData($user);
-        
+
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
@@ -74,15 +74,15 @@ class DefaultController extends Controller
         return $this->render('DuedinoiWebBundle:Default:homepage.html.twig', array(
             'page' => $page,
             'form' => $form->createView(),
-            'users'=> $users
+            'users' => $users
         ));
     }
-    
+
     public function editProfileAction(Request $request)
     {
         $user = $this->getUser();
         $form = $this->createForm(
-            new EditProfileType($this->container->get('translator')), 
+            new EditProfileType($this->container->get('translator')),
             $user
         );
         if ($request->isMethod(Request::METHOD_POST)) {
@@ -95,17 +95,17 @@ class DefaultController extends Controller
                     'success',
                     $this->get('translator')->trans('profile.updated')
                 );
-                
+
                 return $this->redirect($this->generateUrl('duedinoi_edit_profile'));
             }
         }
-        
+
         return $this->render('DuedinoiWebBundle:Default:edit_profile.html.twig', array(
             'form' => $form->createView(),
             'user' => $user
         ));
     }
-    
+
     public function settingsAction(Request $request)
     {
         $user = $this->getUser();
@@ -120,78 +120,106 @@ class DefaultController extends Controller
                     'success',
                     $this->get('translator')->trans('settings.updated')
                 );
-                
+
                 return $this->redirect($this->generateUrl('duedinoi_settings'));
             }
         }
-        
+
         return $this->render('DuedinoiWebBundle:Default:settings.html.twig', array(
             'form' => $form->createView()
         ));
     }
-    
+
     public function photosAction(Request $request)
     {
         $user = $this->getUser();
     }
-    
+
     public function dashboardAction(Request $request)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
         $activeUsers = $userRepo->findActiveExcept($user);
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $activeUsers,
             $this->get('request')->query->get('page', 1)/*page number*/,
             20/*limit per page*/
         );
-        
+
         return $this->render('DuedinoiWebBundle:Default:dashboard.html.twig', array(
             'activeUsers' => $pagination
         ));
     }
-    
+
     public function myProfileAction(Request $request)
     {
-        
+
         return $this->render('DuedinoiWebBundle:Default:profile.html.twig', array(
-           'user' => $this->getUser()
+            'user' => $this->getUser()
         ));
     }
-    
+
     public function userProfileAction($userslug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
-        if(!$user instanceof \Duedinoi\UserBundle\Entity\User) {
+        if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
             throw $this->createNotFoundException();
         }
         $comment = new \Duedinoi\WebBundle\Entity\Comment();
         $comment->setAuthor($this->getUser())
-                ->setUser($user);
+            ->setUser($user);
         $form = $this->createForm(new \Duedinoi\WebBundle\Form\CommentType(), $comment);
-        if($request->isMethod(Request::METHOD_POST)) {
+        if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
-            if($form->isValid()) {
+            if ($form->isValid()) {
                 $em->persist($comment);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add(
                     'success',
                     $this->get('translator')->trans('comment.posted')
                 );
-                
+
                 return $this->redirect($this->generateUrl('duedinoi_user_profile', array(
                     'userslug' => $user->getSlug()
                 )));
-                
+
             }
         }
-        
+
         return $this->render('DuedinoiWebBundle:Default:profile.html.twig', array(
             'user' => $user,
             'form' => $form->createView()
         ));
+    }
+
+    public function chatServerAction($userslug, Request $request)
+    {
+
+        set_time_limit(0);
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
+        if (!$user) {
+            throw $this->createNotFoundException('User not found!');
+        }
+        while (true) {
+            clearstatcache();
+            break;
+        }
+    }
+
+    public function userConversationAction($userslug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
+        if (!$user) {
+            throw $this->createNotFoundException('User not found!');
+        }
+
+        return $this->render('DuedinoiWebBundle:Default:user_conversation.html.twig', array(//            ''
+        ));
+
     }
 }
