@@ -1,3 +1,7 @@
+duedinoi_admin_contactmessage:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/contactmessage.yml"
+    prefix:   /contact-message
+
 duedinoi_admin_country:
     resource: "@DuedinoiAdminBundle/Resources/config/routing/country.yml"
     prefix:   /country

@@ -32,6 +32,10 @@ class ContactMessage
      */
     private $message;
 
+    public function __toString() 
+    {
+        return $this->getSubject();
+    }
 
     /**
      * Get id

@@ -23,4 +23,8 @@ Menu:
         class: "DuedinoiAdminBundle:Country"
         route: "country"
         icon:  "picture"
+    Messages:
+        class: "DuedinoiAdminBundle:ContactMessage"
+        route: "contactmessage"
+        icon:  "envelope"
 Project Name: Crazy Chat
