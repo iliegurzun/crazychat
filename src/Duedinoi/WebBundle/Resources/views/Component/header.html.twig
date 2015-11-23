@@ -2,10 +2,14 @@
     <div class="not-logged" id="header">
 
         <h1 class="" id="logo">
-            <a href="{{ path('duedinoi_web_homepage') }}">
+            {% set url_path = path('duedinoi_web_homepage') %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% set url_path = path('duedinoi_dashboard') %}
+            {% endif %}
+            <a href="{{ url_path }}">
                 <img alt="Duedinoi" src="{{ asset("bundles/duedinoiweb/images/duedinoi-logo.png") }}" class="big-logo">
             </a>
-        </h1>
+        </h1>0
         {% if is_granted("IS_AUTHENTICATED_FULLY") %}
             <div class="dropdown pull-right mt-10">
                 <button class="btn default-button dropdown-toggle no-border" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
