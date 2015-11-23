@@ -5,7 +5,15 @@
     {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
     <div class="container-fluid egg-green">
         <div class="container">
-            <div class="col-lg-4">
+            <div class="col-lg-4 profile-picture-large no-padding">
+                <img src="{{ get_user_image(user)|apply_filter('profile_picture') }}"/>
+                <ul class="secondary-photos">
+                    {% for photo in user.photos %}
+                        <li class="" data-thumb="{{ asset(photo.webPath) }}">
+                            <img src="{{ asset(photo.webPath)|apply_filter('user_thumb') }}"/>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="col-lg-6">
                 <h3 class="col-lg-12">{{ user.username }}</h3>
@@ -35,14 +43,41 @@
                 </div>
                 <div class="col-lg-12">
                     <p class="orange-text col-lg-4"> {{ 'profile.study'|trans }}</p>
-                    <p class="col-lg-8">{{user.profile.study|default() }}</p>
+                    <p class="col-lg-8">{{user.profile.studies|default() }}</p>
                 </div>
                 <div class="col-lg-12">
                     <p class="orange-text col-lg-4"> {{ 'profile.description'|trans }}</p>
                     <p class="col-lg-8">{{user.profile.description|default() }}</p>
                 </div>
             </div>
-            <div class="col-lg-12">
+            <div class="hr"></div>
+            <div class="profile-actions">
+                <a href="#" class="orange-button">
+                    <i class="icon icon-camera"></i>
+                    {{ 'profile.webcam'|trans }}
+                </a>
+                <a href="{{ path('duedinoi_thread', {userslug: user.slug}) }}" class="button green-button">
+                    <i class="icon icon-envelope"></i>
+                    {{ 'profile.message'|trans }}
+                </a>
+                <a href="#" class="button default-button">
+                    <i class="icon icon-thumbs-up"></i>
+                    {{ 'profile.like'|trans }}
+                </a>
+                <a href="#" class="button default-button">
+                    <i class="icon icon-user"></i>
+                    {{ 'profile.become_friends'|trans }}
+                </a>
+                <a href="#" class="button default-button">
+                    <i class="icon icon-cog"></i>
+                    {{ 'profile.report_photo'|trans }}
+                </a>
+                <a href="#" class="button default-button">
+                    <i class="icon icon-time"></i>
+                    {{ 'profile.block_comment'|trans }}
+                </a>
+            </div>
+            <div class="col-lg-12 no-padding">
                 <h3>{{ 'profile.comments'|trans }}</h3>
                 {% for comment in user.activeComments %}
                     {% include "DuedinoiWebBundle:Component:comment.html.twig" %}

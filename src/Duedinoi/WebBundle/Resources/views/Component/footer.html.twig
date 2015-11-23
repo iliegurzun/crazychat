@@ -1,8 +1,45 @@
 <div class="footer">
     <div class="container">
-        <div class="footer-logo col-lg-3">
+        <div class="footer-logo col-lg-2 mt-30">
             <img src="{{ asset('bundles/duedinoiweb/images/duedinoi-logo-white.png') }}"/>
             <p>{{ "now"|date('Y') }} &copy; Duedinoi.</p>
+        </div>
+        <div class="col-lg-6 mt-40">
+            <ul class="nav navbar-nav no-hover">
+                <li class="{{ app.request.get('_route') in ['duedinoi_web_homepage'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_web_homepage') }}">{{ 'footer_menu.homepage'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_about'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_about') }}">{{ 'footer_menu.about'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_contact'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_contact') }}">{{ 'footer_menu.contact'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_web_homepage'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_web_homepage') }}">{{ 'footer_menu.terms'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_web_homepage'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_web_homepage') }}">{{ 'footer_menu.privacy'|trans }}</a>
+                </li>
+                <li class="{{ app.request.get('_route') in ['duedinoi_web_homepage'] ? 'active' : '' }}">
+                    <a href="{{ path('duedinoi_web_homepage') }}">{{ 'footer_menu.help'|trans }}</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="col-lg-4 mt-40 left-border">
+            <ul class="nav navbar-nav no-hover">
+                <li>
+                    <a href="#" target="_blank"><i class="icon icon-facebook"></i>  Facebook</a>
+                </li>
+                <li>
+                    <a href="#" target="_blank"><i class="icon icon-twitter"></i>  Twitter</a>
+                </li>
+                <li>
+                    <a href="#" target="_blank"><i class="icon icon-google-plus"></i>  Google+</a>
+                </li>
+            </ul>
+
         </div>
     </div>
 </div>

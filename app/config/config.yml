@@ -87,6 +87,7 @@ fos_user:
     user_class: Duedinoi\UserBundle\Entity\User
     
 avalanche_imagine:
+    driver: gd
     filters:
         user_thumb:
             type:    thumbnail
@@ -94,6 +95,15 @@ avalanche_imagine:
         carousel_image:
             type: thumbnail
             options: { size: [1280, 500], mode: outbound }
+        user_photo:
+            type: thumbnail
+            options: { size: [260, 260], mode: outbound }
+        profile_picture:
+            type: thumbnail
+            options: { size: [448, 445], mode: outbound }
+        comment_picture:
+            type: thumbnail
+            options: { size: [50, 50], mode: outbound }
             
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
@@ -104,3 +114,8 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         pagination: DuedinoiAdminBundle:Component:paginator.html.twig     # sliding pagination controls template
+        
+fos_message:
+    db_driver: orm
+    thread_class: Duedinoi\WebBundle\Entity\Thread
+    message_class: Duedinoi\WebBundle\Entity\Message

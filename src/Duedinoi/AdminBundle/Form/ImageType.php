@@ -31,7 +31,8 @@ class ImageType extends AbstractType
   {
     $resolver->setDefaults(array(
         'data_class' => 'Duedinoi\AdminBundle\Entity\Image',
-        'can_be_removed' => false
+        'can_be_removed' => false,
+        'csrf_protection' => false
     ));
   }
 

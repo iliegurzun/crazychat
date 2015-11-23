@@ -1,0 +1,27 @@
+Duedinoi\WebBundle\Entity\ThreadMetadata:
+    type: entity
+    table: duedinoi_thread_metadata
+    repositoryClass: Duedinoi\WebBundle\Repository\ThreadMetadataRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        thread:
+            targetEntity: Thread
+            inversedBy: metadata
+            joinColumn:
+                name: thread_id
+                referencedColumnName: id
+                onDelete: 'CASCADE'
+                cascade: all
+        participant:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            joinColumn:
+                name: participant_id
+                referencedColumnName: id
+                onDelete: 'CASCADE'
+                cascade: all
+        

@@ -1,0 +1,25 @@
+Duedinoi\WebBundle\Entity\Thread:
+    type: entity
+    table: duedinoi_thread
+#    repositoryClass: Duedinoi\WebBundle\Repository\ThreadRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        createdBy:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: threads
+            joinColumn:
+                name: creator_id
+                referencedColumnName: id
+    oneToMany:
+        messages:
+            targetEntity: Message
+            mappedBy: thread
+        metadata:
+            targetEntity: ThreadMetadata
+            mappedBy: thread
+        

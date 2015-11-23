@@ -27,6 +27,7 @@ class CommentType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class'        => 'Duedinoi\WebBundle\Entity\Comment',
+            'csrf_protection'   => false
         ));
     }
 

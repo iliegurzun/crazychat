@@ -1,0 +1,20 @@
+<div class="col-lg-12">
+    {% block notification_status %}
+    {% endblock %}
+    {% block user_photo %}
+        <div class="col-lg-1">
+            <img src="{{ get_user_image(notification.fromUser)|apply_filter('comment_picture') }}" class="comment-picture"/>
+        </div>
+    {% endblock %}
+    {% block notification_content %}
+        
+    {% endblock %}
+    
+    {% block notification_date %}
+        {{ notification.createdAt|date('M d Y, H:i') }}
+    {% endblock %}
+    
+    {% block notification_remove %}
+        
+    {% endblock %}
+</div>

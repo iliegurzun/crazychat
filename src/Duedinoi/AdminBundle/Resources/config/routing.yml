@@ -1,7 +1,3 @@
-duedinoi_admin_city:
-    resource: "@DuedinoiAdminBundle/Resources/config/routing/city.yml"
-    prefix:   /city
-
 duedinoi_admin_country:
     resource: "@DuedinoiAdminBundle/Resources/config/routing/country.yml"
     prefix:   /country

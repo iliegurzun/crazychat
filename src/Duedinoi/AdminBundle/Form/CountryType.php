@@ -25,12 +25,6 @@ class CountryType extends AbstractType
                     'placeholder' => 'Name'
                 )
             ))
-            ->add('cities', 'collection', array(
-                'type' => new CityType,
-                'allow_add' => true,
-                'allow_delete' => true,
-//                'class' => 'DuedinoiAdminBundle:City'
-            ))
         ;
     }
     
