@@ -58,7 +58,7 @@ class SettingController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('setting_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('setting_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('DuedinoiAdminBundle:Setting:new.html.twig', array(
@@ -186,7 +186,7 @@ class SettingController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        $editForm->bind($request);
 
         if ($editForm->isValid()) {
             $em->flush();

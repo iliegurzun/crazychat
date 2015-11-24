@@ -31,11 +31,23 @@ Duedinoi\AdminBundle\Entity\Image:
             gedmo:
                 timestampable: 
                     on: update
+        isProfilePicture:
+            type: boolean
+            column: is_profile_picture
+    manyToOne:
+        user:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: photos
+            onCascade: DELETE
+            nullable: true
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ prepareFile ]
         preUpdate: [ prepareOldFile, prepareFile ]
         postPersist: [ uploadFile ]
-        postUpdate: [ uploadFile, removeOldFile ]
+#        postUpdate: [ uploadFile, removeOldFile ]
         postRemove: [ removeFile ]
     repositoryClass: Duedinoi\AdminBundle\Repository\ImageRepository
     

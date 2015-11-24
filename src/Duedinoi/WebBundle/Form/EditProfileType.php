@@ -57,6 +57,7 @@ class EditProfileType extends AbstractType
                 ->add('gender', 'choice', array(
                     'property_path' => 'profile.gender',
                     'expanded'      => false,
+                    'label'         => $this->translator->trans('profile.gender'),
                     'multiple'      => false,
                     'choices'       => array(
                         Profile::GENDER_MALE => $this->translator->trans('register.sex.male'),
@@ -66,6 +67,7 @@ class EditProfileType extends AbstractType
                 
                 ->add('relationship', 'choice', array(
                     'property_path'     => 'profile.relationship',
+                    'label'         => $this->translator->trans('profile.relationship'),
                     'choices'           => array(
                         Profile::STATUS_SINGLE              => $this->translator->trans('relationship.single'),
                         Profile::STATUS_IN_A_RELATIONSHIP   => $this->translator->trans('relationship.relationship'),

@@ -1,0 +1,30 @@
+contactmessage:
+    path:     /
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:index" }
+
+contactmessage_show:
+    path:     /{id}/show
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:show" }
+
+contactmessage_new:
+    path:     /new
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:new" }
+
+contactmessage_create:
+    path:     /create
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:create" }
+    methods:  POST
+
+contactmessage_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:edit" }
+
+contactmessage_update:
+    path:     /{id}/update
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:update" }
+    methods:  [POST, PUT]
+
+contactmessage_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DuedinoiAdminBundle:ContactMessage:delete" }
+    methods:  [POST, DELETE]

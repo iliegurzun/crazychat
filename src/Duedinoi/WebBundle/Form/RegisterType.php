@@ -24,7 +24,8 @@ class RegisterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options) 
     {
-        
+        $years = new \DateTime('-18 years');
+        $list = range(1960, (int)$years->format('Y'));
         $builder
             ->add('username', 'text', array(
                 'label' => " ",
@@ -56,7 +57,7 @@ class RegisterType extends AbstractType
                 'label'  => $this->translator->trans('register.birth_date'),
                 'widget' => 'choice',
                 'format'    => 'dd MM yyyy',
-                'years'  => array(1990, 1991, 1992, 1993, 1994),
+                'years'  => array_reverse($list),
                 'placeholder' => array(
                     'year' => $this->translator->trans('register.date.year'),
                     'month' => $this->translator->trans('register.date.month'),

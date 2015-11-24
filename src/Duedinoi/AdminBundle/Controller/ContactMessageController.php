@@ -5,26 +5,25 @@ namespace Duedinoi\AdminBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Duedinoi\AdminBundle\Entity\City;
-use Duedinoi\AdminBundle\Form\CityType;
+use Duedinoi\AdminBundle\Entity\ContactMessage;
+use Duedinoi\AdminBundle\Form\ContactMessageType;
 
 /**
- * City controller.
+ * ContactMessage controller.
  *
  */
-class CityController extends Controller
+class ContactMessageController extends Controller
 {
 
     /**
-     * Lists all City entities.
+     * Lists all ContactMessage entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiAdminBundle:City')->findAll();
-
+        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
         $deleteForms = array();
         
         foreach($entities as $entity) {
@@ -38,18 +37,18 @@ class CityController extends Controller
             5/*limit per page*/
         );
 
-        return $this->render('DuedinoiAdminBundle:City:index.html.twig', array(
+        return $this->render('DuedinoiAdminBundle:ContactMessage:index.html.twig', array(
             'entities' => $pagination,
             'delete_forms' => $deleteForms
         ));
     }
     /**
-     * Creates a new City entity.
+     * Creates a new ContactMessage entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new City();
+        $entity = new ContactMessage();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -58,26 +57,26 @@ class CityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('city_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('contactmessage_edit', array('id' => $entity->getId())));
         }
 
-        return $this->render('DuedinoiAdminBundle:City:new.html.twig', array(
+        return $this->render('DuedinoiAdminBundle:ContactMessage:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a City entity.
+     * Creates a form to create a ContactMessage entity.
      *
-     * @param City $entity The entity
+     * @param ContactMessage $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(City $entity)
+    private function createCreateForm(ContactMessage $entity)
     {
-        $form = $this->createForm(new CityType(), $entity, array(
-            'action' => $this->generateUrl('city_create'),
+        $form = $this->createForm(new ContactMessageType(), $entity, array(
+            'action' => $this->generateUrl('contactmessage_create'),
             'method' => 'POST',
         ));
 
@@ -85,64 +84,64 @@ class CityController extends Controller
     }
 
     /**
-     * Displays a form to create a new City entity.
+     * Displays a form to create a new ContactMessage entity.
      *
      */
     public function newAction()
     {
-        $entity = new City();
+        $entity = new ContactMessage();
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:City')->findAll();
+        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
 
-        return $this->render('DuedinoiAdminBundle:City:new.html.twig', array(
+        return $this->render('DuedinoiAdminBundle:ContactMessage:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities'=> $entities
+            'entities' => $entities
         ));
     }
 
     /**
-     * Finds and displays a City entity.
+     * Finds and displays a ContactMessage entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DuedinoiAdminBundle:City')->find($id);
+        $entity = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find City entity.');
+            throw $this->createNotFoundException('Unable to find ContactMessage entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('DuedinoiAdminBundle:City:show.html.twig', array(
+        return $this->render('DuedinoiAdminBundle:ContactMessage:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing City entity.
+     * Displays a form to edit an existing ContactMessage entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DuedinoiAdminBundle:City')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:City')->findAll();
+        $entity = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->find($id);
+        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find City entity.');
+            throw $this->createNotFoundException('Unable to find ContactMessage entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('DuedinoiAdminBundle:City:edit.html.twig', array(
+        return $this->render('DuedinoiAdminBundle:ContactMessage:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -151,53 +150,55 @@ class CityController extends Controller
     }
 
     /**
-    * Creates a form to edit a City entity.
+    * Creates a form to edit a ContactMessage entity.
     *
-    * @param City $entity The entity
+    * @param ContactMessage $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(City $entity)
+    private function createEditForm(ContactMessage $entity)
     {
-        $form = $this->createForm(new CityType(), $entity, array(
-            'action' => $this->generateUrl('city_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ContactMessageType(), $entity, array(
+            'action' => $this->generateUrl('contactmessage_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
         return $form;
     }
     /**
-     * Edits an existing City entity.
+     * Edits an existing ContactMessage entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('DuedinoiAdminBundle:City')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:City')->findAll();
+        $entity = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->find($id);
+        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
+        
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find City entity.');
+            throw $this->createNotFoundException('Unable to find ContactMessage entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->bind($request);
+
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('city_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('contactmessage_edit', array('id' => $id)));
         }
 
-        return $this->render('DuedinoiAdminBundle:City:edit.html.twig', array(
+        return $this->render('DuedinoiAdminBundle:ContactMessage:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities'    => $entities
+            'entities' => $entities
         ));
     }
     /**
-     * Deletes a City entity.
+     * Deletes a ContactMessage entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -207,21 +208,21 @@ class CityController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('DuedinoiAdminBundle:City')->find($id);
+            $entity = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find City entity.');
+                throw $this->createNotFoundException('Unable to find ContactMessage entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('city'));
+        return $this->redirect($this->generateUrl('contactmessage'));
     }
 
     /**
-     * Creates a form to delete a City entity by id.
+     * Creates a form to delete a ContactMessage entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -230,7 +231,7 @@ class CityController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('city_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('contactmessage_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->getForm()
         ;

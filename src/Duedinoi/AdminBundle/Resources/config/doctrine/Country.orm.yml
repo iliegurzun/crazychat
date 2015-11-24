@@ -1,6 +1,6 @@
 Duedinoi\AdminBundle\Entity\Country:
     type: entity
-    table: null
+    table: duedinoi_country
     repositoryClass: Duedinoi\AdminBundle\Entity\CountryRepository
     id:
         id:
@@ -12,8 +12,4 @@ Duedinoi\AdminBundle\Entity\Country:
         name:
             type: string
             length: 255
-    oneToMany:
-        cities:
-            targetEntity: City
-            mappedBy: country
     lifecycleCallbacks: {  }

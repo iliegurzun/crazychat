@@ -1,0 +1,45 @@
+{% extends 'DuedinoiAdminBundle::layout.html.twig' %}
+
+{% form_theme edit_form 'DuedinoiAdminBundle:Component:fields.html.twig' %}
+
+{% block content %}
+{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'contactmessage', list:  entities}  %}
+<div class="wrapper">
+    <div class="panel panel-default panel-block">
+        <div class="list-group">
+            <div id="input-fields-horizontal" class="list-group-item">
+                <h4 class="section-title">Edit {{ entity }} message</h4>
+                <form method="post" action="{{ path('contactmessage_update', {id: edit_form.vars.value.id}) }}" {{ form_enctype(edit_form) }} class="form-horizontal" role="form" novalidate>
+                    {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: edit_form } %}
+                    <div class="form-group">
+                        {{ form_label(edit_form.name) }}
+                        {{ form_widget(edit_form.name) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.subject) }}
+                        {{ form_widget(edit_form.subject) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.email) }}
+                        {{ form_widget(edit_form.email) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.message) }}
+                        {{ form_widget(edit_form.message) }}
+                    </div>
+                    {{ form_rest(edit_form) }}
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <button class="btn btn-success">Edit</button>
+                        </div>
+                    </div>
+                </form>
+                <form id="delete-form" method="post" action="{{ path('contactmessage_delete', {id: entity.id}) }}" {{ form_enctype(delete_form) }}>
+                    {{ form_widget(delete_form) }}
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

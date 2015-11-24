@@ -5,8 +5,26 @@ services:
     duedinoi.web.page:
         class: Duedinoi\WebBundle\Service\Page
         arguments: ['@service_container']
+        
     validator.unique.user:
         class: Duedinoi\WebBundle\Validator\Constraints\UniqueUserValidator
         tags:
             - { name: validator.constraint_validator, alias: unique_user }
         arguments: [@duedinoi.user_repository, @translator]
+        
+    notification_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+            - Duedinoi\WebBundle\Entity\Notification
+    
+    notification_manager:
+        class: Duedinoi\WebBundle\Service\NotificationManager
+        arguments: ['@security.context', '@notification_repository']
+        
+    notification_manager.log_activity:
+        class: Duedinoi\WebBundle\Service\NotificationListener
+        tags:
+            - { name: kernel.event_listener, event: view.profile, method: logNotification }
+        arguments: [@doctrine.orm.entity_manager, @security.context]

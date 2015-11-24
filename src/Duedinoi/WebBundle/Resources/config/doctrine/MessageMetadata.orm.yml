@@ -1,0 +1,23 @@
+Duedinoi\WebBundle\Entity\MessageMetadata:
+    type: entity
+    table: duedinoi_message_metadata
+    repositoryClass: Duedinoi\WebBundle\Repository\MessageMetadataRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        message:
+            targetEntity: Message
+            inversedBy: metadata
+            joinColumn:
+                name: message_id
+                referencedColumnName: id
+        participant:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            joinColumn:
+                name: participant_id
+                referencedColumnName: id
+        

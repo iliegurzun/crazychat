@@ -2,17 +2,6 @@
 
 {% form_theme form 'DuedinoiAdminBundle:Component:fields.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts filter="?yui_js"
-            "@DuedinoiAdminBundle/Resources/public/js/collection.js"
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-        <script type="text/javascript" src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-
-{% endblock javascripts %}
-
 {% block content %}
 {% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'country', list:  entities}  %}
 <div class="wrapper">

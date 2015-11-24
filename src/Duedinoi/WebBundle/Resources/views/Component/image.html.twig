@@ -1,0 +1,7 @@
+<div class="col-md-3 mb-30">
+    <img class="user-photo" src="{{ asset(image.webPath|apply_filter('user_photo')) }}"/>
+    <a href="{{ path('duedinoi_profile_picture', {id: image.id}) }}" class="profile-picture {{ image.isProfilePicture ? 'active' : ''}}">
+        {{ 'photo.profile'|trans }}
+    </a>
+    <a href="#" class="remove-photo icon icon-trash"></a>
+</div>

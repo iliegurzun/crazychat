@@ -37,7 +37,14 @@
                         </div>
                         <div class="form-row">
                             {{ form_errors(form.gender) }}
-                            {{ form_widget(form.gender) }}
+                            <div class="col-lg-6">
+                                {{ form_widget(form.gender.0) }}
+                                {{ form_label(form.gender.0) }}
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form_widget(form.gender.1) }}
+                                {{ form_label(form.gender.1) }}
+                            </div>
                         </div>
                         <div class="form-row full-width">
                             {{ form_errors(form.country) }}
@@ -89,7 +96,7 @@
     <div class="second-hero">
         <div class="text-center">
             <h3>{{ 'homepage.second_hero'|trans }}</h3>
-            <a class="btn green big">{{ 'default.register'|trans }}</a>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn green big">{{ 'default.register'|trans }}</a>
         </div>
     </div>
 {% endblock %}

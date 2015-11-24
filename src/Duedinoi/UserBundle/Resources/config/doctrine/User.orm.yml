@@ -51,4 +51,10 @@ Duedinoi\UserBundle\Entity\User:
         receivedComments:
             targetEntity: Duedinoi\WebBundle\Entity\Comment
             mappedBy: user
+        photos:
+            targetEntity: Duedinoi\AdminBundle\Entity\Image
+            mappedBy: user
+        threads:
+            targetEntity: Duedinoi\WebBundle\Entity\Thread
+            mappedBy: createdBy
     lifecycleCallbacks: {  }

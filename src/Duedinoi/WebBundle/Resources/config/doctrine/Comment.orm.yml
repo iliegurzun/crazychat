@@ -1,6 +1,6 @@
 Duedinoi\WebBundle\Entity\Comment:
     type: entity
-    table: comment
+    table: duedinoi_comment
     repositoryClass: Duedinoi\WebBundle\Entity\CommentRepository
     id:
         id:
@@ -10,13 +10,13 @@ Duedinoi\WebBundle\Entity\Comment:
                 strategy: AUTO
     fields:
         createdAt:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create
             column: created_at
         updatedAt:
-            type: date
+            type: datetime
             gedmo:
                 timestampable: 
                     on: update
