@@ -16,3 +16,9 @@ duedinoi_my_profile:
 duedinoi_user_profile:
     pattern: /{_locale}/{userslug}/profile
     defaults: { _controller: DuedinoiWebBundle:Default:userProfile, _locale: 'it' }
+duedinoi_user_conversation:
+    pattern: /{_locale}/{userslug}/conversation
+    defaults: { _controller: DuedinoiWebBundle:Default:userConversation, _locale: 'it' }
+duedinoi_chat_server:
+    pattern: /{_locale}/{userslug}/chat-server
+    defaults: { _controller: DuedinoiWebBundle:Default:chatServer, _locale: 'it' }
