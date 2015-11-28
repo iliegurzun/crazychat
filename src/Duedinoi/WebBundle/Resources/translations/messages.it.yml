@@ -15,6 +15,9 @@ register:
     terms_conditions: "Dichiaro di aver letto a accettato le <a href='#' class='underline'>Condizioni di utillizzo</a>, <a href='#' class='underline'>l'Informativa sulla privacy</a> e la <a href='#' class='underline'>Normativa sui cookie</a>"
     username_taken: "Questo nome utente è già stato preso"
     email_taken: "Questo email utente è già stato preso"
+    choose_country: "Provincia"
+    choose_city: "Citta"
+    submit: "Inscriviti"
 
 homepage:
     left_title: "Lorem ipsum"
@@ -75,6 +78,11 @@ profile:
     username: "Nome Utente"
     email: "Email"
     country: "Provincia"
+    old_password: "Vecchia password"
+    new_password: "Nuova password"
+    new_password_confirmation: "Conferma la nuova password"
+    edit: "Modificare il tuo profilo"
+    remove_confirmation: "Are you sure you want to remove your account?"
 title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
@@ -123,4 +131,3 @@ about:
     title: "Chi siamo"
     description: "Entra anche tu nella nostra community!"
 logout: "Esci"
-    

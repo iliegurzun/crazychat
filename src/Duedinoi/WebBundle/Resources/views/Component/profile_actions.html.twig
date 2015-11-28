@@ -1,0 +1,26 @@
+<div class="profile-actions">
+    <a href="#" class="orange-button">
+        <i class="icon icon-camera"></i>
+        {{ 'profile.webcam'|trans }}
+    </a>
+    <a href="{{ path('duedinoi_thread', {userslug: user.slug}) }}" class="button green-button">
+        <i class="icon icon-envelope"></i>
+        {{ 'profile.message'|trans }}
+    </a>
+    <a href="#" class="button default-button">
+        <i class="icon icon-thumbs-up"></i>
+        {{ 'profile.like'|trans }}
+    </a>
+    <a href="#" class="button default-button">
+        <i class="icon icon-user"></i>
+        {{ 'profile.become_friends'|trans }}
+    </a>
+    <a href="#" class="button default-button">
+        <i class="icon icon-cog"></i>
+        {{ 'profile.report_photo'|trans }}
+    </a>
+    <a href="#" class="button default-button">
+        <i class="icon icon-time"></i>
+        {{ 'profile.block_comment'|trans }}
+    </a>
+</div>

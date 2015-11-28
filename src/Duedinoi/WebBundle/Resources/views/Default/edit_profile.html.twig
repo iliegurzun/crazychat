@@ -57,7 +57,7 @@
                 </div>
                 <div class="col-lg-12 no-padding">
                     <div class="col-lg-4">
-                        <div class="form-row">
+                        <div class="form-row small-select">
                             {{ form_label(form.dateOfBirth) }}
                             {{ form_widget(form.dateOfBirth) }}
                             {{ form_errors(form.dateOfBirth) }}
@@ -117,8 +117,8 @@
                     {{ form_rest(form) }}
                 </div>
                 <div class="form-buttons col-lg-12">
-                    <button>{{ 'submit'|trans }}</button>
-                    <a href="#" class="orange-text">{{ 'remove_account'|trans }}</a>
+                    <button class="button green-button custom-padding">{{ 'submit'|trans }}</button>
+                    <a href="#" class="orange-text custom-margin remove-account confirm-action" data-confirm-message="{{ 'profile.remove_confirmation'|trans }}">{{ 'remove_account'|trans }}</a>
                 </div>
             </form>
         </div>

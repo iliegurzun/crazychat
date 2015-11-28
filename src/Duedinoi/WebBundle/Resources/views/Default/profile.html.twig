@@ -6,14 +6,24 @@
     <div class="container-fluid egg-green">
         <div class="container">
             <div class="col-lg-4 profile-picture-large no-padding">
-                <img src="{{ get_user_image(user)|apply_filter('profile_picture') }}"/>
                 <ul class="secondary-photos">
-                    {% for photo in user.photos %}
-                        <li class="" data-thumb="{{ asset(photo.webPath) }}">
-                            <img src="{{ asset(photo.webPath)|apply_filter('user_thumb') }}"/>
-                        </li>
-                    {% endfor %}
+                    {% if user.photos|length %}
+                        {% for photo in user.photos %}
+                            <li class="" data-thumb="{{ asset(photo.webPath)|apply_filter('user_thumb') }}">
+                                <img src="{{ asset(photo.webPath)|apply_filter('profile_picture') }}"/>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <ul class="secondary-photos">
+                           <li class="" data-thumb="{{ get_user_image(app.user)|apply_filter('user_thumb') }}">
+                                <img src="{{ get_user_image(app.user)|apply_filter('profile_picture') }}"/>
+                            </li> 
+                        </ul>
+                    {% endif %}
                 </ul>
+                {% if app.user.isSameUser(user) %}
+                    <a href="{{ path('duedinoi_edit_profile') }}" class="btn btn-default full-width">{{ 'profile.edit'|trans }}</a>
+                {% endif %}
             </div>
             <div class="col-lg-6">
                 <h3 class="col-lg-12">{{ user.username }}</h3>
@@ -39,7 +49,7 @@
                 </div>
                 <div class="col-lg-12">
                     <p class="orange-text col-lg-4"> {{ 'profile.sign'|trans }}</p>
-                    <p class="col-lg-8">{{user.profile.sign }}</p>
+                    <p class="col-lg-8">{{user.profile.signString|trans }}</p>
                 </div>
                 <div class="col-lg-12">
                     <p class="orange-text col-lg-4"> {{ 'profile.study'|trans }}</p>
@@ -51,32 +61,9 @@
                 </div>
             </div>
             <div class="hr"></div>
-            <div class="profile-actions">
-                <a href="#" class="orange-button">
-                    <i class="icon icon-camera"></i>
-                    {{ 'profile.webcam'|trans }}
-                </a>
-                <a href="{{ path('duedinoi_thread', {userslug: user.slug}) }}" class="button green-button">
-                    <i class="icon icon-envelope"></i>
-                    {{ 'profile.message'|trans }}
-                </a>
-                <a href="#" class="button default-button">
-                    <i class="icon icon-thumbs-up"></i>
-                    {{ 'profile.like'|trans }}
-                </a>
-                <a href="#" class="button default-button">
-                    <i class="icon icon-user"></i>
-                    {{ 'profile.become_friends'|trans }}
-                </a>
-                <a href="#" class="button default-button">
-                    <i class="icon icon-cog"></i>
-                    {{ 'profile.report_photo'|trans }}
-                </a>
-                <a href="#" class="button default-button">
-                    <i class="icon icon-time"></i>
-                    {{ 'profile.block_comment'|trans }}
-                </a>
-            </div>
+            {% if not app.user.isSameUser(user) %}
+                {% include "DuedinoiWebBundle:Component:profile_actions.html.twig" %}
+            {% endif %}
             <div class="col-lg-12 no-padding">
                 <h3>{{ 'profile.comments'|trans }}</h3>
                 {% for comment in user.activeComments %}

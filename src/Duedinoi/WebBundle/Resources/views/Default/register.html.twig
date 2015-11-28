@@ -1,0 +1,56 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% block content %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    <div class="container-fluid no-padding">
+        <div class="page-heading">
+            <h1>{{ 'register.title'|trans }}</h1>
+            <span>{{ 'register.description'|trans }}</span>
+        </div>
+        <div class="container no-margin-top special">
+            <form method="post" action="{{ path('duedinoi_contact') }}" class="contact-form">
+                <div class="col-lg-6 center no-float">
+                    <div class="col-lg-12">
+                        <div class="form-row">
+                            {{ form_widget(form.username) }}
+                            {{ form_errors(form.username) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_widget(form.plainPassword) }}
+                            {{ form_errors(form.plainPassword) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_errors(form.dateOfBirth) }}
+                            {{ form_widget(form.dateOfBirth) }}
+                        </div>
+                        <div class="form-row full-width">
+                            {{ form_errors(form.country) }}
+                            {{ form_widget(form.country) }}
+                        </div>
+                        <div class="form-row full-width">
+                            {{ form_errors(form.city) }}
+                            {{ form_widget(form.city) }}
+                        </div>
+                        <div class="form-row">
+                            {{ form_errors(form.gender) }}
+                            <div class="col-lg-6">
+                                {{ form_widget(form.gender.0) }}
+                                {{ form_label(form.gender.0) }}
+                            </div>
+                            <div class="col-lg-6">
+                                {{ form_widget(form.gender.1) }}
+                                {{ form_label(form.gender.1) }}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        <button class="button green-button custom-padding">{{ 'register.submit'|trans }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

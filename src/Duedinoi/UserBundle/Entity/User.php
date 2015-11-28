@@ -366,4 +366,9 @@ class User extends BaseUser implements ParticipantInterface
     {
         return $this->threads;
     }
+    
+    public function isSameUser($user)
+    {
+        return $this === $user;
+    }
 }

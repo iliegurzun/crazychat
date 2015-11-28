@@ -484,17 +484,45 @@ textarea {height: auto;}
 .remove-photo:hover {display: block !important;}
 .mb-30 {margin-bottom: 30px;}
 .container-fluid > .container {width: 1170px;}
+.secondary-photos.lightSlider {
+    width: 100% !important;
+    height: 470px !important; 
+    padding-bottom: 0 !important; 
+    transform: translate3d(0px, 0px, 0px) !important;
+}
+.secondary-photos .clone.left {
+    display: none !important;
+}
 .profile-picture-large {
     max-width: 470px;
     width: 470px !important;
     
 }
-.profile-picture-large > img {
+.profile-picture-large ul li.lslide {
+    display: none;
+}
+.profile-picture-large ul li.lslide.active {
+    display: block !important;
     border: 15px solid #fff !important;
     width: 100% !important;
     box-shadow: -1px -1px 1px #e7e7e7;
     height: 470px !important;
     max-height: 470px;
+}
+.profile-picture-large ul li.lslide.active > img {
+    width: 100%;
+}
+.lSSlideOuter .lSPager {
+    margin-top: 10px !important;
+    margin-bottom: 30px !important;
+}
+
+.lSSlideOuter .lSPager li img {
+    border: 3px solid #ecf4e0;
+}
+.lSSlideOuter .lSPager li.active img {
+    border: 3px solid #fa7724;
+    border-radius: 2px;
 }
 .secondary-photos {
     width: 100%;
@@ -651,11 +679,21 @@ textarea::before {
     font-weight: bold;
     font-size: 18px;
 }
-.green-button.custom-padding{
+.green-button.custom-padding, 
+.custom-margin {
     margin-left: 0px;
     margin-bottom: 30px;
     margin-top: 20px;
 }
+.remove-account {
+    display: inline-block;
+    float: none;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-top: 32px;
+    vertical-align: middle;
+}
+textarea {padding: 10px;}
 .register-here {
     margin-bottom: 185px;
     display: block;
@@ -719,6 +757,27 @@ textarea::before {
 }
 .header-picture {border-radius: 50%;}
 .second-hero{z-index: 1;}
+.form-row > ul li {
+    float: left;
+    color: #fa7724;
+}
+.form-row.small-select {
+    float: left;
+}
+.small-select > div {
+    width: 100%;
+    float: left;
+}
+.small-select select {
+    width: 32%;
+    float: initial;
+    display: inline-block;
+    margin-right: 3px;
+}
+.small-select select:last-of-type {
+    margin-right: 0;
+}
+
 /*::-webkit-input-placeholder {
    color: red;
 }

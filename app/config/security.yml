@@ -12,7 +12,8 @@ security:
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+#            security: false
+            anonymous:    true
         default:
             pattern: ^/
             form_login:

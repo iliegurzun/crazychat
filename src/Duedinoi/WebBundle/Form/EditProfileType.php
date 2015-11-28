@@ -26,7 +26,7 @@ class EditProfileType extends AbstractType
                 ->add('username', 'text', array(
                     'label'         => $this->translator->trans('profile.username')
                 ))
-                ->add('email', 'text', array(
+                ->add('email', 'email', array(
                     'label'         => $this->translator->trans('profile.email')
                 ))
                 ->add('dateOfBirth', 'date', array(
@@ -42,11 +42,13 @@ class EditProfileType extends AbstractType
                     )
                 ))
                 ->add('country', 'entity', array(
+                    'required'      => false,
                     'label'         => $this->translator->trans('profile.country'),
                     'class'         => 'DuedinoiAdminBundle:Country',
                     'empty_value'   => $this->translator->trans('register.choose_country')
                 ))
                 ->add('city', 'text', array(
+                    'required'      => false,
                     'property_path' => 'profile.city',
                     'label'         => $this->translator->trans('profile.city'),
                     'attr'          => array(
@@ -55,6 +57,7 @@ class EditProfileType extends AbstractType
                     )
                 ))
                 ->add('gender', 'choice', array(
+                    'required'      => false,
                     'property_path' => 'profile.gender',
                     'expanded'      => false,
                     'label'         => $this->translator->trans('profile.gender'),
@@ -66,9 +69,10 @@ class EditProfileType extends AbstractType
                 ))
                 
                 ->add('relationship', 'choice', array(
-                    'property_path'     => 'profile.relationship',
+                    'required'      => false,
+                    'property_path' => 'profile.relationship',
                     'label'         => $this->translator->trans('profile.relationship'),
-                    'choices'           => array(
+                    'choices'       => array(
                         Profile::STATUS_SINGLE              => $this->translator->trans('relationship.single'),
                         Profile::STATUS_IN_A_RELATIONSHIP   => $this->translator->trans('relationship.relationship'),
                         Profile::STATUS_MARRIED              => $this->translator->trans('relationship.married'),
@@ -79,6 +83,8 @@ class EditProfileType extends AbstractType
                     )
                 ))
                 ->add('sign', 'choice', array(
+                    'label'             => $this->translator->trans('profile.sign'),
+                    'required'          => false,
                     'property_path'     => 'profile.sign',
                     'choices'           => array(
                         Profile::SIGN_ARIES         => $this->translator->trans('sign.aries'),
@@ -96,26 +102,35 @@ class EditProfileType extends AbstractType
                     )
                 ))
                 ->add('hobby', 'textarea', array(
+                    'required'      => false,
                     'property_path' => 'profile.hobby'
                 ))
                 ->add('studies', 'textarea', array(
+                    'label'         => $this->translator->trans('profile.study'),
+                    'required'      => false,
                     'property_path' => 'profile.studies'
                 ))
                 ->add('description', 'textarea', array(
+                    'label'         => $this->translator->trans('profile.description'),
+                    'required'      => false,
                     'property_path' => 'profile.description'
                 ))
                 ->add('current_password', 'password', array(
-                    'label'             => 'form.current_password',
-                    'translation_domain'=> 'FOSUserBundle',
+                    'label'             => $this->translator->trans('profile.old_password'),
                     'mapped'            => false,
                     'constraints'       => new UserPassword(),
                     'required'          => false
                 ))
                 ->add('plainPassword', 'repeated', array(
+                'required'          => false,
                 'type'              => 'password',
                 'options'           => array('translation_domain' => 'FOSUserBundle'),
-                'first_options'     => array('label' => 'form.new_password'),
-                'second_options'    => array('label' => 'form.new_password_confirmation'),
+                'first_options'     => array(
+                    'label' => $this->translator->trans('profile.new_password')
+                ),
+                'second_options'    => array(
+                    'label' => $this->translator->trans('profile.new_password_confirmation')
+                ),
                 'invalid_message'   => 'fos_user.password.mismatch',
                 'required'          => false
             ))

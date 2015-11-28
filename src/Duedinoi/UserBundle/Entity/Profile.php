@@ -43,6 +43,21 @@ class Profile
         self::GENDER_MALE   => 'gender.male',
         self::GENDER_FEMALE => 'gender.female'
     );
+    
+    public static $signString = array(
+        self::SIGN_ARIES => 'sign.aries',
+        self::SIGN_TAURUS => 'sign.taurus',
+        self::SIGN_GEMINI => 'sign.gemini',
+        self::SIGN_CANCER => 'sign.cancer',
+        self::SIGN_LEO => 'sign.leo',
+        self::SIGN_VIRGO => 'sign.virgo',
+        self::SIGN_LIBRA => 'sign.libra',
+        self::SIGN_SCORPIO => 'sign.scorpio',
+        self::SIGN_SAGITTARIUS => 'sign.sagittarius',
+        self::SIGN_CAPRICORN => 'sign.capricorn',
+        self::SIGN_AQUARIUS => 'sign.aquarius',
+        self::SIGN_PISCES => 'sign.pisces'
+    );
 
     const SIGN_ARIES = 'aries';
     
@@ -507,6 +522,19 @@ class Profile
     
     public function getGenderString()
     {
-        return self::$gendersString[$this->getGender()];
+        if (isset(self::$gendersString[$this->getGender()])) {
+            return self::$gendersString[$this->getGender()];
+        }
+        
+        return;
+    }
+    
+    public function getSignString()
+    {
+        if (isset(self::$signString[$this->getSign()])) {
+            return self::$signString[$this->getSign()];
+        }
+        
+        return;
     }
 }

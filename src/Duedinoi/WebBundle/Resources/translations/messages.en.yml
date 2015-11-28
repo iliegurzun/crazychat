@@ -12,6 +12,8 @@ register:
     already_have_account: "You already have an account?"
     signup_header: "First time on Duedinoi?"
     submit_button: "Sign up"
+    choose_country: "Country"
+    choose_city: "City"
     terms_conditions: "I have read and accepted the <a href='#' class='underline'>Conditions of Use</a>, <a href='#' class='underline'>Privacy Statement</a> and <a href='#' class='underline'>Cookies</a>"
 homepage:
     left_title: "Lorem ipsum"

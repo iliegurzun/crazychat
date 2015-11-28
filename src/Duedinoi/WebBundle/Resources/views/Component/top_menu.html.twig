@@ -6,7 +6,7 @@
                 <li class="{{ app.request.get('_route') in ['duedinoi_dashboard'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_dashboard') }}">{{ 'menu.dashboard'|trans }}</a>
                 </li>
-                <li class="{{ app.request.get('_route') in ['duedinoi_edit_profile', 'duedinoi_my_profile`'] ? 'active' : '' }}">
+                <li class="{{ app.request.get('_route') in ['duedinoi_edit_profile', 'duedinoi_my_profile'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_my_profile') }}">{{ 'menu.edit_profile'|trans }}</a>
                 </li>
                 <li class="{{ app.request.get('_route') in ['duedinoi_photos'] ? 'active' : '' }}">
