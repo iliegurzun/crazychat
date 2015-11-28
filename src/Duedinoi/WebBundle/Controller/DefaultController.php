@@ -223,7 +223,7 @@ class DefaultController extends Controller
             'form' => $form->createView()
         ));
     }
-    
+
     public function chatServerAction($userslug, Request $request)
     {
 
