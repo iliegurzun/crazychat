@@ -15,6 +15,16 @@ class UserType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+                ->add('username', 'text', array(
+                    'label' => 'Username',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Username'
+                    )
+                ))
                 ->add('email', 'email', array(
                     'label' => 'Email',
                     'label_attr' => array(
@@ -58,50 +68,22 @@ class UserType extends AbstractType {
                     ),
                     'invalid_message' => 'Password does not match'
                 ))
-                ->add('first_name', 'text', array(
-                    'property_path' => 'profile.firstName',
-                    'label' => 'First name',
+                ->add('role', 'choice', array(
+                    'choices' => array(
+                        'ROLE_USER' => 'User', 
+                        'ROLE_ADMIN' => 'Admin',
+                        'ROLE_ROBOT' => 'Robot'
+                    ),
+                    'data' => $builder->getData()->getRole(),
+                    'label' => 'User Type',
                     'label_attr' => array(
                         'class' => 'col-lg-4 control-label'
                     ),
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'First name'
+                        'placeholder' => 'User Type'
                     )
-                ))
-                ->add('last_name', 'text', array(
-                    'property_path' => 'profile.lastName',
-                    'label' => 'Last name',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Last name'
-                    )
-                ))
-                ->add('date_of_birth', 'date', array(
-//                    'format' => 'Y-m-d',
-                    'property_path' => 'profile.dateOfBirth',
-                    'label' => 'Date of birth',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Date of birth'
-                    )
-                ))
-                ->add('image', new ImageType(), array(
-                    'property_path' => 'profile.image',
-                    'label' => 'Profile picture',
-                        'label_attr' => array(
-                            'class' => 'col-lg-4 control-label'
-                        ),
-//                        'attr' => array(
-//                            'class' => 'btn btn-primary btn-file',
-//                        )
-                    ))
+        ))
         ;
     }
 

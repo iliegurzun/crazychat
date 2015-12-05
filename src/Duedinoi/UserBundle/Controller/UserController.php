@@ -56,8 +56,14 @@ class UserController extends Controller
         if ($form->isValid()) {
             $em->persist($entity);
             $em->flush();
+            
+            if ('ROLE_ADMIN' !== $entity->getRole()) {
+                return $this->redirect($this->generateUrl('duedinoi_my_profile', array(
+                    '_want_to_be_this_user' => $entity->getUsername()
+                )));
+            }
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('DuedinoiUserBundle:User:new.html.twig', array(
@@ -206,8 +212,9 @@ class UserController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $form->bind($request);
         $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
 
         if ($form->isValid()) {
@@ -221,6 +228,7 @@ class UserController extends Controller
             $em->remove($entity);
             $em->flush();
         }
+        
 
         return $this->redirect($this->generateUrl('user'));
     }

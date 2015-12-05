@@ -224,21 +224,6 @@ class DefaultController extends Controller
         ));
     }
 
-    public function chatServerAction($userslug, Request $request)
-    {
-
-        set_time_limit(0);
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
-        if (!$user) {
-            throw $this->createNotFoundException('User not found!');
-        }
-        while (true) {
-            clearstatcache();
-            break;
-        }
-    }
-
     public function userConversationAction($userslug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -303,14 +288,12 @@ class DefaultController extends Controller
     
     public function messagesAction()
     {
-        /* @var $provider \FOS\MessageBundle\Provider\Provider */
-        $provider = $this->get('fos_message.provider');
-        $inboxThreads = $provider->getInboxThreads();
-        $sentboxThreads = $provider->getSentThreads();
-        $threads = array_merge($inboxThreads, $sentboxThreads);
+        $threadService = $this->get('chat_thread_service');
+        $threads = $threadService->getUserThreads();
         
         return $this->render('DuedinoiWebBundle:Default:messages.html.twig', array(
-            'threads' => $threads
+            'threads' => $threads,
+            'channel' => 'default'
         ));
     }
     
@@ -322,71 +305,11 @@ class DefaultController extends Controller
         if(!$user instanceof \Duedinoi\UserBundle\Entity\User) {
             throw $this->createNotFoundException();
         }
-        $form = $this->get('fos_message.new_thread_form.factory')->create();
-        $form
-            ->remove('recipient')
-            ->remove('subject');
-//        $thread = $em->getRepository('DuedinoiWebBundle:Thread')
         
-        $composer = $this->get('fos_message.composer');
-
-        $message = $composer->newThread()
-            ->setSender($currentUser)
-            ->addRecipient($user)
-            ->setBody($form->getData()->getBody())
-            ->getMessage();
-        
-        return $this->render('DuedinoiWebBundle:Default:thread.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user
+        return $this->render('DuedinoiWebBundle:Default:single_thread.html.twig', array(
+            'channel' => 'default',
+            'userslug'=> $userslug
         ));
-    }
-    
-    public function loadMessagesAction($userslug, Request $request)
-    {
-        
-        while ( true )
-        {
-            $requestedTimestamp = (int)$request->get('timestamp', null);
-            clearstatcache();
-            $session = $this->get('session');
-            $modifiedAt = $session->get('conversation', time());
-            if ($requestedTimestamp == null || $modifiedAt > $requestedTimestamp)
-            {
-                set_time_limit(0);
-                $em = $this->getDoctrine()->getManager();
-                $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
-                $modifiedAt = time();
-                $session->set('conversation', time());
-                /* @var $provider \FOS\MessageBundle\Provider\Provider */
-                $provider = $this->get('fos_message.provider');
-                $currentThread = null;
-                $sentboxThreads = $provider->getSentThreads();
-                foreach($sentboxThreads as $thread) {
-                    
-                    var_dump(get_class($thread));
-                    var_dump(get_class_methods($thread));die;
-                }
-                $inboxThreads = $provider->getInboxThreads();
-                
-                $threads = array_merge($inboxThreads, $sentboxThreads);
-                
-                
-                return new JsonResponse(array(
-                    'success'   => true,
-                    'content'   => $this->renderView('DuedinoiWebBundle:Component:_messages.html.twig', array(
-                       'messages' => array()
-                    )),
-                    'timestamp' => $modifiedAt
-                ));
-                break;
-            }
-            else
-            {
-                sleep(1);
-                continue;
-            }
-        }
     }
     
     public function notificationsAction(Request $request)

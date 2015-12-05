@@ -1,6 +1,13 @@
-<div class="user-item col-lg-2">
+<div class="user-item col-lg-2 link-click" data-href="{{ path('duedinoi_user_profile', {userslug: user.slug}) }}">
     <img class="picture-circle" src="{{ asset(get_user_image(user)) }}"/>
     <span class="user-name clearfix">{{ user.username }}</span>
-    <p class="user-age clearfix">{{ user.age }} {{ 'default.years'|trans }}</p>
-    <p class="user-location clearfix">{{ 'Iasi' }}</p>
+    <p class="user-age clearfix">{{ user.age|default('-') }} {{ 'default.years'|trans }}</p>
+    {% if user.country %}
+        <p class="user-location clearfix">
+            {{ user.country }}
+            {% if user.profile.city %}, 
+                {{ user.profile.city }}
+            {% endif %}
+        </p>
+    {% endif %}
 </div>

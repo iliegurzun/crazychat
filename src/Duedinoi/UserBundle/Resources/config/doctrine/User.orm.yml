@@ -54,7 +54,4 @@ Duedinoi\UserBundle\Entity\User:
         photos:
             targetEntity: Duedinoi\AdminBundle\Entity\Image
             mappedBy: user
-        threads:
-            targetEntity: Duedinoi\WebBundle\Entity\Thread
-            mappedBy: createdBy
     lifecycleCallbacks: {  }

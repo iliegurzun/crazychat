@@ -1,0 +1,49 @@
+{% render(controller('CunningsoftChatBundle:Chat:list', {'channel': channel})) %}
+<div class="single-comment col-lg-12 no-padding">
+    <div class="col-lg-2">
+        <img src="{{ get_user_image(app.user)|apply_filter('message_thumb') }}" class="comment-picture"/>
+        <div class="col-lg-1 orange-text">
+            {{ app.user.username }}
+        </div>
+    </div>
+    <div class="col-lg-10 no-padding">
+        <form id="chatForm" action="{{ path('cunningsoft_chat_post', {'channel': channel}) }}" method="post">
+            <textarea name="message" id="chatMessage" class="bubble"></textarea>
+            
+            <button class="button green-button custom-padding">Invia</button>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+$("#chatForm").submit(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    postMessage();
+    return false;
+});
+function postMessage()
+{
+    $.post('{{ path('cunningsoft_chat_post', {'channel': channel}) }}', 
+           { 'message': $("#chatMessage").val() },
+           function(data) {
+             // Check that the post function completed
+             if (data === 'Successful') {
+               updateChat();
+             }
+           }
+          );
+    $("#chatMessage").val('');
+}
+function updateChat()
+{
+    if (this.timer)
+        clearTimeout(this.timer);
+
+    $.post('{{ path('cunningsoft_chat_list', {'channel': channel}) }}', function(data) {
+        $('#chat').html(data);
+    });
+    this.timer = setTimeout('updateChat()', {{ updateInterval }});
+}
+updateChat();
+</script>

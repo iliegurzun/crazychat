@@ -29,6 +29,13 @@ $(function () {
     if ($('.confirm-action').length) {
         confirmAction($('.confirm-action'));
     }
+    if ($('.link-click').length) {
+        $('.link-click').on('click', function(e) {
+            if (typeof $(this).data('href') !== 'undefined') {
+                window.location.href = $(this).data('href'); 
+            }
+        });
+    }
 });
 $(window).load(function () {
     if ($('.carousel').length) {

@@ -1,0 +1,13 @@
+<div class="user-item col-lg-2 link-click" data-href="{{ path('duedinoi_thread', {userslug: thread.user.slug}) }}">
+        <img class="picture-circle-dashboard" src="{{ asset(get_user_image(thread.user)) }}"/>
+        <span class="user-name clearfix">{{ thread.user.username }}</span>
+        <p class="user-age clearfix">{{ thread.user.age|default('-') }} {{ 'default.years'|trans }}</p>
+        {% if thread.user.country %}
+            <p class="user-location clearfix">
+                {{ thread.user.country }}
+                {% if thread.user.profile.city %}, 
+                    {{ thread.user.profile.city }}
+                {% endif %}
+            </p>
+    {% endif %}
+</div>

@@ -6,14 +6,14 @@ use FOS\UserBundle\Model\User as BaseUser;
 use Duedinoi\UserBundle\Entity\Profile;
 use Duedinoi\WebBundle\Entity\Comment;
 use FOS\MessageBundle\Model\ParticipantInterface;
-
+use Cunningsoft\ChatBundle\Entity\AuthorInterface;
 //use Doctrine\ORM\Mapping\Annotation as ORM;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  */
-class User extends BaseUser implements ParticipantInterface 
+class User extends BaseUser implements AuthorInterface 
 {
 
     /**
@@ -44,12 +44,7 @@ class User extends BaseUser implements ParticipantInterface
      * @var \Doctrine\Common\Collections\Collection
      */
     private $receivedComments;
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $threads;
-    
+
     /**
      * @var string
      */
@@ -65,7 +60,6 @@ class User extends BaseUser implements ParticipantInterface
         $this->profile = new Profile();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->receivedComments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->threads = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -333,42 +327,35 @@ class User extends BaseUser implements ParticipantInterface
         return;
     }
 
-    /**
-     * Add thread
-     *
-     * @param \Duedinoi\WebBundle\Entity\Thread $thread
-     *
-     * @return User
-     */
-    public function addThread(\Duedinoi\WebBundle\Entity\Thread $thread)
+    public function isSameUser($user)
     {
-        $this->threads[] = $thread;
+        return $this === $user;
+    }
+    
+    public $role;
+    
+    public function getRole()
+    {
+        if (!empty($this->roles)) {
+            return $this->roles[0];
+        }
+        
+        return null;
+    }
+
+    public function setRole($role)
+    {
+        $this->roles = array($role);
 
         return $this;
     }
 
-    /**
-     * Remove thread
-     *
-     * @param \Duedinoi\WebBundle\Entity\Thread $thread
-     */
-    public function removeThread(\Duedinoi\WebBundle\Entity\Thread $thread)
+    public function hasRole($role = null) 
     {
-        $this->threads->removeElement($thread);
-    }
-
-    /**
-     * Get threads
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getThreads()
-    {
-        return $this->threads;
-    }
-    
-    public function isSameUser($user)
-    {
-        return $this === $user;
+        if ($role) {
+            return in_array(strtoupper($role), $this->getRoles(), true);
+        }
+        
+        return false;
     }
 }

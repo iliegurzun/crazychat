@@ -777,6 +777,30 @@ textarea {padding: 10px;}
 .small-select select:last-of-type {
     margin-right: 0;
 }
+.link-click {cursor:pointer}
+
+.bubble {
+    position: relative;
+    width: 100%;
+    min-height: 110px;
+    padding: 0px;
+    background: #FFFFFF;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.bubble:after{
+    content: '';
+    position: absolute !important;
+    border-style: solid;
+    border-width: 15px 15px 15px 0;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -15px;
+    top: 15px;
+}
 
 /*::-webkit-input-placeholder {
    color: red;

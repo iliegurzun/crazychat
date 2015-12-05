@@ -10,15 +10,9 @@
                 <form method="post" action="{{ path('user_create') }}" {{ form_enctype(form) }} class="form-horizontal" role="form" novalidate>
                     {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: form } %}
                     <div class="form-group">
-                        {{ form_label(form.first_name) }}
+                        {{ form_label(form.username) }}
                         <div class="col-lg-8">
-                            {{ form_widget(form.first_name) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.last_name) }}
-                        <div class="col-lg-8">
-                            {{ form_widget(form.last_name) }}
+                            {{ form_widget(form.username) }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -27,6 +21,7 @@
                             {{ form_widget(form.email) }}
                         </div>
                     </div>
+                        
                     <div class="form-group">
                         {{ form_label(form.enabled) }}
                         <div class="col-lg-8">
@@ -46,24 +41,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.date_of_birth) }}
+                        {{ form_label(form.role) }}
                         <div class="col-lg-8">
-                            {{ form_widget(form.date_of_birth) }}
-                        </div>
-                    </div>
-                    {#<div class="form-group">
-                        {{ form_label(form.image) }}
-                        <div class="col-lg-8">
-                        {{ form_widget(form.image) }}
-                        </div>
-                    </div>#}
-                    <div class="form-group">
-                         {{ form_label(form.image) }}
-                        <div class="col-lg-8">
-                        {{ form_widget(form.image) }}
-                        {% if form.vars.value.image is defined and form.vars.value.image.webPath|length %}
-                            <img src="{{ asset(form.vars.value.image.webPath) }}" />
-                        {% endif %}
+                            {{ form_widget(form.role) }}
                         </div>
                     </div>
                     {{ form_rest(form) }}

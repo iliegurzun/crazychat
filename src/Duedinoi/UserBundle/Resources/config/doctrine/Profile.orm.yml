@@ -9,16 +9,6 @@ Duedinoi\UserBundle\Entity\Profile:
             generator:
                 strategy: AUTO
     fields:
-        firstName:
-            type: string
-            length: 255
-            column: first_name
-            nullable: true
-        lastName:
-            type: string
-            length: 255
-            column: last_name
-            nullable: true
         gender:
             type: integer
             nullable: true

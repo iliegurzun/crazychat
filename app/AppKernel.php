@@ -19,10 +19,11 @@ class AppKernel extends Kernel {
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new FOS\MessageBundle\FOSMessageBundle(),
             new Duedinoi\UserBundle\DuedinoiUserBundle(),
             new Duedinoi\AdminBundle\DuedinoiAdminBundle(),
             new Duedinoi\WebBundle\DuedinoiWebBundle(),
+            new Cunningsoft\ChatBundle\CunningsoftChatBundle(),
+            new Knp\Bundle\TimeBundle\KnpTimeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

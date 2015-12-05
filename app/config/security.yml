@@ -27,6 +27,7 @@ security:
                 path: fos_user_security_logout
                 target: /
             anonymous:    true
+            switch_user: { role: ROLE_ADMIN, parameter: _want_to_be_this_user }
     access_control:
         - { path: ^/.*/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/.*/register, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1,3 +1,8 @@
+cunningsoft_chat_bundle:
+    resource: "@CunningsoftChatBundle/Controller"
+    type: annotation
+    prefix: /{_locale}
+    
 duedinoi_web:
     resource: "@DuedinoiWebBundle/Resources/config/routing.yml"
     prefix:   /
@@ -29,15 +34,11 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /{_locale}/profile
-    
-fos_message:
-    resource: "@FOSMessageBundle/Resources/config/routing.xml"
-    prefix: /{_locale}/message
 
 duedinoi_user:
     resource: "@DuedinoiUserBundle/Resources/config/routing.yml"
     prefix:   /{_locale}
-
+    
 duedinoi_web_default:
     pattern:  /{_locale}/{path}
     defaults: { _controller: DuedinoiWebBundle:Default:index, path: null, locale: 'it' }

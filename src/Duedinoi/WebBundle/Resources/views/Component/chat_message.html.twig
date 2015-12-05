@@ -1,0 +1,18 @@
+<li class="single-comment col-lg-12 no-padding">
+    <div class="col-lg-2">
+        <img src="{{ get_user_image(message.author)|apply_filter('message_thumb') }}" class="comment-picture"/>
+        <div class="col-lg-1 orange-text">
+            {{ message.author.username }}
+        </div>
+    </div>
+    <div class="col-lg-10">
+        <div class="col-lg-12 mt-20 mb-30 comment-text bubble">
+            <div class="col-lg-12 gray-text">
+                {{ message.insertDate|date('M d, Y H:i') }}
+            </div>
+             <div class="col-lg-12">
+                {{ message.message|nl2br }}
+            </div>
+        </div>
+    </div>
+</li>
