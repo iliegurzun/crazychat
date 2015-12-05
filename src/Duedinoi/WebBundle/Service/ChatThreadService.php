@@ -49,4 +49,19 @@ class ChatThreadService
         
         return $threads;
     }
+    
+    public function getThreadMessages($user)
+    {
+        $currentUser = $this->securityContext->getToken()->getUser();
+        $messageRepo = $this->em->getRepository('CunningsoftChatBundle:Message');
+        $messages = $messageRepo->createQueryBuilder('t')
+                ->andWhere('t.author = :author OR t.receiver = :author')
+                ->andWhere('t.author = :current_user OR t.receiver = :current_user')
+                ->setParameter('author', $user)
+                ->setParameter('current_user', $currentUser)
+                ->orderBy('t.id', 'asc')
+                ->getQuery()->execute();
+        
+        return $messages;
+    }
 }
