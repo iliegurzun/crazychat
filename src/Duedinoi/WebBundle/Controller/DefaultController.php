@@ -166,18 +166,21 @@ class DefaultController extends Controller
 
     public function dashboardAction(Request $request)
     {
+        $user = $this->getUser();
+        $filters = $request->get('search_users');
+        $filters['user'] = $user;
         $mapping = new SearchMapping();
         $searchForm = $this->createForm(new SearchFormType($this->get('translator')), $mapping);
         $userSearchForm = $this->createForm(new NameSearchType($this->get('translator')), $mapping);
         $title = $this->get('translator')->trans('title.active_users');
-        $user = $this->getUser();
+        
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
         if ($request->isMethod(Request::METHOD_POST)) {
             $searchForm->handleRequest($request);
             $userSearchForm->handleRequest($request);
             $title = $this->get('translator')->trans('search.search_results');
-            $activeUsers = $userRepo->findByFilters($request->get('search_users'));
+            $activeUsers = $userRepo->findByFilters($filters);
         } else {
             $activeUsers = $userRepo->findActiveExcept($user);
         }
