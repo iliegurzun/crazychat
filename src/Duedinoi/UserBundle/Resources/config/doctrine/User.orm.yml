@@ -26,6 +26,9 @@ Duedinoi\UserBundle\Entity\User:
         profile:
             targetEntity: Profile
             mappedBy: user
+            cascade:
+                - persist
+                - remove
     manyToOne:
         country:
             targetEntity: Duedinoi\AdminBundle\Entity\Country

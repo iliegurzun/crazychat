@@ -57,9 +57,6 @@ Duedinoi\UserBundle\Entity\Profile:
                 referencedColumnName: id
                 onDelete: 'CASCADE'
             fetch: EAGER
-            cascade:
-                - persist
-                - remove
         user:
             targetEntity: User
             inversedBy: profile
