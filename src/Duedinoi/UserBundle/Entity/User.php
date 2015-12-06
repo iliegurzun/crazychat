@@ -57,7 +57,10 @@ class User extends BaseUser implements AuthorInterface
     
     public function __construct() {
         parent::__construct();
-        $this->profile = new Profile();
+        if (!$this->profile) {
+            $profile = new Profile();
+            $this->setProfile($profile);
+        }
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->receivedComments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
