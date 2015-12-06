@@ -80,6 +80,7 @@ class User extends BaseUser implements AuthorInterface
      */
     public function setProfile(\Duedinoi\UserBundle\Entity\Profile $profile = null) {
         $this->profile = $profile;
+        $profile->setUser($this);
 
         return $this;
     }
