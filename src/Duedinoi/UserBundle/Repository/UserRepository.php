@@ -88,6 +88,7 @@ class UserRepository extends EntityRepository
             $qb->andWhere('u.username LIKE :username')
                     ->setParameter('username', "%$username%");
         }
+        $qb->groupBy('u.id');
         $results = $qb->getQuery()->getResult();
         
         return $results;
