@@ -15,8 +15,8 @@
                         {% endfor %}
                     {% else %}
                         <ul class="secondary-photos">
-                           <li class="" data-thumb="{{ get_user_image(app.user)|apply_filter('user_thumb') }}">
-                                <img src="{{ get_user_image(app.user)|apply_filter('profile_picture') }}"/>
+                           <li class="" data-thumb="{{ get_user_image(user)|apply_filter('user_thumb') }}">
+                                <img src="{{ get_user_image(user)|apply_filter('profile_picture') }}"/>
                             </li> 
                         </ul>
                     {% endif %}
