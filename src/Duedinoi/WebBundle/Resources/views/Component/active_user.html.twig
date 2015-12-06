@@ -1,13 +1,14 @@
-<div class="user-item col-lg-2" data-href="{{ path('duedinoi_user_profile', {userslug: user.slug}) }}">
-        <img class="picture-circle-dashboard" src="{{ asset(get_user_image(user)) }}"/>
-        <span class="user-name clearfix">{{ user.username }}</span>
-        <p class="user-age clearfix">{{ user.age|default('-') }} {{ 'default.years'|trans }}</p>
-        {% if user.country %}
-            <p class="user-location clearfix">
-                {{ user.country }}
-                {% if user.profile.city %}, 
-                    {{ user.profile.city }}
-                {% endif %}
-            </p>
-    {% endif %}
+<div class="user-item col-lg-2 link-click" data-href="{{ path('duedinoi_user_profile', {userslug: user.user.slug}) }}">
+    <img class="picture-circle-dashboard" src="{{ asset(get_user_image(user.user)) }}"/>
+    <i class="icon icon-camera photos-number"> {{ user.photos }}</i>
+    <span class="user-name clearfix">{{ user.user.username }}</span>
+    <p class="user-age clearfix">{{ user.user.age|default('-') }} {{ 'default.years'|trans }}</p>
+    {% if user.user.country %}
+        <p class="user-location clearfix">
+            {{ user.user.country }}
+            {% if user.user.profile.city %}, 
+                {{ user.user.profile.city }}
+            {% endif %}
+        </p>
+{% endif %}
 </div>

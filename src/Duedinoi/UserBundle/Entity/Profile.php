@@ -481,4 +481,33 @@ class Profile
         
         return;
     }
+    /**
+     * @var \Duedinoi\UserBundle\Entity\User
+     */
+    private $user;
+
+
+    /**
+     * Set user
+     *
+     * @param \Duedinoi\UserBundle\Entity\User $user
+     *
+     * @return Profile
+     */
+    public function setUser(\Duedinoi\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Duedinoi\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

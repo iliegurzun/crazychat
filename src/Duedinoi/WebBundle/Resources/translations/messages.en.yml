@@ -20,3 +20,11 @@ homepage:
     left_content: "Lorem ipsum dolor sit..."
 default:
     years: "years"
+title:
+    active_users: "Online users"
+search:
+    title: "Search"
+    subtitle: "Search by age"
+    with_photo: "Profiles with photos"
+    online: "Online only"
+

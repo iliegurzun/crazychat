@@ -1,14 +1,14 @@
 {% render(controller('CunningsoftChatBundle:Chat:list', {'channel': channel})) %}
 <div class="single-comment col-lg-12 no-padding">
     <div class="col-lg-2">
-        <img src="{{ get_user_image(app.user)|apply_filter('message_thumb') }}" class="comment-picture"/>
-        <div class="col-lg-1 orange-text">
+        <img src="{{ get_user_image(app.user)|apply_filter('message_thumb') }}" class="comment-picture message-picture"/>
+        <div class="col-lg-1 orange-text chat-user">
             {{ app.user.username }}
         </div>
     </div>
-    <div class="col-lg-10 no-padding">
+    <div class="col-lg-10">
         <form id="chatForm" action="{{ path('cunningsoft_chat_post', {'channel': channel}) }}" method="post">
-            <textarea name="message" id="chatMessage" class="bubble"></textarea>
+            <textarea name="message" id="chatMessage" class="bubble autosize"></textarea>
             
             <button class="button green-button custom-padding">Invia</button>
         </form>
@@ -19,7 +19,9 @@ $("#chatForm").submit(function(e) {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
-    postMessage();
+    if ($("#chatMessage").val() !=='') {
+        postMessage();
+    }
     return false;
 });
 function postMessage()
@@ -30,6 +32,9 @@ function postMessage()
              // Check that the post function completed
              if (data === 'Successful') {
                updateChat();
+             }
+             if (typeof autosize !=='undefined') {
+                 autosize.update($("#chatMessage"));
              }
            }
           );

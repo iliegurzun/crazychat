@@ -60,4 +60,15 @@ Duedinoi\UserBundle\Entity\Profile:
             cascade:
                 - persist
                 - remove
+        user:
+            targetEntity: User
+            inversedBy: profile
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: 'CASCADE'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
     lifecycleCallbacks: {  }

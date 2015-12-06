@@ -12,7 +12,7 @@
                 <li class="{{ app.request.get('_route') in ['duedinoi_photos'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_photos') }}">{{ 'menu.photos'|trans }}</a>
                 </li>
-                <li class="{{ app.request.get('_route') in ['duedinoi_messages'] ? 'active' : '' }}">
+                <li class="{{ app.request.get('_route') in ['duedinoi_messages', 'duedinoi_thread'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_messages') }}">{{ 'menu.messages'|trans }}</a></li>
                 <li class="{{ app.request.get('_route') in ['duedinoi_notifications'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_notifications') }}">{{ 'menu.notifications'|trans }}</a>

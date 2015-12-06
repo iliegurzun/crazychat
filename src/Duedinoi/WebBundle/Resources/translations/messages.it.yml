@@ -86,6 +86,7 @@ profile:
 title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
+    active_users: "Utenti online"
 save: "Salva"
 submit: "Aggiornare"
 remove_account: "Rimuovi account"
@@ -131,3 +132,10 @@ about:
     title: "Chi siamo"
     description: "Entra anche tu nella nostra community!"
 logout: "Esci"
+search:
+    title: "Cerca"
+    subtitle: "Cerca donna eta"
+    with_photo: "Solo profile con foto"
+    online: "Solo utenti online"
+    search_results: "CERCA"
+    

@@ -25,14 +25,7 @@ Duedinoi\UserBundle\Entity\User:
     oneToOne:
         profile:
             targetEntity: Profile
-            joinColumn:
-                name: profile_id
-                referencedColumnName: id
-                onDelete: 'CASCADE'
-            fetch: EAGER
-            cascade:
-                - persist
-                - remove
+            mappedBy: user
     manyToOne:
         country:
             targetEntity: Duedinoi\AdminBundle\Entity\Country

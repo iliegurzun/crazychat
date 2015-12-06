@@ -36,6 +36,9 @@ $(function () {
             }
         });
     }
+    if (typeof $('.autosize') !=='undefined' && typeof autosize !=='undefined') {
+        autosize($('.autosize'));
+    }
 });
 $(window).load(function () {
     if ($('.carousel').length) {

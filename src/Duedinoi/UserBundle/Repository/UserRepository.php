@@ -29,10 +29,15 @@ class UserRepository extends EntityRepository
         $delay = new \DateTime('2 minutes ago');
         $qb = $this
                 ->createQueryBuilder('u')
+                ->select('u as user')
+                ->leftJoin('u.photos', 'ph')
+                ->addSelect('COUNT(ph.id) as photos')
                 ->andWhere('u.lastActivityAt > :delay')
                 ->setParameter('delay', $delay)
                 ->andWhere('u.roles NOT LIKE :admin')
                 ->setParameter('admin', '%ROLE_ADMIN%')
+                
+                ->having('photos > 0');
                 ;
         if ($user instanceof UserInterface) {
             $qb
@@ -41,5 +46,50 @@ class UserRepository extends EntityRepository
         }
         
         return $qb->getQuery()->execute();
+    }
+    
+    public function findByFilters(array $filters = array())
+    {
+        $qb = $this->createQueryBuilder('u')
+                ->select('u as user')
+                ->join('u.profile', 'p')
+                ->leftJoin('u.photos', 'ph')
+                ->addSelect('COUNT(ph.id) as photos')
+                ->andWhere('u.roles NOT LIKE :admin')
+                ->setParameter('admin', '%ROLE_ADMIN%')
+                ;
+        if (!empty($filters['minAge'])) {
+            $yearsAgo = $filters['minAge'];
+            $minAge = new \DateTime("$yearsAgo years ago");
+            $qb
+                ->andWhere('p.dateOfBirth <= :min_age')
+                ->setParameter('min_age', $minAge);
+        }
+        if (!empty($filters['maxAge'])) {
+            $yearsAgo = $filters['maxAge'];
+            $maxAge = new \DateTime("$yearsAgo years ago");
+            
+            $qb
+                ->andWhere('p.dateOfBirth >= :max_age')
+                ->setParameter('max_age', $maxAge);
+        }
+        if (isset($filters['withPhoto'])) {
+            $qb
+                ->having('photos > 0');
+        }
+        if (isset($filters['online'])) {
+            $delay = new \DateTime('2 minutes ago');
+            $qb
+                ->andWhere('u.lastActivityAt > :delay')
+                ->setParameter('delay', $delay);
+        }
+        if (isset($filters['username'])) {
+            $username = $filters['username'];
+            $qb->andWhere('u.username LIKE :username')
+                    ->setParameter('username', "%$username%");
+        }
+        $results = $qb->getQuery()->getResult();
+        
+        return $results;
     }
 }

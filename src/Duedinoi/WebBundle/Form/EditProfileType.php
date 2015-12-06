@@ -137,6 +137,16 @@ class EditProfileType extends AbstractType
             ;
     }
     
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver) 
+    {
+        $resolver->setDefaults(array(
+            'csrf_protection'   => false,
+        ));
+    }
+    
     public function getName()
     {
         return 'edit_profile';

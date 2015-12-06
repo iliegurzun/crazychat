@@ -1,7 +1,7 @@
 <li class="single-comment col-lg-12 no-padding">
     <div class="col-lg-2">
-        <img src="{{ get_user_image(message.author)|apply_filter('message_thumb') }}" class="comment-picture"/>
-        <div class="col-lg-1 orange-text">
+        <img src="{{ get_user_image(message.author)|apply_filter('message_thumb') }}" class="comment-picture message-picture"/>
+        <div class="col-lg-1 orange-text chat-user">
             {{ message.author.username }}
         </div>
     </div>

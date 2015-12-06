@@ -18,6 +18,9 @@ use Duedinoi\AdminBundle\Form\ImageType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Duedinoi\AdminBundle\Entity\Image;
 use Duedinoi\WebBundle\Service\ProfileEvents;
+use Duedinoi\WebBundle\Form\SearchFormType;
+use Duedinoi\WebBundle\Form\NameSearchType;
+use Duedinoi\WebBundle\Entity\SearchMapping;
 
 class DefaultController extends Controller
 {
@@ -163,10 +166,21 @@ class DefaultController extends Controller
 
     public function dashboardAction(Request $request)
     {
+        $mapping = new SearchMapping();
+        $searchForm = $this->createForm(new SearchFormType($this->get('translator')), $mapping);
+        $userSearchForm = $this->createForm(new NameSearchType($this->get('translator')), $mapping);
+        $title = $this->get('translator')->trans('title.active_users');
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
-        $activeUsers = $userRepo->findActiveExcept($user);
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $searchForm->handleRequest($request);
+            $userSearchForm->handleRequest($request);
+            $title = $this->get('translator')->trans('search.search_results');
+            $activeUsers = $userRepo->findByFilters($request->get('search_users'));
+        } else {
+            $activeUsers = $userRepo->findActiveExcept($user);
+        }
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $activeUsers,
@@ -175,7 +189,10 @@ class DefaultController extends Controller
         );
 
         return $this->render('DuedinoiWebBundle:Default:dashboard.html.twig', array(
-            'activeUsers' => $pagination
+            'activeUsers' => $pagination,
+            'searchForm'  => $searchForm->createView(),
+            'title'       => $title,
+            'nameForm'    => $userSearchForm->createView(),
         ));
     }
 

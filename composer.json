@@ -24,8 +24,7 @@
         "gedmo/doctrine-extensions": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "avalanche123/imagine-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "2.4.*@dev",
-        "friendsofsymfony/message-bundle": "^1.2"
+        "knplabs/knp-paginator-bundle": "2.4.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
