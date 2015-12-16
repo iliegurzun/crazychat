@@ -21,6 +21,7 @@ use Duedinoi\WebBundle\Service\ProfileEvents;
 use Duedinoi\WebBundle\Form\SearchFormType;
 use Duedinoi\WebBundle\Form\NameSearchType;
 use Duedinoi\WebBundle\Entity\SearchMapping;
+use Duedinoi\WebBundle\Service\BasicPubSub;
 
 class DefaultController extends Controller
 {
@@ -351,5 +352,12 @@ class DefaultController extends Controller
     {
         return $this->render('DuedinoiWebBundle:Default:about.html.twig', array(
         ));
+    }
+
+    public function testAction()
+    {
+        $server = new \Ratchet\App('localhost');
+        $server->route('/pubsub', new BasicPubSub);
+        $server->run();
     }
 }

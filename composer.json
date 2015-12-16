@@ -24,7 +24,8 @@
         "gedmo/doctrine-extensions": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "avalanche123/imagine-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "2.4.*@dev"
+        "knplabs/knp-paginator-bundle": "2.4.*@dev",
+        "cboden/ratchet": "0.3.*"
     },
     "scripts": {
         "post-install-cmd": [

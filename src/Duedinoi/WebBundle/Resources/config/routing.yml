@@ -40,6 +40,9 @@ duedinoi_notifications:
 duedinoi_about:
     pattern: /{_locale}/about-us
     defaults: { _controller: DuedinoiWebBundle:Default:about, _locale: it }
+duedinoi_test:
+    pattern: /{_locale}/testing-asd
+    defaults: { _controller: DuedinoiWebBundle:Default:test, _locale: 'it'}
 duedinoi_user_conversation:
     pattern: /{_locale}/{userslug}/conversation
     defaults: { _controller: DuedinoiWebBundle:Default:userConversation, _locale: 'it' }
