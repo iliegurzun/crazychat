@@ -22,6 +22,10 @@ use Duedinoi\WebBundle\Form\SearchFormType;
 use Duedinoi\WebBundle\Form\NameSearchType;
 use Duedinoi\WebBundle\Entity\SearchMapping;
 use Duedinoi\WebBundle\Service\BasicPubSub;
+use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
+use Duedinoi\WebBundle\Service\Chat;
 
 class DefaultController extends Controller
 {
@@ -353,11 +357,10 @@ class DefaultController extends Controller
         return $this->render('DuedinoiWebBundle:Default:about.html.twig', array(
         ));
     }
-
-    public function testAction()
+    
+    public function videostreamAction()
     {
-        $server = new \Ratchet\App('localhost');
-        $server->route('/pubsub', new BasicPubSub);
-        $server->run();
+        return $this->render('DuedinoiWebBundle:Default:videostream.html.twig', array(
+        ));
     }
 }

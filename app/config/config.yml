@@ -125,3 +125,11 @@ cunningsoft_chat:
     update_interval: 3000
     # messages to be shown in chat
     number_of_messages: 10
+    
+gos_web_socket:
+    server:
+        port: 8090        #The port the socket server will listen on
+        host: 127.0.0.1   #The host ip to bind to
+        router:
+            resources:
+                - @DuedinoiWebBundle/Resources/config/pubsub/routing.yml
