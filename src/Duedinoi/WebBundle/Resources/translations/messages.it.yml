@@ -87,6 +87,7 @@ title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
     active_users: "Utenti online"
+    notifications: "Notifiche"
 save: "Salva"
 submit: "Aggiornare"
 remove_account: "Rimuovi account"
@@ -138,4 +139,6 @@ search:
     with_photo: "Solo profile con foto"
     online: "Solo utenti online"
     search_results: "CERCA"
+photos:
+    title: Gestione foto
     
