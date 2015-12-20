@@ -1,4 +1,4 @@
-<div class="user-item col-lg-2 link-click" data-href="{{ path('duedinoi_thread', {userslug: thread.user.slug}) }}">
+<div class="user-item col-lg-2 col-md-2 col-xs-3 link-click" data-href="{{ path('duedinoi_thread', {userslug: thread.user.slug}) }}">
         <img class="picture-circle-dashboard" src="{{ asset(get_user_image(thread.user)) }}"/>
         <span class="user-name clearfix">{{ thread.user.username }}</span>
         <p class="user-age clearfix">{{ thread.user.age|default('-') }} {{ 'default.years'|trans }}</p>

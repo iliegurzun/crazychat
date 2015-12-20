@@ -1,4 +1,4 @@
-<div class="user-item col-lg-2 link-click" data-href="{{ path('duedinoi_user_profile', {userslug: user.slug}) }}">
+<div class="user-item col-lg-2 col-xs-3 col-md-2 link-click" data-href="{{ path('duedinoi_user_profile', {userslug: user.slug}) }}">
     <img class="picture-circle" src="{{ asset(get_user_image(user)) }}"/>
     <span class="user-name clearfix">{{ user.username }}</span>
     <p class="user-age clearfix">{{ user.age|default('-') }} {{ 'default.years'|trans }}</p>

@@ -372,6 +372,7 @@ a.green:hover {
 }
 .second-hero-login {
     background: url("../images/login-image.png") no-repeat;
+    background-size: 100%;
     position: absolute;
     z-index: -1;
     min-height: 200px;
@@ -837,6 +838,30 @@ textarea {padding: 10px;}
     opacity: 0.5;
     filter: alpha(opacity=50);
     color: #fff;
+}
+.mh-700 {
+    min-height: 760px;
+}
+@media screen and (max-width: 980px) {
+    .menu-wrap #header {
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .second-hero-login h3 {
+        margin-top: 50px;
+    }
+    .footer .container {width: 100%;}
+    .footer-logo.col-lg-2.mt-30 {
+        text-align: center;
+        float: none;
+    }
+    .container-fluid > .container {width: 100%;}
+    .info-block {
+        width: 100%;
+    }
+    #page {width: 100%;}
+    .bg {width: 125%;}
 }
 /*::-webkit-input-placeholder {
    color: red;
