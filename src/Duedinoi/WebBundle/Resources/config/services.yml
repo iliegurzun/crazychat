@@ -38,6 +38,6 @@ services:
         class: Duedinoi\WebBundle\Service\ChatThreadService
         arguments: [@doctrine.orm.entity_manager, @security.context]
     acme_hello.topic_sample_service:
-        class: Duedinoi\WebBundle\Topic\Topic
+        class: Duedinoi\WebBundle\Topic\CrazyTopic
         tags:
             - { name: gos_web_socket.topic }

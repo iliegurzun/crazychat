@@ -7,7 +7,7 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\Topic;
 use Gos\Bundle\WebSocketBundle\Router\WampRequest;
 
-class Topic implements TopicInterface
+class CrazyTopic implements TopicInterface
 {
     /**
      * This will receive any Subscription requests for this topic.
