@@ -134,7 +134,7 @@ about:
 logout: "Esci"
 search:
     title: "Cerca"
-    subtitle: "Cerca donna eta"
+    subtitle: "Cerca donna etá:"
     with_photo: "Solo profile con foto"
     online: "Solo utenti online"
     search_results: "CERCA"

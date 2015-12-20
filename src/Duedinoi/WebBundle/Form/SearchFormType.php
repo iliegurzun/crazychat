@@ -11,6 +11,7 @@ namespace Duedinoi\WebBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * Description of SearchFormType
@@ -28,7 +29,7 @@ class SearchFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options) 
     {
         $builder
-            ->add('minAge', 'number', array(
+            ->add('minAge', NumberType::class, array(
                 'label' => ' ',
                 'required' => false
             ))

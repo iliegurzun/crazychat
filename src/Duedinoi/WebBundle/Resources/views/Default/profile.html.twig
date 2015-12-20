@@ -60,19 +60,30 @@
                     <p class="col-lg-8">{{user.profile.description|default() }}</p>
                 </div>
             </div>
-            <div class="hr"></div>
             {% if not app.user.isSameUser(user) %}
                 {% include "DuedinoiWebBundle:Component:profile_actions.html.twig" %}
             {% endif %}
-            <div class="col-lg-12 no-padding">
-                <h3>{{ 'profile.comments'|trans }}</h3>
-                {% for comment in user.activeComments %}
-                    {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
-                {% endfor %}
-                {% if form is defined %}
-                    {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
-                {% endif %}
-            </div>
+            {% if user.activeComments|length %}
+                <div class="col-lg-12 no-padding">
+                    <h3>{{ 'profile.comments'|trans }}</h3>
+                    {% for comment in user.activeComments %}
+                        {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
+                    {% endfor %}
+                    {% if form is defined %}
+                        {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if activeUsers|length %}
+                <div class="col-lg-12 no-padding">
+                    <h3 class="page-title col-lg-12 no-padding">
+                        {{ 'title.active_users'|trans }}
+                    </h3>
+                    {% for user in activeUsers %}
+                        {% include "DuedinoiWebBundle:Component:active_user.html.twig" %}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

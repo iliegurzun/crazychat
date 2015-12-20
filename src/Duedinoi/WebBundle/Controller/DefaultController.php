@@ -206,16 +206,21 @@ class DefaultController extends Controller
 
     public function myProfileAction(Request $request)
     {
-
+        $em = $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('DuedinoiUserBundle:User');
+        $activeUsers = $userRepo->findActiveExcept($this->getUser(), 14);
+        
         return $this->render('DuedinoiWebBundle:Default:profile.html.twig', array(
-            'user' => $this->getUser()
+            'user'          => $this->getUser(),
+            'activeUsers'   => $activeUsers
         ));
     }
 
     public function userProfileAction($userslug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
+        $userRepo = $em->getRepository('DuedinoiUserBundle:User');
+        $user = $userRepo->findOneBySlug($userslug);
         if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
             throw $this->createNotFoundException();
         }
@@ -226,6 +231,7 @@ class DefaultController extends Controller
         $comment->setAuthor($this->getUser())
             ->setUser($user);
         $form = $this->createForm(new \Duedinoi\WebBundle\Form\CommentType(), $comment);
+        $activeUsers = $userRepo->findActiveExcept($this->getUser(), 14);
         if ($request->isMethod(Request::METHOD_POST)) {
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -244,8 +250,9 @@ class DefaultController extends Controller
         }
 
         return $this->render('DuedinoiWebBundle:Default:profile.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView()
+            'user'          => $user,
+            'form'          => $form->createView(),
+            'activeUsers'   => $activeUsers
         ));
     }
 

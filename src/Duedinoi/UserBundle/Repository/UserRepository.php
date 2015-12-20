@@ -24,7 +24,7 @@ class UserRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
     
-    public function findActiveExcept($user = null)
+    public function findActiveExcept($user = null, $limit = null)
     {
         $delay = new \DateTime('2 minutes ago');
         $qb = $this
@@ -37,12 +37,15 @@ class UserRepository extends EntityRepository
                 ->andWhere('u.roles NOT LIKE :admin')
                 ->setParameter('admin', '%ROLE_ADMIN%')
                 
-                ->having('photos > 0');
+                ->having('photos > 0')
                 ;
         if ($user instanceof UserInterface) {
             $qb
                 ->andWhere('u.id != :user_id')
                 ->setParameter('user_id', $user->getId());
+        }
+        if (!empty($limit)) {
+            $qb->getMaxResults($limit);
         }
         
         return $qb->getQuery()->execute();
