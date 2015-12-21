@@ -13,7 +13,7 @@
         var webSocket = WS.connect("ws://{{ gos_web_socket_server_host }}:{{ gos_web_socket_server_port }}");
 
         webSocket.on("socket/connect", function(session){
-
+            console.log('asd');
             //the callback function in "subscribe" is called everytime an event is published in that channel.
             session.subscribe("acme/channel", function(uri, payload){
                 console.log("Received message", payload.msg);
@@ -23,6 +23,7 @@
         })
 
         webSocket.on("socket/disconnect", function(error){
+            console.log(error);
             //error provides us with some insight into the disconnection: error.reason and error.code
 
             console.log("Disconnected for " + error.reason + " with code " + error.code);

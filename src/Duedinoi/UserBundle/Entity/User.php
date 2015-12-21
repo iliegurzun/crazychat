@@ -111,7 +111,11 @@ class User extends BaseUser implements AuthorInterface
 
     public function getAge()
     {
-        return $this->getProfile()->getAge();
+        if ($this->getProfile() instanceof Profile) {
+            return $this->getProfile()->getAge();
+        }
+        
+        return '';
     }
 
     /**
