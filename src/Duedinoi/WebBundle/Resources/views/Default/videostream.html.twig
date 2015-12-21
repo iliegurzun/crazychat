@@ -10,7 +10,7 @@
     {{ parent() }}
     {{ ws_client() }}
     <script type="text/javascript">
-        var webSocket = WS.connect("ws://crazychat.online:8090");
+        var webSocket = WS.connect("ws://{{ gos_web_socket_server_host }}:{{ gos_web_socket_server_port }}");
 
         webSocket.on("socket/connect", function(session){
 
