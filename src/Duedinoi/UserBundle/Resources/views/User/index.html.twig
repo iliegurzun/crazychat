@@ -12,8 +12,7 @@
                 <thead>
                     <tr role="row">
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting_asc">Id</th>
-                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">First Name</th>
-                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Last Name</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Username</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Email</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Enabled</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Actions</th>
@@ -24,8 +23,7 @@
                 {% for user in entities %}
                     <tr class="gradeA {% if loop.index % 2 == 1  %} odd {% else %} even {% endif %}">
                         <td class="sorting_1">{{ user.id }}</td>
-                        <td class=" ">{{ user.profile.firstName|default('-')  }}</td>
-                        <td class=" ">{{ user.profile.lastName|default('-') }}</td>
+                        <td class=" ">{{ user.username|default('-')  }}</td>
                         <td class="center ">{{ user.email }}</td>
                         <td class="center ">{{ user.enabled|yes_no }}</td>
                         <td class="center ">
