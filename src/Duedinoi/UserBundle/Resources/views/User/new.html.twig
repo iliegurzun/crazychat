@@ -7,7 +7,7 @@
         <div class="list-group">
             <div id="input-fields-horizontal" class="list-group-item">
                 <h4 class="section-title">Create new User</h4>
-                <form method="post" action="{{ path('user_create') }}" {{ form_enctype(form) }} target="_blank" class="form-horizontal" role="form" novalidate>
+                <form method="post" action="{{ path('user_create') }}" {{ form_enctype(form) }} class="form-horizontal" role="form" novalidate>
                     {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: form } %}
                     <div class="form-group">
                         {{ form_label(form.username) }}
