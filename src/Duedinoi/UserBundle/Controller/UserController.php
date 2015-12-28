@@ -85,6 +85,9 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
+            'attr' => array( 
+                'target' => '_blank' 
+            )
         ));
 
         return $form;
