@@ -48,6 +48,15 @@ class Message
      * @ORM\Column(type="text")
      */
     private $message;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isMass = false;
+    
+    private $receivers;
 
     /**
      * @var \DateTime
@@ -55,6 +64,12 @@ class Message
      * @ORM\Column(type="datetime")
      */
     private $insertDate;
+    
+    public function __construct()
+    {
+        $this->isMass = false;
+        $this->receivers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @return string
@@ -120,6 +135,18 @@ class Message
     public function setReceiver(AuthorInterface $receiver)
     {
         $this->receiver = $receiver;
+        
+        return $this;
+    }
+    
+    public function getIsMass()
+    {
+        return $this->isMass;
+    }
+    
+    public function setIsMass($isMass)
+    {
+        $this->isMass = $isMass;
         
         return $this;
     }

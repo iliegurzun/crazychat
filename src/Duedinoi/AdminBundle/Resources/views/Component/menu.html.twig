@@ -9,14 +9,16 @@
             </a>
         </li>
         {% for key, item in get_admin_menu() %}
-            <li>
-                <a href="{{ path(item['route']) }}">
-                    <i class="icon-{{ item['icon'] }} nav-icon"></i>
-                    <span class="nav-text">
-                        {{ key }}
-                    </span>
-                </a>
-            </li>
+            {% if is_granted(item['role']) %}
+                <li>
+                    <a href="{{ path(item['route']) }}">
+                        <i class="fa fa-{{ item['icon'] }} nav-icon"></i>
+                        <span class="nav-text">
+                            {{ key }}
+                        </span>
+                    </a>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 

@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
+        $entities = $em->getRepository('DuedinoiUserBundle:User')->findNormal();
 
         $deleteForms = array();
         foreach($entities as $entity) {
@@ -52,16 +52,9 @@ class UserController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
         if ($form->isValid()) {
             $em->persist($entity);
             $em->flush();
-            
-            if ('ROLE_ADMIN' !== $entity->getRole()) {
-                return $this->redirect($this->generateUrl('duedinoi_my_profile', array(
-                    '_want_to_be_this_user' => $entity->getUsername()
-                )));
-            }
 
             return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
@@ -69,7 +62,6 @@ class UserController extends Controller
         return $this->render('DuedinoiUserBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -86,6 +78,7 @@ class UserController extends Controller
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
         ));
+        $form->remove('site');
 
         return $form;
     }
@@ -99,12 +92,10 @@ class UserController extends Controller
         $entity = new User();
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
 
         return $this->render('DuedinoiUserBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -121,14 +112,12 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
 
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('DuedinoiUserBundle:User:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),    
-            'entities' => $entities
             ));
     }
 
@@ -145,8 +134,6 @@ class UserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
@@ -154,7 +141,6 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -171,6 +157,9 @@ class UserController extends Controller
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
+        $form
+            ->remove('site')
+            ->remove('plainPassword');
 
         return $form;
     }
@@ -191,7 +180,6 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->bind($request);
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -203,7 +191,6 @@ class UserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
     /**
@@ -215,7 +202,6 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($id);
         $form->bind($request);
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

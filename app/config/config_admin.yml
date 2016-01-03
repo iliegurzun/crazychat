@@ -1,30 +1,52 @@
 Menu:
-    Users:
+#    Admins:
+#        class: "DuedinoiUserBundle:User"
+#        route: "admin"
+#        icon: "lock"
+    People:
         class: "DuedinoiUserBundle:User"
         route: "user"
         icon:  "user"
-    Pages:
-        class: "DuedinoiAdminBundle:Page"
-        route: "page"
-        icon:  "folder-open"
-    Menus:
-        class: "DuedinoiAdminBundle:Menu"
-        route: "menu"
-        icon:  "sitemap"
+        role: "ROLE_ADMIN"
+    Recruited Members:
+        class: "DuedinoiUserBundle:User"
+        route: "recruitedmember"
+        icon:  "random"
+        role: "ROLE_ADMIN"
+#    Bots:
+#        class: "DuedinoiUserBundle:User"
+#        route: "bot"
+#        icon:  "reddit-alien"
+#    Pages:
+#        class: "DuedinoiAdminBundle:Page"
+#        route: "page"
+#        icon:  "folder-open"
+#    Menus:
+#        class: "DuedinoiAdminBundle:Menu"
+#        route: "menu"
+#        icon:  "sitemap"
     Settings:
         class: "DuedinoiAdminBundle:Setting"
         route: "setting"
         icon:  "gear"
-    Galleries:
-        class: "DuedinoiAdminBundle:Gallery"
-        route: "gallery"
-        icon:  "picture"
+        role: "ROLE_ADMIN"
+#    Galleries:
+#        class: "DuedinoiAdminBundle:Gallery"
+#        route: "gallery"
+#        icon:  "picture-o"
     Countries:
         class: "DuedinoiAdminBundle:Country"
         route: "country"
-        icon:  "picture"
-    Messages:
+        icon:  "globe"
+        role: "ROLE_ADMIN"
+    Contact Messages:
         class: "DuedinoiAdminBundle:ContactMessage"
         route: "contactmessage"
         icon:  "envelope"
+        role: "ROLE_ADMIN"
+    Mass Messages:
+        class: "CunningsoftChatBundle:Message"
+        route: "contactmessage"
+        icon: "envelope-o"
+        role: "ROLE_ROBOT"
 Project Name: Crazy Chat

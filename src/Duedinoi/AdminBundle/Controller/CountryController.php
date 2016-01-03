@@ -93,10 +93,8 @@ class CountryController extends Controller
         $entity = new Country();
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:Country')->findAll();
 
         return $this->render('DuedinoiAdminBundle:Country:new.html.twig', array(
-            "entities" => $entities,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -133,7 +131,6 @@ class CountryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Country')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Country')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Country entity.');
@@ -146,7 +143,6 @@ class CountryController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities'    => $entities
         ));
     }
 
@@ -175,7 +171,6 @@ class CountryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Country')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Country')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Country entity.');
@@ -194,7 +189,6 @@ class CountryController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities'    => $entities
         ));
     }
     /**

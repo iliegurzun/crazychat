@@ -96,12 +96,10 @@ class MenuController extends Controller {
         $entity = new Menu();
         $form = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:Menu')->findAll();
 
         return $this->render('DuedinoiAdminBundle:Menu:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'entities' => $entities
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -133,7 +131,6 @@ class MenuController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Menu')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Menu')->findAll();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Menu entity.');
         }
@@ -147,7 +144,6 @@ class MenuController extends Controller {
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
-                    'entities' => $entities,
                     'menu_items' => $menuItems
         ));
     }

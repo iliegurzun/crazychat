@@ -22,6 +22,32 @@ Duedinoi\UserBundle\Entity\User:
                 style: default
                 fields:
                   - username
+        ipAddress:
+            type: string
+            length: 128
+            nullable: true
+        referral:
+            type: string
+            length: 255
+            nullable: true
+        converter:
+            type: string
+            length: 255
+            nullable: true
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: date
+            gedmo:
+                timestampable: 
+                    on: update
+        site:
+            type: string
+            length: 255
+            nullable: true
     oneToOne:
         profile:
             targetEntity: Profile
@@ -40,6 +66,18 @@ Duedinoi\UserBundle\Entity\User:
             cascade:
                 - persist
                 - remove
+        recruiter:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: recruitedUsers
+            nullable: true
+            joinColumn:
+                name: admin_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
     oneToMany:
         comments:
             targetEntity: Duedinoi\WebBundle\Entity\Comment
@@ -50,4 +88,7 @@ Duedinoi\UserBundle\Entity\User:
         photos:
             targetEntity: Duedinoi\AdminBundle\Entity\Image
             mappedBy: user
+        recruitedUsers:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            mappedBy: recruiter
     lifecycleCallbacks: {  }

@@ -51,6 +51,26 @@ class User extends BaseUser implements AuthorInterface
     private $slug;
     
     /**
+     * @var string
+     */
+    private $ipAddress;
+
+    /**
+     * @var string
+     */
+    private $converter;
+
+    /**
+     * @var \DateTime
+     */
+    private $created_at;
+
+    /**
+     * @var \DateTime
+     */
+    private $updated_at;
+    
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $photos;
@@ -365,5 +385,53 @@ class User extends BaseUser implements AuthorInterface
         }
         
         return false;
+    }
+    
+    public function getTypeString()
+    {
+        if ($this->hasRole('ROLE_SUPER_ADMIN')) {
+            return 'Super Admin';
+        }
+        if ($this->hasRole('ROLE_ADMIN')) {
+            return 'Admin';
+        }
+        if ($this->hasRole('ROLE_BOT')) {
+            return 'Robot';
+        }
+        
+        return 'User';
+    }
+    
+    /**
+     * Set ipAddress
+     *
+     * @param string $ipAddress
+     *
+     * @return User
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get ipAddress
+     *
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
+    }
+    
+    public function getGenderAdmin()
+    {
+        if ($this->getProfile()->getGender() === Profile::GENDER_FEMALE) {
+            return 'F';
+        }
+        
+        return 'M';
     }
 }

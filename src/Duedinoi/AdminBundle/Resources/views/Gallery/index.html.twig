@@ -1,11 +1,24 @@
 {% extends 'DuedinoiAdminBundle::layout.html.twig' %}
 
 {% block content %}
-{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'gallery', list:  sidebar_entities}  %}
-<div class="wrapper">
+<div class="wrapper extended retracted">
     <div class="panel panel-default panel-block">
-        <div id="data-table" class="panel-heading datatable-heading">
-            <h4 class="section-title">Gallery List</h4>
+        <div id="data-table" class="panel-heading datatable-heading col-lg-12">
+            <div class="title col-lg-8">
+                <h4 class="section-title">Gallery List</h4>
+                <a href="{{ path('gallery_new') }}" class="add">
+                    <i class="icon-plus-sign"></i>
+                    <span>
+                        ADD NEW
+                    </span>
+                </a>
+            </div>
+            <div class="input-group col-lg-4 pull-right">
+                <input class="form-control" type="text">
+                <div class="input-group-btn">
+                    <button class="btn btn-default btn-search" type="button"><i class="icon-search"></i></button>
+                </div>
+            </div>
         </div>
         <div id="tableSortable_wrapper" class="dataTables_wrapper form-inline" role="grid">
             <table aria-describedby="tableSortable_info" class="table table-bordered table-striped dataTable" id="tableSortable">

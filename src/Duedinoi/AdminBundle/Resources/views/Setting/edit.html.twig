@@ -1,8 +1,7 @@
 {% extends 'DuedinoiAdminBundle::layout.html.twig' %}
 
 {% block content %}
-{% include "DuedinoiAdminBundle:Component:search_bar.html.twig" with { object_type: 'setting', list:  entities}  %}
-<div class="wrapper">
+<div class="wrapper extended retracted">
         {% if app.session.getFlashBag.has('notice') %}
         <div id="Sortable_Responsive_Media_Table" class="row-fluid">
 	   <div class="span12 span-table-title">

@@ -47,7 +47,6 @@ class GalleryController extends Controller
         return $this->render('DuedinoiAdminBundle:Gallery:index.html.twig', array(
             'entities' => $pagination,
             'delete_forms' => $deleteForms,
-            'sidebar_entities' => $entities
             
         ));
     }
@@ -60,7 +59,6 @@ class GalleryController extends Controller
         $entity = new Gallery();
         $form = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:Gallery')->findAll();
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -74,7 +72,6 @@ class GalleryController extends Controller
         return $this->render('DuedinoiAdminBundle:Gallery:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -104,11 +101,9 @@ class GalleryController extends Controller
         $entity = new Gallery();
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:Menu')->findAll();
         return $this->render('DuedinoiAdminBundle:Gallery:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -143,7 +138,6 @@ class GalleryController extends Controller
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Gallery')->find($id);
         
-        $entities = $em->getRepository('DuedinoiAdminBundle:Gallery')->findAll();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Menu entity.');
         }
@@ -159,7 +153,6 @@ class GalleryController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities'    => $entities
         ));
     }
 
@@ -188,7 +181,6 @@ class GalleryController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Gallery')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Gallery')->findAll();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Gallery entity.');
         }
@@ -207,7 +199,6 @@ class GalleryController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
     /**

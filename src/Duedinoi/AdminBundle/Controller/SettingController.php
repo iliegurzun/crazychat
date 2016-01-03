@@ -52,8 +52,6 @@ class SettingController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiAdminBundle:Setting')->findAll();
-
         if ($form->isValid()) {
             $em->persist($entity);
             $em->flush();
@@ -64,7 +62,6 @@ class SettingController extends Controller
         return $this->render('DuedinoiAdminBundle:Setting:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -95,11 +92,9 @@ class SettingController extends Controller
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiAdminBundle:Setting')->findAll();
         return $this->render('DuedinoiAdminBundle:Setting:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -113,7 +108,6 @@ class SettingController extends Controller
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Setting')->find($id);
 
-        $entities = $em->getRepository('DuedinoiAdminBundle:Setting')->findAll();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
@@ -123,7 +117,6 @@ class SettingController extends Controller
         return $this->render('DuedinoiAdminBundle:Setting:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        
-            'entities' => $entities
         ));
     }
 
@@ -143,13 +136,11 @@ class SettingController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Setting')->findAll();
 
         return $this->render('DuedinoiAdminBundle:Setting:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -182,7 +173,6 @@ class SettingController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
-        $entities = $em->getRepository('DuedinoiAdminBundle:Setting')->findAll();
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
@@ -198,7 +188,6 @@ class SettingController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
     /**

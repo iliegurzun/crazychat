@@ -101,4 +101,31 @@ class UserRepository extends EntityRepository
         
         return $results;
     }
+    
+    public function findAdmins()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->orWhere('u.roles LIKE :admin')
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->orWhere('u.roles LIKE :super_admin')
+            ->setParameter('super_admin', '%ROLE_SUPER_ADMIN%');
+        
+        return $qb->getQuery()->execute();
+    }
+    
+    public function findRecruited()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.recruiter IS NOT NULL');
+        
+        return $qb->getQuery()->execute();
+    }
+    
+    public function findNormal()
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->where('u.recruiter IS NULL');
+        
+        return $qb->getQuery()->execute();
+    }
 }

@@ -25,7 +25,7 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options) 
     {
         $years = new \DateTime('-18 years');
-        $list = range(1960, (int)$years->format('Y'));
+        $list = range(1920, (int)$years->format('Y'));
         $builder
             ->add('username', 'text', array(
                 'label' => " ",

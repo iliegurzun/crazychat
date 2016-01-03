@@ -6,7 +6,7 @@
         <div class="list-group">
             <div id="input-fields-horizontal" class="list-group-item">
                 <h4 class="section-title">Create new User</h4>
-                <form method="post" action="{{ path('user_create') }}" {{ form_enctype(form) }} class="form-horizontal" role="form" novalidate>
+                <form method="post" action="{{ path('recruitedmember_create') }}" {{ form_enctype(form) }} class="form-horizontal" role="form" novalidate>
                     {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: form } %}
                     <div class="form-group">
                         {{ form_label(form.username) }}
@@ -28,9 +28,21 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.recruiter) }}
+                        {{ form_label(form.plainPassword.first) }}
                         <div class="col-lg-8">
-                            {{ form_widget(form.recruiter) }}
+                            {{ form_widget(form.plainPassword.first) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.plainPassword.second) }}
+                        <div class="col-lg-8">
+                        {{ form_widget(form.plainPassword.second) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.referral) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.referral) }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,6 +55,36 @@
                         {{ form_label(form.role) }}
                         <div class="col-lg-8">
                             {{ form_widget(form.role) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.site) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.site) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.dateOfBirth) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.dateOfBirth) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.gender) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.gender) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.country) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.country) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.city) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.city) }}
                         </div>
                     </div>
                     {{ form_rest(form) }}

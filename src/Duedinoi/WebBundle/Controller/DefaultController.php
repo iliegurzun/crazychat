@@ -70,6 +70,8 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+            $ipAddress = $request->getClientIp();
+            $user->setIpAddress($ipAddress);
 
             $userManager->updateUser($user);
 

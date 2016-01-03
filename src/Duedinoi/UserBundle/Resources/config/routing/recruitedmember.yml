@@ -1,0 +1,30 @@
+recruitedmember:
+    pattern:  /
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:index" }
+
+recruitedmember_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:show" }
+
+recruitedmember_new:
+    pattern:  /new
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:new" }
+
+recruitedmember_create:
+    pattern:  /create
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:create" }
+    requirements: { _method: post }
+
+recruitedmember_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:edit" }
+
+recruitedmember_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:update" }
+    requirements: { _method: post|put }
+
+recruitedmember_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "DuedinoiUserBundle:RecruitedMember:delete" }
+    requirements: { _method: post|delete }

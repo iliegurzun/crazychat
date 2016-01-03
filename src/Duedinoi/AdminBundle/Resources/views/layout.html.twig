@@ -9,6 +9,7 @@
             "bundles/duedinoiadmin/css/bootstrap/bootstrap-theme.css"
             "bundles/duedinoiadmin/css/jquery-ui.min.css"
             "bundles/duedinoiadmin/css/font-awesome.css"
+            "bundles/duedinoiadmin/css/font-awesome.min.css"
             "bundles/duedinoiadmin/css/proton.css"
             "bundles/duedinoiadmin/css/forms.css"
             "bundles/duedinoiadmin/css/main.css"
@@ -33,9 +34,7 @@
         {% block javascripts %}{% endblock javascripts %}
     </head>
     <body class="scrollable">
-    {% if is_granted('ROLE_ADMIN') %}
-        {% include 'DuedinoiAdminBundle:Component:menu.html.twig' %}
-    {% endif %}
     {% block content %}{% endblock content %}
+    {% include 'DuedinoiAdminBundle:Component:menu.html.twig' %}
     </body>
 </html>

@@ -127,6 +127,31 @@ class Profile
      * @var string
      */
     private $description;
+    
+    /**
+     * @var \Duedinoi\AdminBundle\Entity\Image
+     */
+    protected $image;
+    
+    /**
+     * @var boolean
+     */
+    private $voteNotification;
+
+    /**
+     * @var boolean
+     */
+    private $commentNotification;
+
+    /**
+     * @var boolean
+     */
+    private $messageNotification;
+    
+    /**
+     * @var \Duedinoi\UserBundle\Entity\User
+     */
+    private $user;
 
     /**
      * Get id
@@ -160,11 +185,6 @@ class Profile
     {
         return $this->gender;
     }
-    /**
-     * @var \Duedinoi\AdminBundle\Entity\Image
-     */
-    protected $image;
-
 
     /**
      * Set image
@@ -367,22 +387,7 @@ class Profile
     {
         return $this->description;
     }
-    /**
-     * @var boolean
-     */
-    private $voteNotification;
-
-    /**
-     * @var boolean
-     */
-    private $commentNotification;
-
-    /**
-     * @var boolean
-     */
-    private $messageNotification;
-
-
+    
     /**
      * Set voteNotification
      *
@@ -481,11 +486,6 @@ class Profile
         
         return;
     }
-    /**
-     * @var \Duedinoi\UserBundle\Entity\User
-     */
-    private $user;
-
 
     /**
      * Set user

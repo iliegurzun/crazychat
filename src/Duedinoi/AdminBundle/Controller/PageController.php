@@ -53,7 +53,6 @@ class PageController extends Controller
         $entity = new Page();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Page')->findAll();
         foreach($entity->getBlocks() as $block) {
             $block->setPage($entity);
             $em->persist($block);
@@ -68,7 +67,6 @@ class PageController extends Controller
         return $this->render('DuedinoiAdminBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -98,12 +96,10 @@ class PageController extends Controller
         $entity = new Page();
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:Page')->findAll();
 
         return $this->render('DuedinoiAdminBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -137,7 +133,6 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Page')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Page')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -150,7 +145,6 @@ class PageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -179,7 +173,6 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:Page')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:Page')->findAll();
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -207,8 +200,6 @@ class PageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
-            
         ));
     }
     /**

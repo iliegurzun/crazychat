@@ -92,12 +92,10 @@ class ContactMessageController extends Controller
         $entity = new ContactMessage();
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
 
         return $this->render('DuedinoiAdminBundle:ContactMessage:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'entities' => $entities
         ));
     }
 
@@ -132,7 +130,6 @@ class ContactMessageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ContactMessage entity.');
@@ -145,7 +142,6 @@ class ContactMessageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities'    => $entities
         ));
     }
 
@@ -174,7 +170,6 @@ class ContactMessageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->find($id);
-        $entities = $em->getRepository('DuedinoiAdminBundle:ContactMessage')->findAll();
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ContactMessage entity.');
@@ -194,7 +189,6 @@ class ContactMessageController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'entities' => $entities
         ));
     }
     /**
