@@ -434,4 +434,202 @@ class User extends BaseUser implements AuthorInterface
         
         return 'M';
     }
+    /**
+     * @var string
+     */
+    private $referral;
+
+    /**
+     * @var string
+     */
+    private $site;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $recruitedUsers;
+
+    /**
+     * @var \Duedinoi\UserBundle\Entity\User
+     */
+    private $recruiter;
+
+
+    /**
+     * Set referral
+     *
+     * @param string $referral
+     *
+     * @return User
+     */
+    public function setReferral($referral)
+    {
+        $this->referral = $referral;
+
+        return $this;
+    }
+
+    /**
+     * Get referral
+     *
+     * @return string
+     */
+    public function getReferral()
+    {
+        return $this->referral;
+    }
+
+    /**
+     * Set converter
+     *
+     * @param string $converter
+     *
+     * @return User
+     */
+    public function setConverter($converter)
+    {
+        $this->converter = $converter;
+
+        return $this;
+    }
+
+    /**
+     * Get converter
+     *
+     * @return string
+     */
+    public function getConverter()
+    {
+        return $this->converter;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set site
+     *
+     * @param string $site
+     *
+     * @return User
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * Get site
+     *
+     * @return string
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * Add recruitedUser
+     *
+     * @param \Duedinoi\UserBundle\Entity\User $recruitedUser
+     *
+     * @return User
+     */
+    public function addRecruitedUser(\Duedinoi\UserBundle\Entity\User $recruitedUser)
+    {
+        $this->recruitedUsers[] = $recruitedUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove recruitedUser
+     *
+     * @param \Duedinoi\UserBundle\Entity\User $recruitedUser
+     */
+    public function removeRecruitedUser(\Duedinoi\UserBundle\Entity\User $recruitedUser)
+    {
+        $this->recruitedUsers->removeElement($recruitedUser);
+    }
+
+    /**
+     * Get recruitedUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRecruitedUsers()
+    {
+        return $this->recruitedUsers;
+    }
+
+    /**
+     * Set recruiter
+     *
+     * @param \Duedinoi\UserBundle\Entity\User $recruiter
+     *
+     * @return User
+     */
+    public function setRecruiter(\Duedinoi\UserBundle\Entity\User $recruiter = null)
+    {
+        $this->recruiter = $recruiter;
+
+        return $this;
+    }
+
+    /**
+     * Get recruiter
+     *
+     * @return \Duedinoi\UserBundle\Entity\User
+     */
+    public function getRecruiter()
+    {
+        return $this->recruiter;
+    }
 }
