@@ -24,6 +24,7 @@ security:
                 csrf_provider: form.csrf_provider
                 default_target_path: /it/dashboard
                 always_use_default_target_path: false
+                success_handler: user_security.component.authentication.handler.login_success_handler
             logout:
                 path: fos_user_security_logout
                 target: /
@@ -40,6 +41,7 @@ security:
         - { path: ^/.*/settings, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/my-profile, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/dashboard, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/messages, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/messages/.*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/photos, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/.*/profile, role: IS_AUTHENTICATED_FULLY }

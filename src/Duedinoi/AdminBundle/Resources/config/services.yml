@@ -13,3 +13,8 @@ services:
     duodenoi.admin.photo_upload:
         class: Duedinoi\AdminBundle\Service\PhotoUpload
         arguments: ['@service_container']
+    user_security.component.authentication.handler.login_success_handler:
+        class:  Duedinoi\AdminBundle\LoginHandler\LoginSuccessHandler
+        arguments:  [@router, @security.context]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' } 
