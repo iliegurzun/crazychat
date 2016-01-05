@@ -3,23 +3,22 @@ var mediaParams, caller, callee;
 QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, CONFIG);
 
 $(document).ready(function() {
-
-  buildUsers('.users-wrap.caller');
-
-  // Choose user
-  //
-  $(document).on('click', '.choose-user button', function() {
-
-    caller = {
-      id: $(this).attr('id'),
-      full_name: $(this).attr('data-name'),
-      login: $(this).attr('data-login'),
-      password: $(this).attr('data-password')
-    };
-
-    chooseRecipient(caller.id);
-  });
-
+    if (sameUser != '1') {
+        createSession();
+        var mediaParams = {
+            audio: true,
+            video: true,
+            elemId: 'localVideo',
+            options: {
+              muted: true,
+              mirror: true
+            }
+        };
+        callWithParams(mediaParams, false);
+    } else {
+        $('#incomingCall').modal('show');
+        createSession();
+    }
 
   // Choose recipient
   //

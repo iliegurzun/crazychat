@@ -367,9 +367,31 @@ class DefaultController extends Controller
         ));
     }
     
-    public function videostreamAction()
+    public function videostreamAction($userslug)
     {
+        $em = $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('DuedinoiUserBundle:User');
+        $user = $userRepo->findOneBySlug($userslug);
+        if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
+            throw $this->createNotFoundException();
+        }
+        
         return $this->render('DuedinoiWebBundle:Default:videostream.html.twig', array(
+            'user' => $user
+        ));
+    }
+    
+    public function answerCallAction($userslug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('DuedinoiUserBundle:User');
+        $user = $userRepo->findOneBySlug($userslug);
+        if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
+            throw $this->createNotFoundException();
+        }
+        
+        return $this->render('DuedinoiWebBundle:Default:answer_call.html.twig', array(
+            'user' => $user
         ));
     }
 }

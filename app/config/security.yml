@@ -43,6 +43,8 @@ security:
         - { path: ^/.*/dashboard, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/messages, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/messages/.*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/videostream/.*, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/answer-call/.*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/photos, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/.*/profile, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
