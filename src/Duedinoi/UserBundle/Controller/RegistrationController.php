@@ -56,6 +56,7 @@ class RegistrationController extends Controller
             $ipAddress = $request->getClientIp();
             $user->setIpAddress($ipAddress);
             $userManager->updateUser($user);
+            $this->get('duedinoi.chat_register')->registerUser($user);
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('duedinoi_edit_profile');
