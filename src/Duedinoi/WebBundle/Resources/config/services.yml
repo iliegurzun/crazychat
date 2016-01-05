@@ -41,3 +41,6 @@ services:
         class: Duedinoi\WebBundle\Topic\CrazyTopic
         tags:
             - { name: gos_web_socket.topic }
+    duedinoi.chat_register:
+        class: Duedinoi\WebBundle\Service\ChatRegister
+        arguments: [@doctrine.orm.entity_manager]
