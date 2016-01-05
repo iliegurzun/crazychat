@@ -46,7 +46,7 @@ Menu:
         role: "ROLE_ADMIN"
     Mass Messages:
         class: "CunningsoftChatBundle:Message"
-        route: "contactmessage"
+        route: "massmessage"
         icon: "envelope-o"
         role: "ROLE_ROBOT"
 Project Name: Crazy Chat

@@ -18,8 +18,12 @@ class UserRepository extends EntityRepository
         $qb = $this->createQueryBuilder('u')
             ->andWhere('u.roles NOT LIKE :admin')
             ->setParameter('admin', '%ROLE_ADMIN%')
-            ->orderBy('u.id', 'desc')
-            ->setMaxResults($limit);
+            ->andWhere('u.roles NOT LIKE :robot')
+            ->setParameter('robot', '%ROLE_ROBOT%')
+            ->orderBy('u.id', 'desc');
+        if ($limit) {
+            $qb->setMaxResults($limit);
+        }
 
         return $qb->getQuery()->execute();
     }

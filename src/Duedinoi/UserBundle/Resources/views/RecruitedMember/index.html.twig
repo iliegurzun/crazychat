@@ -53,6 +53,7 @@
                                 {{ form_widget(delete_forms[user.id]) }}
                                 <button class="btn btn-danger">Delete</button>
                             </form>
+                            <a class="btn btn-default" href="{{ path('duedinoi_dashboard', {_want_to_be_this_user: user.username}) }}">Impersonate</a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -5,7 +5,7 @@ namespace Cunningsoft\ChatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Cunningsoft\ChatBundle\Repository\MessageRepository")
  * @ORM\Table(name="ChatMessage")
  */
 class Message
@@ -85,6 +85,8 @@ class Message
     public function setAuthor(AuthorInterface $author)
     {
         $this->author = $author;
+        
+        return $this;
     }
 
     /**
@@ -93,6 +95,8 @@ class Message
     public function setMessage($content)
     {
         $this->message = $content;
+        
+        return $this;
     }
 
     /**
@@ -101,6 +105,8 @@ class Message
     public function setChannel($channel)
     {
         $this->channel = $channel;
+        
+        return $this;
     }
 
     /**
@@ -109,6 +115,8 @@ class Message
     public function setInsertDate($insertDate)
     {
         $this->insertDate = $insertDate;
+        
+        return $this;
     }
 
     /**
@@ -147,6 +155,18 @@ class Message
     public function setIsMass($isMass)
     {
         $this->isMass = $isMass;
+        
+        return $this;
+    }
+    
+    public function getReceivers()
+    {
+        return $this->receivers;
+    }
+    
+    public function addReceiver($receiver)
+    {
+        $this->receivers[] = $receiver;
         
         return $this;
     }

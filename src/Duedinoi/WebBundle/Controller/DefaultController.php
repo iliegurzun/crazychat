@@ -154,6 +154,9 @@ class DefaultController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                if (!$user->hasProfilePicture()) {
+                    $image->setIsProfilePicture(true);
+                }
                 $em->persist($image);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add(
@@ -316,7 +319,8 @@ class DefaultController extends Controller
         $em->flush();
         
         return new JsonResponse(array(
-            'success' => true
+            'success' => true,
+            'src'     => $image->getWebPath()
         ));
     }
     

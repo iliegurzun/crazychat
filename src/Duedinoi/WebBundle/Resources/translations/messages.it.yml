@@ -142,4 +142,7 @@ search:
     search_results: "CERCA"
 photos:
     title: Gestione foto
-    
+    add: "Seleziona foto"
+photo:
+    uploaded: "Foto caricata!"
+    profile: "Foto del profilo"

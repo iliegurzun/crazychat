@@ -60,6 +60,7 @@ var setProfilePicture = function ($link)
             if (data.success == true) {
                 $('.profile-picture.active').removeClass('active');
                 $theLink.addClass('active');
+                $('#header .header-picture').attr('src', data.src);
             }
         });
     });

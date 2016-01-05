@@ -42,3 +42,4 @@ build/
 
 # local files
 log
+/src/Cunningsoft/ChatBundle/nbproject/private/

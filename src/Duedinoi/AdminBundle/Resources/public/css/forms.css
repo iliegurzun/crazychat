@@ -770,10 +770,10 @@ body {
 .wrapper {
     bottom: 0;
     display: block;
-    left: 390px;
+    left: 10px;
     padding: 0 30px 30px 0;
     position: absolute;
-    right: 0;
+    right: 230px;
     top: 30px;
     transition: left 0.1s ease-in 0s;
     vertical-align: top;
@@ -818,7 +818,7 @@ nav.main-menu {
     background: none repeat scroll 0 0 #333333;
     bottom: 0;
     height: 100%;
-    left: 0;
+    left: 82%;
     overflow: hidden;
     position: fixed;
     top: 0;

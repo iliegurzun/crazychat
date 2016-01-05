@@ -31,5 +31,7 @@ duedinoi_admin_page:
 duedinoi_admin_gallery:
     resource: "@DuedinoiAdminBundle/Resources/config/routing/gallery.yml"
     prefix:   /gallery
-
+duedinoi_admin_massmessage:
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/massmessage.yml"
+    prefix:   /mass-message
 

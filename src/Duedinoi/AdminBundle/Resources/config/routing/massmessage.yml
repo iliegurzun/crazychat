@@ -1,0 +1,30 @@
+massmessage:
+    path:     /
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:index" }
+
+massmessage_show:
+    path:     /{id}/show
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:show" }
+
+massmessage_new:
+    path:     /new
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:new" }
+
+massmessage_create:
+    path:     /create
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:create" }
+    methods:  POST
+
+massmessage_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:edit" }
+
+massmessage_update:
+    path:     /{id}/update
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:update" }
+    methods:  [POST, PUT]
+
+massmessage_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DuedinoiAdminBundle:MassMessage:delete" }
+    methods:  [POST, DELETE]
