@@ -6585,3 +6585,8 @@ i.fileinput-exists {
     margin: 5px;
 }
 }
+@media (min-width: 1420px) {
+    .wrapper {
+        width: 1150px;
+    }
+}
