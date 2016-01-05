@@ -15,6 +15,7 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Duedinoi\WebBundle\Form\RegisterType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Description of RegistrationController
@@ -56,7 +57,7 @@ class RegistrationController extends Controller
             $ipAddress = $request->getClientIp();
             $user->setIpAddress($ipAddress);
             $userManager->updateUser($user);
-            $this->get('duedinoi.chat_register')->registerUser($user);
+//            $this->get('duedinoi.chat_register')->registerUser($user);
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('duedinoi_edit_profile');
