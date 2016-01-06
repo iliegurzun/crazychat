@@ -49,7 +49,7 @@
                         <td class="center ">{{ user.createdAt|date('M d, Y') }}</td>
                         <td class="center ">{{ user.createdAt|date('M d, Y') }}</td>
                         <td class="center ">{{ user.ipAddress|default() }}</td>
-                        <td class="center ">
+                        <td class="center action-buttons">
                             <a class="btn btn-success" href="{{ path('user_edit', {id: user.id}) }}">Edit</a>
                             <form class="index-delete-form" method="post" action="{{ path('user_delete', {id: user.id}) }}" {{ form_enctype(delete_forms[user.id]) }}>
                                 {{ form_widget(delete_forms[user.id]) }}

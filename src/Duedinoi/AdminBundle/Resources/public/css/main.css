@@ -241,3 +241,7 @@ body { background: #EDEDED; }
 }
 
 #iog_userbundle_user_image input { margin-left: -9999px; }
+.action-buttons .btn {
+    margin-bottom: 6px;
+    min-width: 105px;
+}
