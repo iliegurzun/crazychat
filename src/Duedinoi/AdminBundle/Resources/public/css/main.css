@@ -245,3 +245,18 @@ body { background: #EDEDED; }
     margin-bottom: 6px;
     min-width: 105px;
 }
+.delete-button {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
+.gallery-image-item:hover .delete-button {
+    display: block !important;
+}
+.gallery-image-item img {width: 100%;}
+.gallery-image-item span {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}

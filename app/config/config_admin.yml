@@ -49,4 +49,9 @@ Menu:
         route: "massmessage"
         icon: "envelope-o"
         role: "ROLE_ROBOT"
+    Images:
+        class: "DuedinoiAdminBundle:Image"
+        route: "image"
+        icon: "picture-o"
+        role: "ROLE_ADMIN"
 Project Name: Crazy Chat

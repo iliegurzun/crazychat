@@ -63,15 +63,20 @@
             {% if not app.user.isSameUser(user) %}
                 {% include "DuedinoiWebBundle:Component:profile_actions.html.twig" %}
             {% endif %}
-            {% if user.activeComments|length %}
+            {% if form is defined %}
                 <div class="col-lg-12 no-padding">
                     <h3>{{ 'profile.comments'|trans }}</h3>
-                    {% for comment in user.activeComments %}
-                        {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
-                    {% endfor %}
-                    {% if form is defined %}
-                        {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
-                    {% endif %}
+            {% endif %}
+            {% if user.activeComments|length %}
+                
+                {% for comment in user.activeComments %}
+                    {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
+                {% endfor %}
+            {% endif %}
+            {% if form is defined %}
+                {#{% if not user.blocksUser(app.user) %}
+                    {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
+                {% endif %}#}
                 </div>
             {% endif %}
             {% if activeUsers|length %}

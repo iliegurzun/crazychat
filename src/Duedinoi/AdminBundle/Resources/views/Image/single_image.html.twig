@@ -1,0 +1,7 @@
+<div class="col-lg-2 gallery-image-item" data-modal-get=''>
+    <a class="fancybox" rel="group" href="{{ image.webPath }}"><img src="{{ image.webPath|apply_filter('profile_picture') }}" alt="" /></a>
+    <span class="col-lg-12"> {{image.user|default() }}</span>
+    <a class="confirm-action" data-confirm-message="Are you sure you want to remove this message?" href="{{ path('image_delete', {id: image.id}) }}">
+        <i class="fa fa-2x fa-times-circle delete-button" title="Delete"></i>
+    </a>
+</div>

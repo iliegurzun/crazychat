@@ -66,6 +66,9 @@ $(document).ready(function() {
     toggleMenuItemActions();
     removeMenuItem($('.icon-remove'));
     editMenuItemModal($('.icon-edit'));
+    if (typeof $.fn.fancybox !=='undefined') {
+        $(".fancybox").fancybox();
+    }
 });
 
 /* labelify */

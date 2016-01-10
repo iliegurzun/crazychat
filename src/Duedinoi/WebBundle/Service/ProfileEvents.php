@@ -11,4 +11,6 @@ use Duedinoi\WebBundle\Entity\Notification;
 class ProfileEvents 
 {
     const EVENT_VIEW_PROFILE = 'view.profile';
+    
+    const EVENT_LIKE_PROFILE = 'like.profile';
 }

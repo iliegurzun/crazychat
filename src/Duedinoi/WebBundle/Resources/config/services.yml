@@ -27,6 +27,7 @@ services:
         class: Duedinoi\WebBundle\Service\NotificationListener
         tags:
             - { name: kernel.event_listener, event: view.profile, method: logNotification }
+            - { name: kernel.event_listener, event: like.profile, method: logNotification }
         arguments: [@doctrine.orm.entity_manager, @security.context]
     profile_listener:
         class: Duedinoi\WebBundle\Service\ProfileListener

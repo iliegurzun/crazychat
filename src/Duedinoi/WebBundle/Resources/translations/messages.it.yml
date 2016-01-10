@@ -83,6 +83,12 @@ profile:
     new_password_confirmation: "Conferma la nuova password"
     edit: "Modificare il tuo profilo"
     remove_confirmation: "Are you sure you want to remove your account?"
+    unlike: "Unlike"
+    block_success: "Utente bloccato con successo!"
+    unblock_success: "Utente sbloccato con successo!"
+    unblock_comment: "Sbloca i commenti"
+    like_success: "Utente piaciuto con successo!"
+    unlike_success: "Utente detestava con successo!"
 title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
@@ -128,7 +134,8 @@ login:
     register: "Iscriviti aqui!"
     
 notification:
-    view_profile: "viewed your profile."
+    view_profile: "visto il tuo profilo."
+    like_profile: "piaciuto il tuo profilo."
 about:
     title: "Chi siamo"
     description: "Entra anche tu nella nostra community!"
@@ -142,7 +149,7 @@ search:
     search_results: "CERCA"
 photos:
     title: Gestione foto
-    add: "Seleziona foto"
+    add: "Caricare"
 photo:
     uploaded: "Foto caricata!"
     profile: "Foto del profilo"

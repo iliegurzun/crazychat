@@ -3,7 +3,7 @@
     {% endblock %}
     {% block user_photo %}
         <div class="col-lg-1">
-            <img src="{{ get_user_image(notification.fromUser)|apply_filter('comment_picture') }}" class="comment-picture"/>
+            <img src="{{ get_user_image(notification.toUser)|apply_filter('comment_picture') }}" class="comment-picture"/>
         </div>
     {% endblock %}
     {% block notification_content %}

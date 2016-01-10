@@ -26,6 +26,8 @@ use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use Duedinoi\WebBundle\Service\Chat;
+use Duedinoi\WebBundle\Entity\UserLike;
+use Duedinoi\WebBundle\Entity\BlockComment;
 
 class DefaultController extends Controller
 {
@@ -371,6 +373,62 @@ class DefaultController extends Controller
         ));
     }
     
+    public function likeAction($userslug, $action)
+    {
+        $currentUser = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($userslug);
+        if(!$user instanceof \Duedinoi\UserBundle\Entity\User) {
+            throw $this->createNotFoundException();
+        }
+        
+        switch ($action) {
+            case 'like':
+                $dispatcher = $this->get('event_dispatcher');
+                $event = new \Duedinoi\WebBundle\Service\ProfileEvent($user);
+                $dispatcher->dispatch(ProfileEvents::EVENT_LIKE_PROFILE, $event);
+                $like = $this->getUserLike($currentUser, $user);
+                $like->setStatus(UserLike::LIKE);
+                $em->persist($like);
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('profile.like_success')
+                );
+                
+                break;
+            case 'unlike':
+                $like = $this->getUserLike($currentUser, $user);
+                $em->remove($like);
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('profile.unlike_success')
+                );
+                break;
+            case 'block':
+                $block = $this->getUserBlock($currentUser, $user);
+                $em->persist($block);
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('profile.block_success')
+                );
+                break;
+            case 'unblock':
+                $block = $this->getUserBlock($currentUser, $user);
+                $em->remove($block);
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('profile.unblock_success')
+                );
+                break;
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('duedinoi_user_profile', array(
+            'userslug' => $user->getSlug()
+        )));
+        
+    }
+
     public function videostreamAction($userslug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -397,5 +455,45 @@ class DefaultController extends Controller
         return $this->render('DuedinoiWebBundle:Default:answer_call.html.twig', array(
             'user' => $user
         ));
+    }
+    
+    private function getUserLike($currentUser, $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$currentUser->likesUser($user)) {
+            $like = new UserLike();
+            $like
+                ->setFromUser($currentUser)
+                ->setToUser($user);
+        } else {
+            $like = $em->getRepository('DuedinoiWebBundle:UserLike')->findOneBy(
+                array(
+                    'fromUser' => $currentUser,
+                    'toUser'   => $user
+                )
+            );
+        }
+        
+        return $like;
+    }
+    
+    private function getUserBlock($currentUser, $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (!$currentUser->blocksUser($user)) {
+            $block = new BlockComment();
+            $block
+                ->setFromUser($currentUser)
+                ->setToUser($user);
+        } else {
+            $block = $em->getRepository('DuedinoiWebBundle:BlockComment')->findOneBy(
+                array(
+                    'fromUser' => $currentUser,
+                    'toUser'   => $user
+                )
+            );
+        }
+        
+        return $block;
     }
 }

@@ -7,10 +7,18 @@
         <i class="icon icon-envelope"></i>
         {{ 'profile.message'|trans }}
     </a>
-    <a href="#" class="button default-button">
-        <i class="icon icon-thumbs-up"></i>
-        {{ 'profile.like'|trans }}
-    </a>
+    {% if app.user.likesUser(user) %}
+        <a href="{{ path('duedinoi_user_like', {userslug: user.slug, action: 'unlike'}) }}" class="button default-button">
+            <i class="icon icon-thumbs-up"></i>
+            {{ 'profile.unlike'|trans }}
+        </a>
+    {% else %}
+        <a href="{{ path('duedinoi_user_like', {userslug: user.slug, action: 'like'}) }}" class="button default-button">
+            <i class="icon icon-thumbs-up"></i>
+            {{ 'profile.like'|trans }}
+        </a>
+    {% endif %}
+    
     <a href="#" class="button default-button">
         <i class="icon icon-user"></i>
         {{ 'profile.become_friends'|trans }}
@@ -19,8 +27,15 @@
         <i class="icon icon-cog"></i>
         {{ 'profile.report_photo'|trans }}
     </a>
-    <a href="#" class="button default-button">
-        <i class="icon icon-time"></i>
-        {{ 'profile.block_comment'|trans }}
-    </a>
+    {% if app.user.blocksUser(user) %}
+        <a href="{{ path('duedinoi_user_like', {userslug: user.slug, action: 'unblock'}) }}" class="button default-button">
+            <i class="icon icon-time"></i>
+            {{ 'profile.unblock_comment'|trans }}
+        </a>
+    {% else %}
+        <a href="{{ path('duedinoi_user_like', {userslug: user.slug, action: 'block'}) }}" class="button default-button">
+            <i class="icon icon-time"></i>
+            {{ 'profile.block_comment'|trans }}
+        </a>
+    {% endif %}
 </div>

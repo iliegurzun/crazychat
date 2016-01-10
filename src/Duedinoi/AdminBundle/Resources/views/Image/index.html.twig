@@ -1,0 +1,72 @@
+{% extends 'DuedinoiAdminBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts filter="?yui_js"
+        "@DuedinoiAdminBundle/Resources/public/js/jquery.fancybox.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock javascripts %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets filter="?yui_css, cssrewrite"
+            "bundles/duedinoiadmin/css/jquery.fancybox.css"
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    {% if app.session.getFlashBag.has('notice') %}
+    <div id="Sortable_Responsive_Media_Table" class="row-fluid">
+       <div class="span12 span-table-title">
+            <div class="alert alert-info alert-block">
+            {% for notice in app.session.getFlashBag.get('notice') %}
+                <i class="icon-alert icon-alert-info"></i>
+                <strong>{{ notice }}</strong>
+            {% endfor %}
+            </div>
+       </div>
+    </div>
+    {% endif %}
+    <div class="panel panel-default panel-block">
+        <div id="data-table" class="panel-heading datatable-heading col-lg-12">
+            <div class="title col-lg-8">
+                <h4 class="section-title">Image List</h4>
+            </div>
+            <div class="input-group col-lg-4 pull-right">
+                <input class="form-control" type="text">
+                <div class="input-group-btn">
+                    <button class="btn btn-default btn-search" type="button"><i class="icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="tableSortable_wrapper" class="dataTables_wrapper form-inline" role="grid">
+            <table aria-describedby="tableSortable_info" class="table table-bordered table-striped dataTable" id="tableSortable">
+                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                {% for image in entities %}
+                    {% include "DuedinoiAdminBundle:Image:single_image.html.twig" %}
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="row table-footer-row">
+                <div class="col-sm-12">
+                    <div class="pull-left">
+{#                        <div id="tableSortable_info" class="dataTables_info"></div>#}
+
+                    </div>
+                    <div class="pull-right">
+                        <div class="dataTables_paginate paging_bs_normal">
+                        {{ knp_pagination_render(entities) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

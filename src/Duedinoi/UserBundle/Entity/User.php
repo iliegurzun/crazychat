@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser implements AuthorInterface 
 {
-
+    
     /**
      * @var integer
      */
@@ -75,6 +75,41 @@ class User extends BaseUser implements AuthorInterface
      */
     private $photos;
     
+    /**
+     * @var string
+     */
+    private $referral;
+
+    /**
+     * @var string
+     */
+    private $site;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $recruitedUsers;
+
+    /**
+     * @var \Duedinoi\UserBundle\Entity\User
+     */
+    private $recruiter;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $likedUsers;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $blockUsers;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $userLikes;
+    
     public function __construct() {
         parent::__construct();
         if (!$this->profile) {
@@ -84,6 +119,10 @@ class User extends BaseUser implements AuthorInterface
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->receivedComments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userLikes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likedUsers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blockUsers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userBlocks = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -434,27 +473,8 @@ class User extends BaseUser implements AuthorInterface
         
         return 'M';
     }
-    /**
-     * @var string
-     */
-    private $referral;
-
-    /**
-     * @var string
-     */
-    private $site;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $recruitedUsers;
-
-    /**
-     * @var \Duedinoi\UserBundle\Entity\User
-     */
-    private $recruiter;
-
-
+    
+    
     /**
      * Set referral
      *
@@ -631,5 +651,175 @@ class User extends BaseUser implements AuthorInterface
     public function getRecruiter()
     {
         return $this->recruiter;
+    }
+
+    /**
+     * Add likedUser
+     *
+     * @param \Duedinoi\WebBundle\Entity\UserLike $likedUser
+     *
+     * @return User
+     */
+    public function addLikedUser(\Duedinoi\WebBundle\Entity\UserLike $likedUser)
+    {
+        $this->likedUsers[] = $likedUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove likedUser
+     *
+     * @param \Duedinoi\WebBundle\Entity\UserLike $likedUser
+     */
+    public function removeLikedUser(\Duedinoi\WebBundle\Entity\UserLike $likedUser)
+    {
+        $this->likedUsers->removeElement($likedUser);
+    }
+
+    /**
+     * Get likedUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikedUsers()
+    {
+        return $this->likedUsers;
+    }
+
+    /**
+     * Add userLike
+     *
+     * @param \Duedinoi\WebBundle\Entity\UserLike $userLike
+     *
+     * @return User
+     */
+    public function addUserLike(\Duedinoi\WebBundle\Entity\UserLike $userLike)
+    {
+        $this->userLikes[] = $userLike;
+
+        return $this;
+    }
+
+    /**
+     * Remove userLike
+     *
+     * @param \Duedinoi\WebBundle\Entity\UserLike $userLike
+     */
+    public function removeUserLike(\Duedinoi\WebBundle\Entity\UserLike $userLike)
+    {
+        $this->userLikes->removeElement($userLike);
+    }
+    
+    public function likesUser(User $user)
+    {
+        $likes = $this->getLikedUsers()->filter(function($item) use ($user) {
+            if ($item->getToUser() === $user)  {
+                return $item;
+            }
+        });
+        
+        /* @var $like \Duedinoi\WebBundle\Entity\UserLike */
+        foreach ($likes as $like) {
+            if (\Duedinoi\WebBundle\Entity\UserLike::LIKE === $like->getStatus()) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Get userLikes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserLikes()
+    {
+        return $this->userLikes;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $userBlocks;
+
+
+    /**
+     * Add blockUser
+     *
+     * @param \Duedinoi\WebBundle\Entity\BlockComment $blockUser
+     *
+     * @return User
+     */
+    public function addBlockUser(\Duedinoi\WebBundle\Entity\BlockComment $blockUser)
+    {
+        $this->blockUsers[] = $blockUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove blockUser
+     *
+     * @param \Duedinoi\WebBundle\Entity\BlockComment $blockUser
+     */
+    public function removeBlockUser(\Duedinoi\WebBundle\Entity\BlockComment $blockUser)
+    {
+        $this->blockUsers->removeElement($blockUser);
+    }
+
+    /**
+     * Get blockUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlockUsers()
+    {
+        return $this->blockUsers;
+    }
+
+    /**
+     * Add userBlock
+     *
+     * @param \Duedinoi\WebBundle\Entity\BlockComment $userBlock
+     *
+     * @return User
+     */
+    public function addUserBlock(\Duedinoi\WebBundle\Entity\BlockComment $userBlock)
+    {
+        $this->userBlocks[] = $userBlock;
+
+        return $this;
+    }
+
+    /**
+     * Remove userBlock
+     *
+     * @param \Duedinoi\WebBundle\Entity\BlockComment $userBlock
+     */
+    public function removeUserBlock(\Duedinoi\WebBundle\Entity\BlockComment $userBlock)
+    {
+        $this->userBlocks->removeElement($userBlock);
+    }
+
+    /**
+     * Get userBlocks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserBlocks()
+    {
+        return $this->userBlocks;
+    }
+    
+    public function blocksUser(User $user)
+    {
+        $blocks = $this->getUserBlocks()->filter(function($item) use ($user) {
+            if ($item->getToUser() === $user)  {
+                return $item;
+            }
+        });
+        
+        return $blocks->count() > 0;
     }
 }

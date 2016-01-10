@@ -52,3 +52,8 @@ duedinoi_user_conversation:
 duedinoi_chat_server:
     pattern: /{_locale}/{userslug}/chat-server
     defaults: { _controller: DuedinoiWebBundle:Default:chatServer, _locale: 'it' }
+duedinoi_user_like:
+    pattern: /{_locale}/{userslug}/{action}
+    defaults: { _controller: DuedinoiWebBundle:Default:like, _locale: 'it' }
+    requirements:
+        action: like|unlike|block|unblock

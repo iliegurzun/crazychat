@@ -1,0 +1,39 @@
+Duedinoi\WebBundle\Entity\BlockComment:
+    type: entity
+    table: block_comment
+    repositoryClass: Duedinoi\WebBundle\Entity\BlockCommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+            column: created_at
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable: 
+                    on: update
+            column: updated_at
+    manyToOne:
+        fromUser:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: blockUsers
+            onCascade: DELETE
+            joinColumn:
+                name: from_user_id
+                referencedColumnName: id
+        toUser:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            inversedBy: userBlocks
+            onCascade: DELETE
+            joinColumn:
+                name: to_user_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

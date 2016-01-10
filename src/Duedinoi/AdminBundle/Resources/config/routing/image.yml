@@ -1,0 +1,6 @@
+image:
+    pattern:  /
+    defaults: { _controller: "DuedinoiAdminBundle:Image:index" }
+image_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "DuedinoiAdminBundle:Image:delete" }

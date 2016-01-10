@@ -91,4 +91,16 @@ Duedinoi\UserBundle\Entity\User:
         recruitedUsers:
             targetEntity: Duedinoi\UserBundle\Entity\User
             mappedBy: recruiter
+        likedUsers:
+            targetEntity: Duedinoi\WebBundle\Entity\UserLike
+            mappedBy: fromUser
+        userLikes:
+            targetEntity: Duedinoi\WebBundle\Entity\UserLike
+            mappedBy: toUser
+        blockUsers:
+            targetEntity: Duedinoi\WebBundle\Entity\BlockComment
+            mappedBy: toUser
+        userBlocks:
+            targetEntity: Duedinoi\WebBundle\Entity\BlockComment
+            mappedBy: fromUser
     lifecycleCallbacks: {  }

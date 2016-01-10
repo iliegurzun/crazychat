@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class ImageRepository extends EntityRepository
 {
+    public function findWithUser()
+    {
+        $qb = $this->createQueryBuilder('i')
+                ->andWhere('i.user IS NOT NULL')
+                ->orderBy('i.created_at', 'desc');
+        
+        return $qb->getQuery()->execute();
+    }
 }
