@@ -814,12 +814,95 @@ class User extends BaseUser implements AuthorInterface
     
     public function blocksUser(User $user)
     {
-        $blocks = $this->getUserBlocks()->filter(function($item) use ($user) {
+        $blocks = $this->getBlockUsers()->filter(function($item) use ($user) {
             if ($item->getToUser() === $user)  {
                 return $item;
             }
         });
         
         return $blocks->count() > 0;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $reportUsers;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $userReports;
+
+
+    /**
+     * Add reportUser
+     *
+     * @param \Duedinoi\WebBundle\Entity\ProfileReport $reportUser
+     *
+     * @return User
+     */
+    public function addReportUser(\Duedinoi\WebBundle\Entity\ProfileReport $reportUser)
+    {
+        $this->reportUsers[] = $reportUser;
+
+        return $this;
+    }
+
+    /**
+     * Remove reportUser
+     *
+     * @param \Duedinoi\WebBundle\Entity\ProfileReport $reportUser
+     */
+    public function removeReportUser(\Duedinoi\WebBundle\Entity\ProfileReport $reportUser)
+    {
+        $this->reportUsers->removeElement($reportUser);
+    }
+
+    /**
+     * Get reportUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReportUsers()
+    {
+        return $this->reportUsers;
+    }
+
+    /**
+     * Add userReport
+     *
+     * @param \Duedinoi\WebBundle\Entity\ProfileReport $userReport
+     *
+     * @return User
+     */
+    public function addUserReport(\Duedinoi\WebBundle\Entity\ProfileReport $userReport)
+    {
+        $this->userReports[] = $userReport;
+
+        return $this;
+    }
+
+    /**
+     * Remove userReport
+     *
+     * @param \Duedinoi\WebBundle\Entity\ProfileReport $userReport
+     */
+    public function removeUserReport(\Duedinoi\WebBundle\Entity\ProfileReport $userReport)
+    {
+        $this->userReports->removeElement($userReport);
+    }
+
+    /**
+     * Get userReports
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserReports()
+    {
+        return $this->userReports;
+    }
+    
+    public function hasBeenReported()
+    {
+        return $this->userReports->count() > 0;
     }
 }

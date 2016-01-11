@@ -23,7 +23,7 @@
         <i class="icon icon-user"></i>
         {{ 'profile.become_friends'|trans }}
     </a>
-    <a href="#" class="button default-button">
+    <a href="{{ path('duedinoi_user_like', {userslug: user.slug, action: 'report-photos'}) }}" class="button default-button">
         <i class="icon icon-cog"></i>
         {{ 'profile.report_photo'|trans }}
     </a>

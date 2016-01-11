@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Duedinoi\AdminBundle\Form\ImageType;
 use Duedinoi\UserBundle\Entity\Profile;
+use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType {
 
@@ -125,7 +126,20 @@ class UserType extends AbstractType {
                     ),
                     'invalid_message' => 'Password does not match'
                 ))
-                ->add('referral', 'text', array(
+                ->add('recruiter', 'entity', array(
+                    'label' => 'Recruiter',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Recruiter',
+                        'disabled' => 'disabled'
+                    ),
+                    'empty_value' => 'Recruiter...',
+                    'class' => \Duedinoi\UserBundle\Entity\User::class
+                ))
+                ->add('referral', 'url', array(
                     'label' => 'Referral',
                     'label_attr' => array(
                         'class' => 'col-lg-4 control-label'
@@ -135,15 +149,23 @@ class UserType extends AbstractType {
                         'placeholder' => 'Referral'
                     )
                 ))
-                ->add('converter', 'text', array(
-                    'label'     => 'Converter',
+                ->add('converter', 'entity', array(
+                    'label' => 'Converter',
                     'label_attr' => array(
                         'class' => 'col-lg-4 control-label'
                     ),
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Converter'
-                    )
+                        'placeholder' => 'Converter',
+                    ),
+                    'empty_value' => 'Converter...',
+                    'class' => \Duedinoi\UserBundle\Entity\User::class,
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                            ->andWhere('u.roles LIKE :admin')
+                            ->setParameter('admin', '%ROLE_ADMIN%')
+                        ;
+                    },
                 ))
                 ->add('role', 'choice', array(
                     'choices' => array(

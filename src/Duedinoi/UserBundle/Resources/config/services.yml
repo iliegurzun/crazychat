@@ -17,3 +17,8 @@ services:
         arguments: [@security.context, @fos_user.user_manager]
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onCoreController }
+    duedinoi_user.registration_complet:
+        class: Duedinoi\UserBundle\EventListener\RegistrationConfirmListener
+        arguments: [@router]
+        tags:
+            - { name: kernel.event_subscriber }

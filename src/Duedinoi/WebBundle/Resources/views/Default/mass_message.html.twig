@@ -1,0 +1,31 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% block content %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
+    <div class="container-fluid">
+        <div class="container no-margin-top">
+            <h3 class="page-title col-lg-12">
+                {{ 'title.mass_message'|trans }}
+            </h3>
+            <form method="post" action="{{ path('duedinoi_mass_message') }}" {{ form_enctype(form) }} class="col-lg-12 edit-profile no-padding" role="form" novalidate>
+                    <div class="col-lg-12">
+                        <div class="form-row">
+                            {{ form_widget(form.receivers) }}
+                            {{ form_errors(form.receivers) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-row">
+                            {{ form_widget(form.message) }}
+                            {{ form_errors(form.message) }}
+                        </div>
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="form-buttons col-lg-12">
+                        <button class="button green-button custom-padding">{{ 'submit'|trans }}</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+{% endblock content %}

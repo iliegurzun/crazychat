@@ -13,7 +13,13 @@
                     <a href="{{ path('duedinoi_photos') }}">{{ 'menu.photos'|trans }}</a>
                 </li>
                 <li class="{{ app.request.get('_route') in ['duedinoi_messages', 'duedinoi_thread'] ? 'active' : '' }}">
-                    <a href="{{ path('duedinoi_messages') }}">{{ 'menu.messages'|trans }}</a></li>
+                    <a href="{{ path('duedinoi_messages') }}">{{ 'menu.messages'|trans }}</a>
+                </li>
+                {% if is_granted('ROLE_ROBOT') %}
+                    <li class="{{ app.request.get('_route') in ['duedinoi_mass_message'] ? 'active' : '' }}">
+                        <a href="{{ path('duedinoi_mass_message') }}">{{ 'menu.mass_messages'|trans }}</a>
+                    </li>
+                {% endif %}
                 <li class="{{ app.request.get('_route') in ['duedinoi_notifications'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_notifications') }}">{{ 'menu.notifications'|trans }}</a>
                 </li>

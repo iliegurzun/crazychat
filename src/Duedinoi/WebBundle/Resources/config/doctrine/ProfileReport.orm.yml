@@ -1,7 +1,7 @@
-Duedinoi\WebBundle\Entity\UserLike:
+Duedinoi\WebBundle\Entity\ProfileReport:
     type: entity
-    table: user_like
-    repositoryClass: Duedinoi\WebBundle\Entity\UserLikeRepository
+    table: null
+    repositoryClass: Duedinoi\WebBundle\Entity\ProfileReportRepository
     id:
         id:
             type: integer
@@ -9,8 +9,6 @@ Duedinoi\WebBundle\Entity\UserLike:
             generator:
                 strategy: AUTO
     fields:
-        status:
-            type: integer
         createdAt:
             type: datetime
             gedmo:
@@ -23,21 +21,6 @@ Duedinoi\WebBundle\Entity\UserLike:
                 timestampable: 
                     on: update
             column: updated_at
-    manyToOne:
-        fromUser:
-            targetEntity: Duedinoi\UserBundle\Entity\User
-            inversedBy: likedUsers
-            onCascade: DELETE
-            joinColumn:
-                name: from_user_id
-                referencedColumnName: id
-        toUser:
-            targetEntity: Duedinoi\UserBundle\Entity\User
-            inversedBy: userLikes
-            onCascade: DELETE
-            joinColumn:
-                name: to_user_id
-                referencedColumnName: id
     manyToOne:
         fromUser:
             targetEntity: Duedinoi\UserBundle\Entity\User

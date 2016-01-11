@@ -20,7 +20,6 @@
                             {{ form_widget(form.email) }}
                         </div>
                     </div>
-                        
                     <div class="form-group">
                         {{ form_label(form.enabled) }}
                         <div class="col-lg-8">
@@ -34,6 +33,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        {{ form_label(form.referral) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.referral) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         {{ form_label(form.converter) }}
                         <div class="col-lg-8">
                             {{ form_widget(form.converter) }}
@@ -43,6 +48,42 @@
                         {{ form_label(form.role) }}
                         <div class="col-lg-8">
                             {{ form_widget(form.role) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.dateOfBirth) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.dateOfBirth) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.gender) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.gender) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.country) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.country) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.city) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.city) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.plainPassword.first) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.plainPassword.first) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.plainPassword.second) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(form.plainPassword.second) }}
                         </div>
                     </div>
                     {{ form_rest(form) }}

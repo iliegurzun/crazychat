@@ -21,7 +21,7 @@ duedinoi_admin_setting:
     prefix:   /setting
 duedinoi_admin_user:
     resource: "@DuedinoiUserBundle/Resources/config/routing/user.yml"
-    prefix:   /user
+    prefix:   /people
 duedinoi_admin_recruitedmember:
     resource: "@DuedinoiUserBundle/Resources/config/routing/recruitedmember.yml"
     prefix:   /recruited-member

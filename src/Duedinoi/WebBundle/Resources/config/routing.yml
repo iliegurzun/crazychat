@@ -56,4 +56,7 @@ duedinoi_user_like:
     pattern: /{_locale}/{userslug}/{action}
     defaults: { _controller: DuedinoiWebBundle:Default:like, _locale: 'it' }
     requirements:
-        action: like|unlike|block|unblock
+        action: like|unlike|block|unblock|report-photos
+duedinoi_mass_message:
+    pattern: /{_locale}/mass-message
+    defaults: { _controller: DuedinoiWebBundle:Default:massMessage }

@@ -420,6 +420,13 @@ class DefaultController extends Controller
                     $this->get('translator')->trans('profile.unblock_success')
                 );
                 break;
+            case 'report-photos':
+                $this->reportUser($user);
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    $this->get('translator')->trans('profile.report_success')
+                );
+                break;
         }
         $em->flush();
         
@@ -457,6 +464,41 @@ class DefaultController extends Controller
         ));
     }
     
+    public function massMessageAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('DuedinoiUserBundle:User');
+        $users = $userRepo->getLastRegistered(null);
+        $message = new \Cunningsoft\ChatBundle\Entity\Message();
+        $form = $this->createForm(new \Duedinoi\AdminBundle\Form\MassMessageType($users), $message);
+        $form = $this->createForm(new \Duedinoi\AdminBundle\Form\MassMessageType($users), $message);
+        if ($request->isMethod('post')) {
+            $form->handleRequest($request);
+            foreach ($message->getReceivers() as $receiver) {
+                $newMessage = new \Cunningsoft\ChatBundle\Entity\Message();
+                $newMessage
+                    ->setAuthor($this->getUser())
+                    ->setIsMass(true)
+                    ->setInsertDate(new \DateTime())
+                    ->setMessage($message->getMessage())
+                    ->setChannel($receiver->getSlug())
+                    ->setReceiver($receiver);
+                $em->persist($newMessage);
+            }
+            $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                    'success',
+                $this->get('translator')->trans('profile.mass_sent_success')
+            );
+            
+            return $this->redirect($this->generateUrl('duedinoi_mass_message'));
+        }
+
+        return $this->render('DuedinoiWebBundle:Default:mass_message.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
     private function getUserLike($currentUser, $user)
     {
         $em = $this->getDoctrine()->getManager();
@@ -495,5 +537,19 @@ class DefaultController extends Controller
         }
         
         return $block;
+    }
+    
+    public function reportUser($user)
+    {
+        $currentUser = $this->getUser();
+        $report = new \Duedinoi\WebBundle\Entity\ProfileReport();
+        $report
+            ->setFromUser($currentUser)
+            ->setToUser($user);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($report);
+        $em->flush();
+        
+        return $report;
     }
 }

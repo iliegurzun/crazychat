@@ -1,0 +1,14 @@
+{% extends "DuedinoiWebBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block content %}
+    {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
+    <div class="container-fluid no-padding">
+        <div class="page-heading">
+            <h1>{{ 'registration.check_email_title'|trans }}</h1>
+            <span>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</span>
+        </div>
+    </div>
+{% endblock %}
+

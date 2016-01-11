@@ -67,7 +67,7 @@
 {% for flashMessage in app.session.flashbag.get('success') %}
     <script type="text/javascript">
         $.growl({
-            message: '{{ flashMessage|raw }}'
+            message: "{{ flashMessage|raw }}"
         }, {
             placement: {
                 from: "top",

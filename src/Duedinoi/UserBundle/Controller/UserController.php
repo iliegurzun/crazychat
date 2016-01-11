@@ -23,7 +23,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findNormal();
+        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
 
         $deleteForms = array();
         foreach($entities as $entity) {
@@ -49,10 +49,12 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         $entity = new User();
+        $entity->setRecruiter($this->getUser());
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         if ($form->isValid()) {
+            $entity->setRecruiter($this->getUser());
             $em->persist($entity);
             $em->flush();
 
@@ -90,6 +92,7 @@ class UserController extends Controller
     public function newAction()
     {
         $entity = new User();
+        $entity->setRecruiter($this->getUser());
         $form   = $this->createCreateForm($entity);
         $em = $this->getDoctrine()->getManager();
 

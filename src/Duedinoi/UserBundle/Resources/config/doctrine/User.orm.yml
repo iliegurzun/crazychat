@@ -30,10 +30,6 @@ Duedinoi\UserBundle\Entity\User:
             type: string
             length: 255
             nullable: true
-        converter:
-            type: string
-            length: 255
-            nullable: true
         created_at:
             type: date
             gedmo:
@@ -78,6 +74,17 @@ Duedinoi\UserBundle\Entity\User:
             cascade:
                 - persist
                 - remove
+        converter:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            nullable: true
+            joinColumn:
+                name: converter_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
     oneToMany:
         comments:
             targetEntity: Duedinoi\WebBundle\Entity\Comment
@@ -99,8 +106,14 @@ Duedinoi\UserBundle\Entity\User:
             mappedBy: toUser
         blockUsers:
             targetEntity: Duedinoi\WebBundle\Entity\BlockComment
-            mappedBy: toUser
+            mappedBy: fromUser
         userBlocks:
             targetEntity: Duedinoi\WebBundle\Entity\BlockComment
+            mappedBy: toUser
+        reportUsers:
+            targetEntity: Duedinoi\WebBundle\Entity\ProfileReport
             mappedBy: fromUser
+        userReports:
+            targetEntity: Duedinoi\WebBundle\Entity\ProfileReport
+            mappedBy: toUser
     lifecycleCallbacks: {  }

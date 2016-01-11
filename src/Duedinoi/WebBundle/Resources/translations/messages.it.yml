@@ -43,6 +43,7 @@ menu:
     messages: "Messaggi"
     notifications: "Notifiche"
     settings: "Impostazioni"
+    mass_messages: "Messaggi di massa"
 sign:
     aries: "Montone"
     taurus: "Toro"
@@ -89,11 +90,14 @@ profile:
     unblock_comment: "Sbloca i commenti"
     like_success: "Utente piaciuto con successo!"
     unlike_success: "Utente detestava con successo!"
+    mass_sent_success: "Messaggi di massa è stato inviato con successo!"
+    report_success: "Dell'utente foto è stata riportata con successo!"
 title:
     edit_profile: "Modificare il tuo profilo"
     settings: "Cambiare le impostazioni dell'account"
     active_users: "Utenti online"
     notifications: "Notifiche"
+    mass_message: "Messaggi di massa"
 save: "Salva"
 submit: "Aggiornare"
 remove_account: "Rimuovi account"
