@@ -14,5 +14,11 @@
                 {{ message.message|nl2br }}
             </div>
         </div>
+        {% if message.canBeRemoved(app.user) %}
+            <i class="icon icon-remove-circle remove-comment" 
+               data-remove-link="{{ path('cunningsoft_message_remove', {id: message.id}) }}"
+               data-confirm-message="{{ 'confirm.remove_message'|trans }}">
+            </i>
+        {% endif %}
     </div>
 </li>

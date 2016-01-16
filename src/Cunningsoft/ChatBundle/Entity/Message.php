@@ -70,6 +70,11 @@ class Message
         $this->isMass = false;
         $this->receivers = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -169,5 +174,10 @@ class Message
         $this->receivers[] = $receiver;
         
         return $this;
+    }
+    
+    public function canBeRemoved($user)
+    {
+        return $this->getAuthor() == $user;
     }
 }

@@ -1,0 +1,44 @@
+Duedinoi\AdminBundle\Entity\RecruitedMember:
+    type: entity
+    table: recruited_member
+    repositoryClass: Duedinoi\AdminBundle\Repository\RecruitedMemberRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        referral:
+            type: string
+            length: 255
+    manyToOne:
+        recruiter:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            nullable: true
+            joinColumn:
+                name: recruiter_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
+        converter:
+            targetEntity: Duedinoi\UserBundle\Entity\User
+            nullable: true
+            joinColumn:
+                name: converter_id
+                referencedColumnName: id
+                onDelete: 'SET NULL'
+            fetch: EAGER
+            cascade:
+                - persist
+                - remove
+    lifecycleCallbacks: {  }

@@ -23,7 +23,7 @@ duedinoi_admin_user:
     resource: "@DuedinoiUserBundle/Resources/config/routing/user.yml"
     prefix:   /people
 duedinoi_admin_recruitedmember:
-    resource: "@DuedinoiUserBundle/Resources/config/routing/recruitedmember.yml"
+    resource: "@DuedinoiAdminBundle/Resources/config/routing/recruitedmember.yml"
     prefix:   /recruited-member
 duedinoi_admin_page:
     resource: "@DuedinoiAdminBundle/Resources/config/routing/page.yml"

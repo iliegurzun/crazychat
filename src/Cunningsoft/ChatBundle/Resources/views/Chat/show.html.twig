@@ -47,6 +47,9 @@ function updateChat()
 
     $.post('{{ path('cunningsoft_chat_list', {'channel': channel}) }}', function(data) {
         $('#chat').html(data);
+        if ($('.remove-comment').length) {
+            removeComment($('.remove-comment'));
+        }
     });
     this.timer = setTimeout('updateChat()', {{ updateInterval }});
 }

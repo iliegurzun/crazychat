@@ -1,11 +1,11 @@
 {% extends 'DuedinoiAdminBundle::layout.html.twig' %}
 
 {% block content %}
-<div class="wrapper extended retracted">
+<div class="wrapper">
     <div class="panel panel-default panel-block">
         <div id="data-table" class="panel-heading datatable-heading col-lg-12">
             <div class="title col-lg-8">
-                <h4 class="section-title">Recruited Member List</h4>
+                <h4 class="section-title">Recruited Members List</h4>
                 <a href="{{ path('recruitedmember_new') }}" class="add">
                     <i class="icon-plus-sign"></i>
                     <span>
@@ -29,31 +29,26 @@
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Email</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Recruiter</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Converter</th>
-                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Site</th>
-                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Status</th>
-                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Sign</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Referral</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody aria-relevant="all" aria-live="polite" role="alert">
-                {% for user in entities %}
+                {% for member in entities %}
                     <tr class="gradeA {% if loop.index % 2 == 1  %} odd {% else %} even {% endif %}">
-                        <td class="sorting_1">{{ user.id }}</td>
-                        <td class=" ">{{ user.username|default('-')  }}</td>
-                        <td class="center ">{{ user.email }}</td>
-                        <td class="center ">{{ user.recruiter }}</td>
-                        <td class="center ">{{ user.converter }}</td>
-                        <td class="center ">{{ user.site }}</td>
-                        <td class="center ">{{ user.isActiveNow ? 'Online' : 'Offline' }}</td>
-                        <td class="center ">{{ user.createdAt|date('M d, Y') }}</td>
+                        <td class="sorting_1">{{ member.id }}</td>
+                        <td class=" ">{{ member.username|default('-')  }}</td>
+                        <td class=" ">{{ member.email|default('-') }}</td>
+                        <td class=" ">{{ member.recruiter|default('-') }}</td>
+                        <td class=" ">{{ member.converter|default('-') }}</td>
+                        <td class=" ">{{ member.referral|default('-') }}</td>
                         <td class="center ">
-                            <a class="btn btn-success" href="{{ path('user_edit', {id: user.id}) }}">Edit</a>
-                            <form class="index-delete-form" method="post" action="{{ path('user_delete', {id: user.id}) }}" {{ form_enctype(delete_forms[user.id]) }}>
-                                {{ form_widget(delete_forms[user.id]) }}
+                            <a class="btn btn-success" href="{{ path('recruitedmember_edit', {id: member.id}) }}">Edit</a>
+                            <form class="index-delete-form" method="post" action="{{ path('recruitedmember_delete', {id: member.id}) }}" {{ form_enctype(delete_forms[member.id]) }}>
+                                {{ form_widget(delete_forms[member.id]) }}
                                 <button class="btn btn-danger">Delete</button>
                             </form>
-                            <a class="btn btn-default" href="{{ path('duedinoi_dashboard', {_want_to_be_this_user: user.username}) }}">Impersonate</a>
                         </td>
                     </tr>
                 {% endfor %}

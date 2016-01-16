@@ -40,23 +40,7 @@ $(function () {
         autosize($('.autosize'));
     }
     if ($('.remove-comment').length) {
-        $('.remove-comment').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            var $theBtn = $(this);
-            if (confirm($theBtn.data('confirm-message'))) {
-                $.ajax({
-                    url: $theBtn.data('remove-link'),
-                    type: 'POST'
-                }).done(function(data)
-                {
-                    if(data.success == true) {
-                        $theBtn.parent().parent().fadeOut();
-                    }
-                });
-            }
-        })
+        removeComment($('.remove-comment'));
     }
 });
 $(window).load(function () {
@@ -112,6 +96,30 @@ var confirmAction = function($link)
         var $theLink = $(this);
         if(confirm($theLink.data('confirm-message'))) {
             window.location.href = $theLink.attr('href');
+        }
+    });
+}
+
+var removeComment = function($item)
+{
+    $item.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        var $theBtn = $(this);
+        if (confirm($theBtn.data('confirm-message'))) {
+            $.ajax({
+                url: $theBtn.data('remove-link'),
+                type: 'POST'
+            }).done(function(data)
+            {
+                if(data.success == true) {
+                    $theBtn.parent().parent().fadeOut();
+                    if (typeof updateChat !== 'undefined') {
+                        updateChat();
+                    }
+                }
+            });
         }
     });
 }

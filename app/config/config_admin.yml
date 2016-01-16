@@ -9,7 +9,7 @@ Menu:
         icon:  "user"
         role: "ROLE_ADMIN"
     Recruited Members:
-        class: "DuedinoiUserBundle:User"
+        class: "DuedinoiAdminBundle:RecruitedMember"
         route: "recruitedmember"
         icon:  "random"
         role: "ROLE_ADMIN"

@@ -72,4 +72,22 @@ class ChatController extends Controller
             'messages' => $messages,
         );
     }
+    
+    /**
+     * @Route("/remove/{id}", name="cunningsoft_message_remove")
+     * @Template
+     */
+    public function removeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $messageRepo = $em->getRepository('CunningsoftChatBundle:Message');
+        $message = $messageRepo->find($id);
+        if (!$message) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove($message);
+        $em->flush();
+        
+        return new Response('Successful');
+    }
 }
