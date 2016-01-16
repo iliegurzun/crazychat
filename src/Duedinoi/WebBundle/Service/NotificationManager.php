@@ -6,7 +6,8 @@ namespace Duedinoi\WebBundle\Service;
  *
  * @author Ilie
  */
-class NotificationManager 
+class
+NotificationManager
 {
     
     protected $securityContext;

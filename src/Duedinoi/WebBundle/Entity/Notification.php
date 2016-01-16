@@ -65,7 +65,8 @@ class Notification
      * @var \Duedinoi\WebBundle\Entity\Comment
      */
     private $comment;
-    
+
+
     public function __construct() 
     {
         $this->setStatus(self::STATUS_UNREAD);

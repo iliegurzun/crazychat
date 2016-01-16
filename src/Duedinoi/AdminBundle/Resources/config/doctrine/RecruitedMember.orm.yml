@@ -29,7 +29,7 @@ Duedinoi\AdminBundle\Entity\RecruitedMember:
             fetch: EAGER
             cascade:
                 - persist
-                - remove
+                - detach
         converter:
             targetEntity: Duedinoi\UserBundle\Entity\User
             nullable: true
@@ -40,5 +40,5 @@ Duedinoi\AdminBundle\Entity\RecruitedMember:
             fetch: EAGER
             cascade:
                 - persist
-                - remove
+                - detach
     lifecycleCallbacks: {  }

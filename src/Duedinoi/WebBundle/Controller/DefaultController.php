@@ -2,6 +2,7 @@
 
 namespace Duedinoi\WebBundle\Controller;
 
+use Duedinoi\WebBundle\Entity\Notification;
 use Duedinoi\WebBundle\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -358,6 +359,7 @@ class DefaultController extends Controller
     
     public function notificationsAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $notifications = $this->get('notification_manager')->getNotifications();
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -365,7 +367,14 @@ class DefaultController extends Controller
             $this->get('request')->query->get('page', 1)/*page number*/,
             10/*limit per page*/
         );
-        
+        if (count($notifications)) {
+            foreach ($notifications as $notification) {
+                $notification->setStatus(Notification::STATUS_READ);
+                $em->persist($notification);
+            }
+            $em->flush();
+        }
+
         return $this->render('DuedinoiWebBundle:Default:notifications.html.twig', array(
             'notifications' => $pagination
         ));

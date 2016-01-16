@@ -59,6 +59,13 @@ class Message
     private $receivers;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isRead = false;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -68,6 +75,7 @@ class Message
     public function __construct()
     {
         $this->isMass = false;
+        $this->isRead = false;
         $this->receivers = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -179,5 +187,39 @@ class Message
     public function canBeRemoved($user)
     {
         return $this->getAuthor() == $user;
+    }
+
+    /**
+     * Get channel
+     *
+     * @return string
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * Set isRead
+     *
+     * @param boolean $isRead
+     *
+     * @return Message
+     */
+    public function setIsRead($isRead)
+    {
+        $this->isRead = $isRead;
+
+        return $this;
+    }
+
+    /**
+     * Get isRead
+     *
+     * @return boolean
+     */
+    public function getIsRead()
+    {
+        return $this->isRead;
     }
 }

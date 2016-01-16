@@ -15,7 +15,9 @@
                 {% for notification in notifications %}
                     {% include "DuedinoiWebBundle:Component\\Notification:notification.html.twig" %}
                 {% endfor %}
-                {{ knp_pagination_render(notifications) }}
+                <div class="col-lg-12">
+                    {{ knp_pagination_render(notifications) }}
+                </div>
             </div>
         </div>
     </div>

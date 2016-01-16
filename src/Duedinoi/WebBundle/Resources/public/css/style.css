@@ -905,6 +905,49 @@ textarea {padding: 10px;}
 .lSNext {
     background-position: 65px 0 !important;
 }
+.pr-10 {padding-right: 10px;}
+.notification {
+    background: #c24d17;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    height: 20px;
+    opacity: 0.8;
+    position: absolute;
+    right: 3px;
+    text-align: center;
+    top: 6px;
+    width: 20px;
+    z-index: 1;
+}
+.active .notification {
+    background: #000;
+}
+.pagination.pagination-lg {
+    float: none !important;
+    text-align: center;
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+.pagination li,
+.pagination li a {
+    border: hidden;
+    background: #ecf4e0;
+    /*padding: 0;*/
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background: #333 !important;
+    -webkit-border-radius:3px !important;;
+    -moz-border-radius:3px !important;;
+    border-radius:3px !important;
+}
 @media screen and (max-width: 980px) {
     .menu-wrap #header {
         width: 100%;

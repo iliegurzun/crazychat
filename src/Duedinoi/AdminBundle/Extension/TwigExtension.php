@@ -15,6 +15,7 @@ namespace Duedinoi\AdminBundle\Extension;
 
 use Duedinoi\AdminBundle\Entity\Image;
 use Duedinoi\UserBundle\Entity\User;
+use Duedinoi\WebBundle\Entity\Notification;
 use Symfony\Component\CssSelector\Exception\ParseException;
 use \Symfony\Component\Yaml\Parser;
 
@@ -51,7 +52,9 @@ class TwigExtension extends \Twig_Extension
         'get_admin_menu' => new \Twig_Function_Method($this, 'getAdminMenu'),
         'get_admin_menu_sortable' => new \Twig_Function_Method($this, 'getAdminMenuSortable'),
         'seo_title' => new \Twig_Function_Method($this, 'getDefaultSeoTitle'),
-        'get_user_image' => new \Twig_Function_Method($this, 'getUserImage')
+        'get_user_image' => new \Twig_Function_Method($this, 'getUserImage'),
+        'unread_messages' => new \Twig_Function_Method($this, 'getUnreadMessages'),
+        'unread_notifications' => new \Twig_Function_Method($this, 'getUnreadNotifications'),
         );
   }
   
@@ -224,5 +227,33 @@ class TwigExtension extends \Twig_Extension
         }
 
         return $asset->getUrl($userImage);
+    }
+
+    public function getUnreadMessages()
+    {
+        $user = $this->service_container->get('security.context')->getToken()->getUser();
+        if (!$user instanceof  User) {
+            return;
+        }
+        $messages = $this->service_container->get('doctrine.orm.entity_manager')->getRepository('CunningsoftChatBundle:Message')->findBy(array(
+            'receiver' => $user->getId(),
+            'isRead'   => false,
+        ));
+
+        return count($messages);
+    }
+
+    public function getUnreadNotifications()
+    {
+        $user = $this->service_container->get('security.context')->getToken()->getUser();
+        if (!$user instanceof  User) {
+            return;
+        }
+        $messages = $this->service_container->get('doctrine.orm.entity_manager')->getRepository('DuedinoiWebBundle:Notification')->findBy(array(
+            'toUser' => $user->getId(),
+            'status'   => Notification::STATUS_UNREAD,
+        ));
+
+        return count($messages);
     }
 }

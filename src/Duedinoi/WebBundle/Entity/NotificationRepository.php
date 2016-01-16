@@ -13,12 +13,12 @@ class NotificationRepository extends \Doctrine\ORM\EntityRepository
     public function getNotificationsForUser($user)
     {
         $qb = $this->createQueryBuilder('n')
-                ->andWhere('n.fromUser = :user_id')
+                ->andWhere('n.toUser = :user_id')
                 ->andWhere('n.status != :status_deleted')
                 ->setParameter('user_id', $user->getId())
                 ->setParameter('status_deleted', Notification::STATUS_DELETED)
                 ->orderBy('n.createdAt', 'DESC');
         
-        return $qb->getQuery();
+        return $qb->getQuery()->execute();
     }
 }

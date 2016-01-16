@@ -1,6 +1,7 @@
 <?php
 namespace Duedinoi\WebBundle\Service;
 
+use Duedinoi\UserBundle\Entity\User;
 use Duedinoi\WebBundle\Service\ProfileEvent;
 use Duedinoi\WebBundle\Entity\Notification;
 
@@ -32,20 +33,21 @@ class NotificationListener
     
     public function logNotification(ProfileEvent $event, $eventName)
     {
-        if($this->securityContext->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+        if(!$this->getUser() instanceof User) {
             $this->session->set('referal_url', $this->router->generate('duedinoi_user_profile', array(
                 'userslug' => $event->getUser()->getSlug()
             ), true));
             
             return;
         }
+
         if ($this->getUser() == $event->getUser()) {
             return;
         }
         $notification = new Notification();
         $notification
-            ->setFromUser($event->getUser())
-            ->setToUser($this->getUser())
+            ->setFromUser($this->getUser())
+            ->setToUser($event->getUser())
             ->setType($eventName)
         ;
         $this->em->persist($notification);

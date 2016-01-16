@@ -61,12 +61,22 @@ class ChatController extends Controller
      */
     public function listAction($channel)
     {
+        $currentUser = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $receiver = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($channel);
         if(!$receiver instanceof \Cunningsoft\ChatBundle\Entity\AuthorInterface) {
             throw $this->createNotFoundException();
         }
         $messages = $this->get('chat_thread_service')->getThreadMessages($receiver);
+        if (!empty($messages)) {
+            foreach ($messages as $message) {
+                if ($message->getAuthor() != $currentUser) {
+                    $message->setIsRead(true);
+                    $em->persist($message);
+                }
+                $em->flush();
+            }
+        }
 
         return array(
             'messages' => $messages,

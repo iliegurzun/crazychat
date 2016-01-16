@@ -12,16 +12,22 @@
                 <li class="{{ app.request.get('_route') in ['duedinoi_photos'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_photos') }}">{{ 'menu.photos'|trans }}</a>
                 </li>
-                <li class="{{ app.request.get('_route') in ['duedinoi_messages', 'duedinoi_thread'] ? 'active' : '' }}">
+                <li class="{{ app.request.get('_route') in ['duedinoi_messages', 'duedinoi_thread'] ? 'active' : '' }} pr-10">
                     <a href="{{ path('duedinoi_messages') }}">{{ 'menu.messages'|trans }}</a>
+                    {%  if unread_messages() > 0 %}
+                        <span class="notification">{{ unread_messages() }}</span>
+                    {% endif %}
                 </li>
                 {% if is_granted('ROLE_ROBOT') %}
                     <li class="{{ app.request.get('_route') in ['duedinoi_mass_message'] ? 'active' : '' }}">
                         <a href="{{ path('duedinoi_mass_message') }}">{{ 'menu.mass_messages'|trans }}</a>
                     </li>
                 {% endif %}
-                <li class="{{ app.request.get('_route') in ['duedinoi_notifications'] ? 'active' : '' }}">
+                <li class="{{ app.request.get('_route') in ['duedinoi_notifications'] ? 'active' : '' }} pr-10">
                     <a href="{{ path('duedinoi_notifications') }}">{{ 'menu.notifications'|trans }}</a>
+                    {%  if unread_notifications() > 0 %}
+                        <span class="notification">{{ unread_notifications() }}</span>
+                    {% endif %}
                 </li>
                 <li class="{{ app.request.get('_route') in ['duedinoi_settings'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_settings') }}">{{ 'menu.settings'|trans }}</a>
