@@ -12,5 +12,13 @@
         <div class="col-lg-12 mt-20 mb-30 comment-text">
             {{ comment|nl2br }}
         </div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if comment.canBeRemoved(app.user) %}
+                <i class="icon icon-remove-circle remove-comment" 
+                   data-remove-link="{{ path('duedinoi_remove_comment', {id: comment.id}) }}"
+                   data-confirm-message="{{ 'confirm.remove_comment'|trans }}">
+                </i>
+            {% endif %}
+        {% endif %}
     </div>
 </div>

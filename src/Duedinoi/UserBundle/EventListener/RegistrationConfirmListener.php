@@ -17,10 +17,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class RegistrationConfirmListener implements EventSubscriberInterface
 {
     private $router;
+    
+    protected $session;
+    
+    protected $securityContext;
+    
+    protected $em;
 
-    public function __construct(UrlGeneratorInterface $router)
+    public function __construct(UrlGeneratorInterface $router, $session, $securityContext, $em)
     {
         $this->router = $router;
+        $this->session = $session;
+        $this->securityContext = $securityContext;
+        $this->em = $em;
     }
 
     /**
@@ -35,6 +44,15 @@ class RegistrationConfirmListener implements EventSubscriberInterface
 
     public function onRegistrationConfirm(GetResponseUserEvent $event)
     {
+        if ($event->getUser() instanceof \Duedinoi\UserBundle\Entity\User) {
+            $url = $this->session->get('referal_url');
+            if ($url) {
+                $event->getUser()->setReferral($url);
+                $this->em->persist($event->getUser());
+                $this->em->flush();
+                $this->session->remove('referal_url');
+            }
+        }
         $url = $this->router->generate('duedinoi_dashboard');
 
         $event->setResponse(new RedirectResponse($url));

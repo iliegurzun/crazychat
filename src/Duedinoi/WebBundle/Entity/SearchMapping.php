@@ -15,9 +15,6 @@ namespace Duedinoi\WebBundle\Entity;
  */
 class SearchMapping 
 {
-    protected $minAge;
-    
-    protected $maxAge;
     
     protected $online = array();
     
@@ -25,48 +22,52 @@ class SearchMapping
     
     protected $username;
     
-    function getMinAge() {
-        return $this->minAge;
-    }
-
-    function getMaxAge() {
-        return $this->maxAge;
-    }
-
-    function getOnline() {
+    protected $sex;
+            
+    function getOnline() 
+    {
         return $this->online;
     }
 
-    function getWithPhoto() {
+    function getWithPhoto() 
+    {
         return $this->withPhoto;
     }
 
-    function getUsername() {
+    function getUsername() 
+    {
         return $this->username;
     }
 
-    function setMinAge($minAge) {
-        $this->minAge = $minAge;
-        return $this;
-    }
-
-    function setMaxAge($maxAge) {
-        $this->maxAge = $maxAge;
-        return $this;
-    }
-
-    function setOnline($online) {
+    function setOnline($online) 
+    {
         $this->online = $online;
         return $this;
     }
 
-    function setWithPhoto($withPhoto) {
+    function setWithPhoto($withPhoto) 
+    {
         $this->withPhoto = $withPhoto;
+    
         return $this;
     }
 
-    function setUsername($username) {
+    function setUsername($username) 
+    {
         $this->username = $username;
+    
         return $this;
+    }
+    
+    function setSex($sex) 
+    {
+        $this->sex = $sex;
+        
+        return $this;
+    }
+    
+    function getSex() 
+    {
+        return $this->sex;
     }
 }

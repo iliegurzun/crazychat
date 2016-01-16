@@ -39,6 +39,25 @@ $(function () {
     if (typeof $('.autosize') !=='undefined' && typeof autosize !=='undefined') {
         autosize($('.autosize'));
     }
+    if ($('.remove-comment').length) {
+        $('.remove-comment').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            var $theBtn = $(this);
+            if (confirm($theBtn.data('confirm-message'))) {
+                $.ajax({
+                    url: $theBtn.data('remove-link'),
+                    type: 'POST'
+                }).done(function(data)
+                {
+                    if(data.success == true) {
+                        $theBtn.parent().parent().fadeOut();
+                    }
+                });
+            }
+        })
+    }
 });
 $(window).load(function () {
     if ($('.carousel').length) {

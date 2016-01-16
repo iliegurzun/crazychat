@@ -46,5 +46,5 @@ security:
         - { path: ^/.*/videostream/.*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/answer-call/.*, role: IS_AUTHENTICATED_FULLY }
         - { path: ^/.*/photos, role: IS_AUTHENTICATED_FULLY }
-        - { path: ^/.*/.*/profile, role: IS_AUTHENTICATED_FULLY }
+        - { path: ^/.*/.*/profile, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

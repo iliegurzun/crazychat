@@ -209,4 +209,17 @@ class Comment
     {
         return $this->user;
     }
+    
+    public function canBeRemoved($user)
+    {
+        $canBeRemoved = false;
+        if ($this->getAuthor() == $user) {
+            $canBeRemoved = true;
+        }
+        if ($this->getUser() == $user) {
+            $canBeRemoved = true;
+        }
+        
+        return $canBeRemoved;
+    }
 }

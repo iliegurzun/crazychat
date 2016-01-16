@@ -491,14 +491,17 @@ textarea {height: auto;}
     display: none;
     visibility: hidden;
 }
-.remove-photo {
+.remove-photo, .remove-photo:hover {
     position: absolute;
-    right: 21px;
-    top: 6px;
     z-index: 1;
     display: none;
+    color: #fa7724;
+    font-size: 18px;
+    font-weight: bold;
+    right: 20px;
+    top: 0;
 }
-.remove-photo:hover {display: block !important;}
+.single-image:hover .remove-photo {display: block !important;}
 .mb-30 {margin-bottom: 30px;}
 .container-fluid > .container {width: 1170px;}
 .secondary-photos.lightSlider {
@@ -867,6 +870,40 @@ textarea {padding: 10px;}
 }
 .upload-photos-form {
     margin-bottom: 100px;
+}
+.remove-comment {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    color: #fa7724;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+}
+.single-comment .col-lg-11 {
+    padding-left: 0px;
+}
+.comment-form {
+    padding-right: 0px;
+}
+.comment-form form button {
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+.container-fluid {
+    width: 100%;
+    padding: 0;
+}
+.col-lg-4.profile-picture-large.no-padding {
+    margin-bottom: 40px;
+}
+.lSPrev, .lSNext {
+    height: 64px !important;
+    width: 64px !important;
+}
+.lSNext {
+    background-position: 65px 0 !important;
 }
 @media screen and (max-width: 980px) {
     .menu-wrap #header {

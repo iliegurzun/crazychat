@@ -28,6 +28,7 @@ use Ratchet\WebSocket\WsServer;
 use Duedinoi\WebBundle\Service\Chat;
 use Duedinoi\WebBundle\Entity\UserLike;
 use Duedinoi\WebBundle\Entity\BlockComment;
+use Duedinoi\UserBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -181,16 +182,15 @@ class DefaultController extends Controller
         $user = $this->getUser();
         $filters = $request->get('search_users');
         $filters['user'] = $user;
+        $filters['gender'] = $user->getProfile()->getGender();
         $mapping = new SearchMapping();
         $searchForm = $this->createForm(new SearchFormType($this->get('translator')), $mapping);
-        $userSearchForm = $this->createForm(new NameSearchType($this->get('translator')), $mapping);
         $title = $this->get('translator')->trans('title.active_users');
         
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
         if ($request->isMethod(Request::METHOD_POST)) {
             $searchForm->handleRequest($request);
-            $userSearchForm->handleRequest($request);
             $title = $this->get('translator')->trans('search.search_results');
             $activeUsers = $userRepo->findByFilters($filters);
         } else {
@@ -207,7 +207,6 @@ class DefaultController extends Controller
             'activeUsers' => $pagination,
             'searchForm'  => $searchForm->createView(),
             'title'       => $title,
-            'nameForm'    => $userSearchForm->createView(),
         ));
     }
 
@@ -230,6 +229,11 @@ class DefaultController extends Controller
         $user = $userRepo->findOneBySlug($userslug);
         if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
             throw $this->createNotFoundException();
+        }
+        if ($this->getUser() instanceof User) {
+            if ($user->getProfile()->getGender() == $this->getUser()->getProfile()->getGender()) {
+                throw $this->createNotFoundException();
+            }
         }
         $dispatcher = $this->get('event_dispatcher');
         $event = new \Duedinoi\WebBundle\Service\ProfileEvent($user);
@@ -497,6 +501,45 @@ class DefaultController extends Controller
         return $this->render('DuedinoiWebBundle:Default:mass_message.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+    
+    public function removeCommentAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $commendRepo = $em->getRepository('DuedinoiWebBundle:Comment');
+        $comment = $commendRepo->find($id);
+        if (!$comment) {
+            throw $this->createNotFoundException('Not found');
+        }
+        if ($comment->canBeRemoved($this->getUser())) {
+            $em->remove($comment);
+            $em->flush();
+            
+            return new JsonResponse(array(
+                'success' => true
+            ));
+        }
+        return new JsonResponse(array(
+            'success' => false
+        ));
+    }
+    
+    public function removePhotoAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $imageRepo = $em->getRepository('DuedinoiAdminBundle:Image');
+        $image = $imageRepo->find($id);
+        if (!$image) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove($image);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            $this->get('translator')->trans('image.removed')
+        );
+
+        return $this->redirect($this->generateUrl('duedinoi_photos'));
     }
 
     private function getUserLike($currentUser, $user)

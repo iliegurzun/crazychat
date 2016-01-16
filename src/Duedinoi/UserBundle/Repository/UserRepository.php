@@ -65,21 +65,6 @@ class UserRepository extends EntityRepository
                 ->andWhere('u.roles NOT LIKE :admin')
                 ->setParameter('admin', '%ROLE_ADMIN%')
                 ;
-        if (!empty($filters['minAge'])) {
-            $yearsAgo = $filters['minAge'];
-            $minAge = new \DateTime("$yearsAgo years ago");
-            $qb
-                ->andWhere('p.dateOfBirth <= :min_age')
-                ->setParameter('min_age', $minAge);
-        }
-        if (!empty($filters['maxAge'])) {
-            $yearsAgo = $filters['maxAge'];
-            $maxAge = new \DateTime("$yearsAgo years ago");
-            
-            $qb
-                ->andWhere('p.dateOfBirth >= :max_age')
-                ->setParameter('max_age', $maxAge);
-        }
         if (isset($filters['withPhoto'])) {
             $qb
                 ->having('photos > 0');
@@ -99,6 +84,11 @@ class UserRepository extends EntityRepository
             $qb
                 ->andWhere('u.id != :user_id')
                 ->setParameter('user_id', $filters['user']->getId());
+        }
+        if (isset($filters['gender'])) {
+            $qb
+                ->andWhere('p.gender != :gender')
+                ->setParameter('gender', $filters['gender']);
         }
         $qb->groupBy('u.id');
         $results = $qb->getQuery()->getResult();

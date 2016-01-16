@@ -17,14 +17,28 @@ class NotificationListener
     
     protected $user;
     
-    public function __construct($em, $context)
+    protected $session;
+    
+    protected $router;
+    
+    public function __construct($em, $context, $session, $router)
     {
+        $this->securityContext = $context;
         $this->em = $em;
         $this->user = $context->getToken()->getUser();
+        $this->session = $session;
+        $this->router = $router;
     }
     
     public function logNotification(ProfileEvent $event, $eventName)
     {
+        if($this->securityContext->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+            $this->session->set('referal_url', $this->router->generate('duedinoi_user_profile', array(
+                'userslug' => $event->getUser()->getSlug()
+            ), true));
+            
+            return;
+        }
         if ($this->getUser() == $event->getUser()) {
             return;
         }

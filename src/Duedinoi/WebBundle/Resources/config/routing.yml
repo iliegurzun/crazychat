@@ -60,3 +60,9 @@ duedinoi_user_like:
 duedinoi_mass_message:
     pattern: /{_locale}/mass-message
     defaults: { _controller: DuedinoiWebBundle:Default:massMessage }
+duedinoi_remove_comment:
+    pattern: /{_locale}/remove-comment/{id}
+    defaults: { _controller: DuedinoiWebBundle:Default:removeComment }
+duedinoi_remove_photo:
+    pattern: /{_locale}/remove-photo/{id}
+    defaults: { _controller: DuedinoiWebBundle:Default:removePhoto}

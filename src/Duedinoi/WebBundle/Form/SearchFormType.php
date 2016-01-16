@@ -29,14 +29,7 @@ class SearchFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options) 
     {
         $builder
-            ->add('minAge', NumberType::class, array(
-                'label' => ' ',
-                'required' => false
-            ))
-            ->add('maxAge', 'number', array(
-                'label' => ' ',
-                'required' => false
-            ))
+            ->add('username')
             ->add('withPhoto', 'choice', array(
                 'label' => ' ',
                 'required' => false,

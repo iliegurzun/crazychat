@@ -10,11 +10,8 @@
                     <h3 class="center">{{ 'search.title'|trans }}</h3>
                     <div class="col-lg-12 no-padding">
                         <span class="col-lg-12 no-padding"> {{ 'search.subtitle'|trans }}</span>
-                        <div class="col-lg-6 no-padding">
-                            {{ form_row(searchForm.minAge) }}
-                        </div>
-                        <div class="col-lg-6 no-padding">
-                            {{ form_row(searchForm.maxAge) }}
+                        <div class="col-lg-12 no-padding">
+                            {{ form_row(searchForm.username) }}
                         </div>
                     </div>
                     <div class="col-lg-12 no-padding">
@@ -25,14 +22,6 @@
                     </div>
                     <button class="button green-button custom-padding">{{ 'contact.submit'|trans }}</button>
                 </form>
-                <form class="col-lg-12 no-padding pull-left " method="post" action="">
-                    <h3 class="center">{{ title }}</h3>
-                    <div class="col-lg-12 no-padding">
-                        {{ form_row(nameForm.username) }}
-                    </div>
-                    <button class="button green-button custom-padding">{{ 'contact.submit'|trans }}</button>
-                </form>
-                
             </div>
             
             <div class="col-lg-9">

@@ -21,8 +21,10 @@
                         </ul>
                     {% endif %}
                 </ul>
-                {% if app.user.isSameUser(user) %}
-                    <a href="{{ path('duedinoi_edit_profile') }}" class="btn btn-default full-width">{{ 'profile.edit'|trans }}</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% if app.user.isSameUser(user) %}
+                        <a href="{{ path('duedinoi_edit_profile') }}" class="btn btn-default full-width">{{ 'profile.edit'|trans }}</a>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="col-lg-6">
@@ -60,8 +62,10 @@
                     <p class="col-lg-8">{{user.profile.description|default() }}</p>
                 </div>
             </div>
-            {% if not app.user.isSameUser(user) %}
-                {% include "DuedinoiWebBundle:Component:profile_actions.html.twig" %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if not app.user.isSameUser(user) %}
+                    {% include "DuedinoiWebBundle:Component:profile_actions.html.twig" %}
+                {% endif %}
             {% endif %}
             {% if form is defined %}
                 <div class="col-lg-12 no-padding">
@@ -74,9 +78,9 @@
                 {% endfor %}
             {% endif %}
             {% if form is defined %}
-                {#{% if not user.blocksUser(app.user) %}
+                {% if not user.blocksUser(app.user) %}
                     {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
-                {% endif %}#}
+                {% endif %}
                 </div>
             {% endif %}
             {% if activeUsers|length %}
