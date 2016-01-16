@@ -62,7 +62,7 @@
                     <p class="col-lg-8">{{user.profile.description|default() }}</p>
                 </div>
             </div>
-            {#{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {% if not app.user.isSameUser(user) %}
                     {% include "DuedinoiWebBundle:Component:profile_actions.html.twig" %}
                 {% endif %}
@@ -70,19 +70,21 @@
             {% if form is defined %}
                 <div class="col-lg-12 no-padding">
                     <h3>{{ 'profile.comments'|trans }}</h3>
-            {% endif %}#}
+            {% endif %}
             {% if user.activeComments|length %}
                 
                 {% for comment in user.activeComments %}
                     {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
                 {% endfor %}
             {% endif %}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
             {% if form is defined %}
                 {% if not user.blocksUser(app.user) %}
                     {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
                 {% endif %}
                 </div>
             {% endif %}
+			{% endif %}
             {% if activeUsers|length %}
                 <div class="col-lg-12 no-padding">
                     <h3 class="page-title col-lg-12 no-padding">
