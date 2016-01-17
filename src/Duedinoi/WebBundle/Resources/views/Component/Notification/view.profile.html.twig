@@ -1,4 +1,4 @@
 {% extends "DuedinoiWebBundle:Component\\Notification:base.html.twig" %}
 {% block notification_content %}
-    <a href="{{ path('duedinoi_user_profile', {userslug: notification.fromUser.slug}) }}" class="orange-text">{{ notification.toUser }}</a> {{ 'notification.view_profile'|trans }}
+    <a href="{{ path('duedinoi_user_profile', {userslug: notification.fromUser.slug}) }}" class="orange-text">{{ notification.fromUser }}</a> {{ 'notification.view_profile'|trans }}
 {% endblock %}
