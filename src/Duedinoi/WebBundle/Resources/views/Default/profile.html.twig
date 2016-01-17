@@ -1,3 +1,4 @@
+
 {% extends "DuedinoiWebBundle::layout.html.twig" %}
 
 {% block content %}
@@ -77,12 +78,14 @@
                     {% include "DuedinoiWebBundle:Component:comment.html.twig" %}
                 {% endfor %}
             {% endif %}
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
             {% if form is defined %}
                 {% if not user.blocksUser(app.user) %}
                     {% include 'DuedinoiWebBundle:Component:comment_form.html.twig' %}
                 {% endif %}
                 </div>
             {% endif %}
+			{% endif %}
             {% if activeUsers|length %}
                 <div class="col-lg-12 no-padding">
                     <h3 class="page-title col-lg-12 no-padding">

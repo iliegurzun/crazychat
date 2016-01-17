@@ -84,7 +84,7 @@ profile:
     new_password_confirmation: "Conferma la nuova password"
     edit: "Modificare il tuo profilo"
     remove_confirmation: "Are you sure you want to remove your account?"
-    unlike: "Unlike"
+    unlike: "Non mi piace"
     block_success: "Utente bloccato con successo!"
     unblock_success: "Utente sbloccato con successo!"
     unblock_comment: "Sbloca i commenti"
@@ -98,6 +98,8 @@ title:
     active_users: "Utenti online"
     notifications: "Notifiche"
     mass_message: "Messaggi di massa"
+    conversation_with: "Conversazione con "
+    conversations: "Conversazione"
 save: "Salva"
 submit: "Aggiornare"
 remove_account: "Rimuovi account"
@@ -157,3 +159,15 @@ photos:
 photo:
     uploaded: "Foto caricata!"
     profile: "Foto del profilo"
+confirm:
+    remove_message: "Sei sicuro di voler rimuovere questo messaggio?"
+    remove_thread: "Sei sicuro di voler rimuovere questa conversazione?"
+    remove_comment: "Sei sicuro di voler rimuovere questo commento?"
+    delete_image: "Sei sicuro di voler rimuovere questa foto?"
+thread:
+    removed: "Conversazione rimosso con successo!"
+image:
+    removed: "Foto rimosso con successo!"
+comment_submit: "Invia"
+comment:
+    posted "Commento postato con successo!"

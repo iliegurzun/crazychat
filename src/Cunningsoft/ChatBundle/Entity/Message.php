@@ -66,6 +66,13 @@ class Message
     private $isRead = false;
 
     /**
+     * @var AuthorInterface
+     *
+     * @ORM\ManyToOne(targetEntity="AuthorInterface")
+     */
+    private $removedFrom;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
@@ -221,5 +228,29 @@ class Message
     public function getIsRead()
     {
         return $this->isRead;
+    }
+
+    /**
+     * Set removedFrom
+     *
+     * @param \Duedinoi\UserBundle\Entity\User $removedFrom
+     *
+     * @return Message
+     */
+    public function setRemovedFrom(\Duedinoi\UserBundle\Entity\User $removedFrom = null)
+    {
+        $this->removedFrom = $removedFrom;
+
+        return $this;
+    }
+
+    /**
+     * Get removedFrom
+     *
+     * @return \Duedinoi\UserBundle\Entity\User
+     */
+    public function getRemovedFrom()
+    {
+        return $this->removedFrom;
     }
 }

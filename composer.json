@@ -25,7 +25,8 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "avalanche123/imagine-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "2.4.*@dev",
-        "gos/web-socket-bundle": "dev-master"
+        "gos/web-socket-bundle": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "^1.0"
     },
     "scripts": {
         "post-install-cmd": [

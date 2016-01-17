@@ -7,6 +7,7 @@
  */
 
 namespace Duedinoi\WebBundle\Service;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of ChatThreadService
@@ -29,13 +30,18 @@ class ChatThreadService
     {
         $threads = array();
         $user = $this->securityContext->getToken()->getUser();
+        /** @var EntityRepository $messageRepo */
         $messageRepo = $this->em->getRepository('CunningsoftChatBundle:Message');
-        $messages = $messageRepo->createQueryBuilder('t')
+        $qb = $messageRepo->createQueryBuilder('t');
+        $qb
                 ->where('t.author = :author OR t.receiver = :author')
-                ->setParameter('author', $user)
-                ->getQuery()->execute();
-        
+                ->setParameter('author', $user);
+        $messages = $qb->getQuery()->execute();
+
         foreach ($messages as $message) {
+            if ($message->getRemovedFrom() == $user) {
+                continue;
+            }
             if ($message->getAuthor() !== $user) {
                 $threads[$message->getAuthor()->getUsername()] = array(
                     'user' => $message->getAuthor()

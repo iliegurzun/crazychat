@@ -7,7 +7,7 @@
         <div class="container no-margin-top">
             <div class="col-lg-12">
                 <h3 class="page-title col-lg-12 no-padding">
-                    {{ 'title.active_users'|trans }}
+                    {{ 'title.conversation_with'|trans }} {{  user|capitalize }}
                 </h3>
                 {% render(controller('CunningsoftChatBundle:Chat:show', {channel: userslug})) %}
             </div>

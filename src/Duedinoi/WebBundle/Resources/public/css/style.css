@@ -587,6 +587,9 @@ textarea {height: auto;}
     margin-top: 20px;
     width: 100%;
 }
+.profile-actions a {
+    font-size: 16.2px;
+}
 .green-button {
     background: #63c389;
     float: left;
@@ -871,7 +874,8 @@ textarea {padding: 10px;}
 .upload-photos-form {
     margin-bottom: 100px;
 }
-.remove-comment {
+.remove-comment,
+.remove-thread {
     position: absolute;
     right: 10px;
     top: 0;

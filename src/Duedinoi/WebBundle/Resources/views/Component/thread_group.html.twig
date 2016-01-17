@@ -10,4 +10,11 @@
                 {% endif %}
             </p>
     {% endif %}
+    <i class="icon icon-remove-circle confirm-action remove-thread"
+       href="{{ path('cunningsoft_chat_thread_remove', {channel: thread.user.slug}) }}"
+       data-confirm-message="{{ 'confirm.remove_thread'|trans }}"
+       data-redirect="true
+       "
+    >
+    </i>
 </div>

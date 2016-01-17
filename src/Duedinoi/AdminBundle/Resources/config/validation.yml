@@ -6,13 +6,13 @@ Duedinoi\AdminBundle\Entity\Page:
       - NotBlank: ~  
 Duedinoi\UserBundle\Entity\User:
     constraints:
-        - Duedinoi\WebBundle\Validator\Constraints\UniqueUser: { groups: [registration] }
+        - Duedinoi\WebBundle\Validator\Constraints\UniqueUser: { groups: [registration, admin] }
     properties:
         profile:
             - Valid: ~
         email:
-            - NotBlank: { groups: [registration] }
+            - NotBlank: { groups: [registration, admin] }
         plainPassword:
             - NotBlank: { groups: [registration] }
         username:
-            - NotBlank: { groups: [registration] }
+            - NotBlank: { groups: [registration, admin] }

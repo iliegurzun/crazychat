@@ -69,11 +69,18 @@ class ChatController extends Controller
         }
         $messages = $this->get('chat_thread_service')->getThreadMessages($receiver);
         if (!empty($messages)) {
-            foreach ($messages as $message) {
-                if ($message->getAuthor() != $currentUser) {
-                    $message->setIsRead(true);
-                    $em->persist($message);
+            foreach ($messages as $key => $message) {
+                if ($message->getRemovedFrom() == $currentUser) {
+                    unset($messages[$key]);
+                } else {
+                    if ($message->getAuthor() != $currentUser) {
+                        if (!$message->getIsRead()) {
+                            $message->setIsRead(true);
+                            $em->persist($message);
+                        }
+                    }
                 }
+
                 $em->flush();
             }
         }
@@ -99,5 +106,38 @@ class ChatController extends Controller
         $em->flush();
         
         return new Response('Successful');
+    }
+
+    /**
+     * @Route("/remove-thread/{channel}", name="cunningsoft_chat_thread_remove")
+     * @Template
+     */
+    public function removeThreadAction($channel)
+    {
+        $currentUser = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $receiver = $em->getRepository('DuedinoiUserBundle:User')->findOneBySlug($channel);
+        if(!$receiver instanceof \Cunningsoft\ChatBundle\Entity\AuthorInterface) {
+            throw $this->createNotFoundException();
+        }
+        $messages = $this->get('chat_thread_service')->getThreadMessages($receiver);
+        if (!empty($messages)) {
+            /** @var Message $message */
+            foreach ($messages as $message) {
+                if (empty($message->getRemovedFrom())) {
+                    $message->setRemovedFrom($currentUser);
+                } else {
+                    $em->remove($message);
+                }
+            }
+            $em->flush();
+        }
+
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            $this->get('translator')->trans('thread.removed')
+        );
+
+        return $this->redirect($this->generateUrl('duedinoi_messages'));
     }
 }

@@ -276,7 +276,8 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('User not found!');
         }
 
-        return $this->render('DuedinoiWebBundle:Default:user_conversation.html.twig', array(//            ''
+        return $this->render('DuedinoiWebBundle:Default:user_conversation.html.twig', array(
+            'user' => $user
         ));
     }
 
@@ -353,7 +354,8 @@ class DefaultController extends Controller
         
         return $this->render('DuedinoiWebBundle:Default:single_thread.html.twig', array(
             'channel' => 'default',
-            'userslug'=> $userslug
+            'userslug'=> $userslug,
+            'user'    => $user
         ));
     }
     

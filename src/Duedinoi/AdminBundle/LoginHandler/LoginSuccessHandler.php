@@ -22,16 +22,10 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-            if ($this->security->isGranted('ROLE_ADMIN'))
-            {
+            if ($this->security->isGranted('ROLE_ADMIN')) {
                 $response = new RedirectResponse($this->router->generate('duedinoi_admin_homepage'));			
             }
-            elseif ($this->security->isGranted('ROLE_ROBOT'))
-            {
-                $response = new RedirectResponse($this->router->generate('duedinoi_admin_homepage'));
-            } 
-            elseif ($this->security->isGranted('ROLE_USER'))
-            {
+            else {
                 $response = new RedirectResponse($this->router->generate('duedinoi_dashboard'));
             }
 

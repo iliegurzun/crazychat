@@ -190,6 +190,8 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
         }
 
+        dump($editForm->getErrors());die;
+
         return $this->render('DuedinoiUserBundle:User:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),

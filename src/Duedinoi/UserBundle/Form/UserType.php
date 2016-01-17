@@ -203,7 +203,7 @@ class UserType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Duedinoi\UserBundle\Entity\User',
             'novalidate' => 'novalidate',
-            'validation_groups' => array('registration')
+            'validation_groups' => array('admin')
         ));
     }
 

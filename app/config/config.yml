@@ -82,6 +82,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    port:      "%mailer_port%"
+    sender_address: "%sender_address%"
     
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
@@ -137,3 +139,9 @@ gos_web_socket:
             resources:
                 - @DuedinoiWebBundle/Resources/config/pubsub/routing.yml
     shared_config: true
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Crazychat Migrations
