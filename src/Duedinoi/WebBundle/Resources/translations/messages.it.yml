@@ -10,7 +10,7 @@ register:
     date.day: "Giorno"
     login: "Accedi"
     already_have_account: "Hai gia un account?"
-    signup_header: "Prima volta su CrazyChat?"
+    signup_header: "Prima volta su Crazychat?"
     submit_button: "Avanti"
     terms_conditions: "Dichiaro di aver letto a accettato le <a href='#' class='underline'>Condizioni di utillizzo</a>, <a href='#' class='underline'>l'Informativa sulla privacy</a> e la <a href='#' class='underline'>Normativa sui cookie</a>"
     username_taken: "Questo nome utente è già stato preso"
@@ -130,7 +130,7 @@ footer_menu:
     privacy: "Privacy"
     help: "Aiudo"
 login:
-    title: "Accedi a CrazyChat"
+    title: "Accedi a Crazychat"
     subtitle: "Effettua il login qui sotto"
     username_email: "Email/Pseudonimo"
     remember_me: "Memorizza la password"

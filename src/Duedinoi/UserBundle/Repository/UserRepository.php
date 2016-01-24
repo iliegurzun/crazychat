@@ -64,6 +64,7 @@ class UserRepository extends EntityRepository
                 ->addSelect('COUNT(ph.id) as photos')
                 ->andWhere('u.roles NOT LIKE :admin')
                 ->setParameter('admin', '%ROLE_ADMIN%')
+                ->andWhere('u.enabled = true')
                 ;
         if (isset($filters['withPhoto'])) {
             $qb
