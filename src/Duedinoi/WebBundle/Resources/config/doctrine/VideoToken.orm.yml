@@ -1,0 +1,43 @@
+Duedinoi\WebBundle\Entity\VideoToken:
+    type: entity
+    table: null
+    repositoryClass: Duedinoi\WebBundle\Entity\VideoTokenRepository
+    indexes:
+        updatedAt_index:
+            columns: [ updated_at ]
+        user_index:
+            columns: [to_user_id]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        token:
+            type: string
+            length: 255
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+            column: created_at
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+            column: updated_at
+    manyToOne:
+            fromUser:
+                targetEntity: Duedinoi\UserBundle\Entity\User
+                joinColumn:
+                    name: from_user_id
+                    referencedColumnName: id
+            toUser:
+                targetEntity: Duedinoi\UserBundle\Entity\User
+                joinColumn:
+                    name: to_user_id
+                    referencedColumnName: id
+    lifecycleCallbacks: {  }

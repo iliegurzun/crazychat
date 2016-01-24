@@ -49,7 +49,7 @@ class UserRepository extends EntityRepository
                 ->setParameter('user_id', $user->getId());
         }
         if (!empty($limit)) {
-            $qb->getMaxResults($limit);
+            $qb->setMaxResults($limit);
         }
         
         return $qb->getQuery()->execute();

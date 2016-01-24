@@ -42,6 +42,9 @@ $(function () {
     if ($('.remove-comment').length) {
         removeComment($('.remove-comment'));
     }
+    if (typeof getTokenUrl !=='undefined') {
+        getVideoToken();
+    }
 });
 $(window).load(function () {
     if ($('.carousel').length) {
@@ -122,4 +125,23 @@ var removeComment = function($item)
             });
         }
     });
+}
+
+var getVideoToken = function ()
+{
+    if (typeof block == 'undefined') {
+        if (this.timer)
+            clearTimeout(this.timer);
+        $.ajax({
+            url: getTokenUrl
+        }).done(function(data)
+        {
+            if (typeof data.token !=='undefined') {
+                if (confirm('User '+data.user + ' is trying to call you. Accept call?')) {
+                    window.location.href = '/app_dev.php/it/videostream/'+ data.user+'/'+data.token;
+                }
+            }
+        });
+        this.timer = setTimeout('getVideoToken()', 10000);
+    }
 }

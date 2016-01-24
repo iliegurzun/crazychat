@@ -41,8 +41,8 @@ duedinoi_about:
     pattern: /{_locale}/about-us
     defaults: { _controller: DuedinoiWebBundle:Default:about, _locale: it }
 duedinoi_videostream:
-    pattern: /{_locale}/videostream/{userslug}
-    defaults: { _controller: DuedinoiWebBundle:Default:videostream, _locale: it }
+    pattern: /{_locale}/videostream/{userslug}/{token}
+    defaults: { _controller: DuedinoiWebBundle:Default:videostream, _locale: it, token: null }
 duedinoi_answer_call:
     pattern: /{_locale}/answer-call/{userslug}
     defaults: { _controller: DuedinoiWebBundle:Default:answerCall, _locale: it }
@@ -66,3 +66,9 @@ duedinoi_remove_comment:
 duedinoi_remove_photo:
     pattern: /{_locale}/remove-photo/{id}
     defaults: { _controller: DuedinoiWebBundle:Default:removePhoto}
+duedinoi_send_video_token:
+    pattern: /{_locale}/send-token/{userslug}
+    defaults: { _controller: DuedinoiWebBundle:Default:sendVideoToken}
+duedinoi_get_video_token:
+    pattern: /{_locale}/get-token
+    defaults: { _controller: DuedinoiWebBundle:Default:getVideoToken}

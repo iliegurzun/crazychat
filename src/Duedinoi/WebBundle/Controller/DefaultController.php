@@ -3,6 +3,7 @@
 namespace Duedinoi\WebBundle\Controller;
 
 use Duedinoi\WebBundle\Entity\Notification;
+use Duedinoi\WebBundle\Entity\VideoToken;
 use Duedinoi\WebBundle\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,7 @@ use Duedinoi\WebBundle\Service\Chat;
 use Duedinoi\WebBundle\Entity\UserLike;
 use Duedinoi\WebBundle\Entity\BlockComment;
 use Duedinoi\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -451,7 +453,7 @@ class DefaultController extends Controller
         
     }
 
-    public function videostreamAction($userslug)
+    public function videostreamAction($userslug, $token = null)
     {
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
@@ -461,7 +463,8 @@ class DefaultController extends Controller
         }
         
         return $this->render('DuedinoiWebBundle:Default:videostream.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'token'=> $token
         ));
     }
     
@@ -605,5 +608,49 @@ class DefaultController extends Controller
         $em->flush();
         
         return $report;
+    }
+
+    public function sendVideoTokenAction($userslug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('DuedinoiUserBundle:User');
+        $toUser = $userRepo->findOneBySlug($userslug);
+        if (!$toUser) {
+            throw $this->createNotFoundException();
+        }
+        $videoTokenRepo = $em->getRepository('DuedinoiWebBundle:VideoToken');
+        $videoToken = $videoTokenRepo->findOneBy(array(
+            'fromUser' => $this->getUser(),
+            'toUser'   => $toUser
+        ));
+        if (!$videoToken) {
+            $videoToken = new VideoToken();
+            $videoToken
+                ->setToken($request->get('videotoken'))
+                ->setFromUser($this->getUser())
+                ->setToUser($toUser);
+        } else {
+            $videoToken->setToken($request->get('videotoken'));
+        }
+        $em->persist($videoToken);
+        $em->flush();
+
+        return new Response();
+    }
+
+    public function getVideoTokenAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $videoTokenRepo = $em->getRepository('DuedinoiWebBundle:VideoToken');
+        $videoToken = $videoTokenRepo->getIncomeCall($user);
+        if (!isset($videoToken[0])) {
+            return new Response();
+        }
+
+        return new JsonResponse(array(
+            'token' => $videoToken[0]['token'],
+            'user'  => $videoToken[0]['username']
+        ));
     }
 }

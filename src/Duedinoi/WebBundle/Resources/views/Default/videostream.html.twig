@@ -3,9 +3,9 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets filter="?yui_css, cssrewrite"
-          %}
-        <link href="{{ asset_url }}" rel="stylesheet" media="screen">
-        {% endstylesheets %}
+    %}
+    <link href="{{ asset_url }}" rel="stylesheet" media="screen">
+    {% endstylesheets %}
 {% endblock %}
 {% block content %}
     {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
@@ -51,22 +51,34 @@
     </div>
 {% endblock %}
 {% block javascripts %}
+    {{ parent() }}
     <script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.js"></script>
     {#{% javascripts filter="?yui_js"#}
-            {#"@DuedinoiWebBundle/Resources/public/js/peer.js"#}
-        {#%}#}
-        {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
+    {#"@DuedinoiWebBundle/Resources/public/js/peer.js"#}
+    {#%}#}
+    {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
     {#{% endjavascripts %}#}
     <script type="text/javascript">
-        // Compatibility shim
+        var token = '{{ token }}';
+        var block = true;
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
         // PeerJS object
-        var peer = new Peer({ key: 'lwjd5qra8257b9', debug: 3});
+        var peer = new Peer({id: '{{ app.user.slug }}', key: '2xikd0hcajqvvx6r', debug: 3});
 
-        peer.on('open', function(){
-            $('#my-id').text(peer.id);
+        peer.on('open', function() {
+            $.ajax({
+                'url': "{{ path('duedinoi_send_video_token', {userslug: user.slug}) }}",
+                'data': {
+                    'videotoken': peer.id
+                },
+                type: 'post'
+            });
         });
+
+        if (token !=='') {
+            var call = peer.call(token, window.localStream);
+        }
 
         // Receiving a call
         peer.on('call', function(call){
@@ -127,7 +139,8 @@
             }
 
             // Wait for stream on the call, then set peer video display
-            call.on('stream', function(stream){
+            call.on('stream', function(stream) {
+                console.log(stream);
                 $('#their-video').prop('src', URL.createObjectURL(stream));
             });
 
