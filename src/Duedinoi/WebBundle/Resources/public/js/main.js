@@ -138,7 +138,7 @@ var getVideoToken = function ()
         {
             if (typeof data.token !=='undefined') {
                 if (confirm('User '+data.user + ' is trying to call you. Accept call?')) {
-                    window.location.href = '/app_dev.php/it/videostream/'+ data.user+'/'+data.token;
+                    window.location.href = '/it/videostream/'+ data.user+'/'+data.token;
                 }
             }
         });
