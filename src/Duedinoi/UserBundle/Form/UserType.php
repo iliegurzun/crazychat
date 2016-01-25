@@ -2,6 +2,7 @@
 
 namespace Duedinoi\UserBundle\Form;
 
+use Duedinoi\UserBundle\EventListener\UserEventSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -146,7 +147,8 @@ class UserType extends AbstractType {
                     ),
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Referral'
+                        'placeholder' => 'Referral',
+                        'disabled' => 'disabled'
                     )
                 ))
                 ->add('converter', 'entity', array(
@@ -194,6 +196,8 @@ class UserType extends AbstractType {
                     )
                 ))
         ;
+
+        $builder->addEventSubscriber(new UserEventSubscriber());
     }
 
     /**

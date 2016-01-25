@@ -69,6 +69,9 @@ $(document).ready(function() {
     if (typeof $.fn.fancybox !=='undefined') {
         $(".fancybox").fancybox();
     }
+    if ($('#duedinoi_userbundle_user_role').length) {
+        updateUserForm();
+    }
 });
 
 /* labelify */
@@ -273,5 +276,25 @@ var updateMenuItem = function($form)
             
         });
         
+    });
+}
+
+var updateUserForm = function()
+{
+    $('#duedinoi_userbundle_user_role').on('change', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        var $form = $('.user-create-form');
+        $.ajax({
+            url: $form.attr('action'),
+            data: $form.serialize(),
+            type: $form.attr('method')
+        }).done(function(data) {
+            if (data.success == true) {
+                $form.html(data.content);
+                updateUserForm();
+            }
+        });
     });
 }

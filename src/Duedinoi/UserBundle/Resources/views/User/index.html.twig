@@ -50,10 +50,10 @@
                         <td class="center ">{{ user.recruiter|default() }}</td>
                         <td class="center ">{{ user.converter|default() }}</td>
                         <td class="center ">{{ user.referral|default() }}</td>
-                        <td class="center ">{{ user.typeString }}</td>
                         <td class="center ">{{ user.isActiveNow ? 'Online' : 'Offline' }}</td>
+                        <td class="center ">{{ user.typeString }}</td>
                         <td class="center ">{{ user.createdAt|date('M d, Y') }}</td>
-                        <td class="center ">{{ user.createdAt|date('M d, Y') }}</td>
+                        <td class="center ">{{ user.confirmedAt|date('M d, Y') }}</td>
                         <td class="center ">{{ user.ipAddress|default() }}</td>
                         <td class="center action-buttons">
                             <a class="btn btn-success" href="{{ path('user_edit', {id: user.id}) }}">Edit</a>

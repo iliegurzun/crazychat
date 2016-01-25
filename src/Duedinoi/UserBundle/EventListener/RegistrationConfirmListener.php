@@ -47,7 +47,9 @@ class RegistrationConfirmListener implements EventSubscriberInterface
         if ($event->getUser() instanceof \Duedinoi\UserBundle\Entity\User) {
             $url = $this->session->get('referal_url');
             if ($url) {
-                $event->getUser()->setReferral($url);
+                $event->getUser()
+                    ->setReferral($url)
+                    ->setConfirmedAt(new \DateTime());
                 $this->em->persist($event->getUser());
                 $this->em->flush();
                 $this->session->remove('referal_url');

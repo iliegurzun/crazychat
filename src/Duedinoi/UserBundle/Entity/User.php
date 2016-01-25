@@ -412,6 +412,7 @@ class User extends BaseUser implements AuthorInterface
 
     public function setRole($role)
     {
+        $this->role = $role;
         $this->roles = array($role);
 
         return $this;
@@ -904,5 +905,34 @@ class User extends BaseUser implements AuthorInterface
     public function hasBeenReported()
     {
         return $this->userReports->count() > 0;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $confirmedAt;
+
+
+    /**
+     * Set confirmedAt
+     *
+     * @param \DateTime $confirmedAt
+     *
+     * @return User
+     */
+    public function setConfirmedAt($confirmedAt)
+    {
+        $this->confirmedAt = $confirmedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmedAt
+     *
+     * @return \DateTime
+     */
+    public function getConfirmedAt()
+    {
+        return $this->confirmedAt;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Duedinoi\UserBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -52,6 +53,15 @@ class UserController extends Controller
         $entity->setRecruiter($this->getUser());
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'success' => true,
+                'content' => $this->renderView('DuedinoiUserBundle:User:new_user_form.html.twig', array(
+                    'entity' => $entity,
+                    'form' => $form->createView()
+                ))
+            ));
+        }
         $em = $this->getDoctrine()->getManager();
         if ($form->isValid()) {
             $entity->setRecruiter($this->getUser());

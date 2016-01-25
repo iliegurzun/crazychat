@@ -9,15 +9,36 @@ Duedinoi\AdminBundle\Entity\RecruitedMember:
             generator:
                 strategy: AUTO
     fields:
-        username:
+        siteUser:
             type: string
             length: 255
         email:
             type: string
             length: 255
-        referral:
+        age:
+            type: integer
+            nullable: true
+        location:
             type: string
             length: 255
+            nullable: true
+        siteName:
+            type: string
+            length: 255
+        comments:
+            type: string
+            length: 255
+            nullable: true
+        createdAt:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: date
+            gedmo:
+                timestampable:
+                    on: update
     manyToOne:
         recruiter:
             targetEntity: Duedinoi\UserBundle\Entity\User

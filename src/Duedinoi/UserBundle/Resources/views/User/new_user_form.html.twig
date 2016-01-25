@@ -1,0 +1,88 @@
+<form method="post" action="{{ path('user_create') }}" {{ form_enctype(form) }} class="form-horizontal user-create-form" role="form" novalidate>
+    {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: form } %}
+    <div class="form-group">
+        {{ form_label(form.role) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.role) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.username) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.email) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.enabled) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.enabled) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.recruiter) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.recruiter) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.referral) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.referral) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.converter) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.converter) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateOfBirth) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.dateOfBirth) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.gender) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.gender) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.country) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.country) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.city) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.city) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.plainPassword.first) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.plainPassword.first) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.plainPassword.second) }}
+        <div class="col-lg-8">
+            {{ form_widget(form.plainPassword.second) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    <div class="form-group">
+        <div class="col-lg-8">
+            <button class="btn btn-success">Create</button>
+        </div>
+    </div>
+</form>

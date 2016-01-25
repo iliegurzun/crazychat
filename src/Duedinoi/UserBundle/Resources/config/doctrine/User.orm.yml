@@ -44,6 +44,9 @@ Duedinoi\UserBundle\Entity\User:
             type: string
             length: 255
             nullable: true
+        confirmedAt:
+            type: date
+            nullable: true
     oneToOne:
         profile:
             targetEntity: Profile

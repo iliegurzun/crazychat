@@ -15,17 +15,7 @@ class RecruitedMember
     /**
      * @var string
      */
-    private $username;
-
-    /**
-     * @var string
-     */
     private $email;
-
-    /**
-     * @var string
-     */
-    private $referral;
 
     /**
      * @var \Duedinoi\UserBundle\Entity\User
@@ -37,9 +27,34 @@ class RecruitedMember
      */
     private $converter;
 
+    /**
+     * @var string
+     */
+    private $siteUser;
+
+    /**
+     * @var integer
+     */
+    private $age;
+
+    /**
+     * @var string
+     */
+    private $location;
+
+    /**
+     * @var string
+     */
+    private $siteName;
+
+    /**
+     * @var string
+     */
+    private $comments;
+
     public function __toString()
     {
-        return $this->getUsername();
+        return $this->getSiteUser();
     }
 
     /**
@@ -50,30 +65,6 @@ class RecruitedMember
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return RecruitedMember
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
     }
 
     /**
@@ -98,30 +89,6 @@ class RecruitedMember
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set referral
-     *
-     * @param string $referral
-     *
-     * @return RecruitedMember
-     */
-    public function setReferral($referral)
-    {
-        $this->referral = $referral;
-
-        return $this;
-    }
-
-    /**
-     * Get referral
-     *
-     * @return string
-     */
-    public function getReferral()
-    {
-        return $this->referral;
     }
 
     /**
@@ -170,5 +137,183 @@ class RecruitedMember
     public function getConverter()
     {
         return $this->converter;
+    }
+
+    /**
+     * Set siteUser
+     *
+     * @param string $siteUser
+     *
+     * @return RecruitedMember
+     */
+    public function setSiteUser($siteUser)
+    {
+        $this->siteUser = $siteUser;
+
+        return $this;
+    }
+
+    /**
+     * Get siteUser
+     *
+     * @return string
+     */
+    public function getSiteUser()
+    {
+        return $this->siteUser;
+    }
+
+    /**
+     * Set age
+     *
+     * @param integer $age
+     *
+     * @return RecruitedMember
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return integer
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set location
+     *
+     * @param string $location
+     *
+     * @return RecruitedMember
+     */
+    public function setLocation($location)
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * Get location
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * Set siteName
+     *
+     * @param string $siteName
+     *
+     * @return RecruitedMember
+     */
+    public function setSiteName($siteName)
+    {
+        $this->siteName = $siteName;
+
+        return $this;
+    }
+
+    /**
+     * Get siteName
+     *
+     * @return string
+     */
+    public function getSiteName()
+    {
+        return $this->siteName;
+    }
+
+    /**
+     * Set comments
+     *
+     * @param string $comments
+     *
+     * @return RecruitedMember
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return string
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return RecruitedMember
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return RecruitedMember
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
