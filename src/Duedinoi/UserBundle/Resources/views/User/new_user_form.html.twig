@@ -12,43 +12,36 @@
             {{ form_widget(form.username) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.email) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.email) }}
+    {% if form.email is defined %}
+        <div class="form-group">
+            {{ form_label(form.email) }}
+            <div class="col-lg-8">
+                {{ form_widget(form.email) }}
+            </div>
         </div>
-    </div>
+    {% endif %}
+    {% if form.membership is defined %}
+        <div class="form-group">
+            {{ form_label(form.membership) }}
+            <div class="col-lg-8">
+                {{ form_widget(form.membership) }}
+            </div>
+        </div>
+    {% endif %}
     <div class="form-group">
         {{ form_label(form.enabled) }}
         <div class="col-lg-8">
             {{ form_widget(form.enabled) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.recruiter) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.recruiter) }}
+    {% if form.dateOfBirth is defined %}
+        <div class="form-group">
+            {{ form_label(form.dateOfBirth) }}
+            <div class="col-lg-8">
+                {{ form_widget(form.dateOfBirth) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.referral) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.referral) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.converter) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.converter) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.dateOfBirth) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.dateOfBirth) }}
-        </div>
-    </div>
+    {% endif %}
     <div class="form-group">
         {{ form_label(form.gender) }}
         <div class="col-lg-8">
@@ -67,18 +60,20 @@
             {{ form_widget(form.city) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.plainPassword.first) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.plainPassword.first) }}
+    {% if form.plainPassword is defined %}
+        <div class="form-group">
+            {{ form_label(form.plainPassword.first) }}
+            <div class="col-lg-8">
+                {{ form_widget(form.plainPassword.first) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.plainPassword.second) }}
-        <div class="col-lg-8">
-            {{ form_widget(form.plainPassword.second) }}
+        <div class="form-group">
+            {{ form_label(form.plainPassword.second) }}
+            <div class="col-lg-8">
+                {{ form_widget(form.plainPassword.second) }}
+            </div>
         </div>
-    </div>
+    {% endif %}
     {{ form_rest(form) }}
     <div class="form-group">
         <div class="col-lg-8">

@@ -435,7 +435,7 @@ class User extends BaseUser implements AuthorInterface
         if ($this->hasRole('ROLE_ADMIN')) {
             return 'Admin';
         }
-        if ($this->hasRole('ROLE_BOT')) {
+        if ($this->hasRole('ROLE_ROBOT')) {
             return 'Robot';
         }
         
@@ -934,5 +934,34 @@ class User extends BaseUser implements AuthorInterface
     public function getConfirmedAt()
     {
         return $this->confirmedAt;
+    }
+    /**
+     * @var string
+     */
+    private $membership;
+
+
+    /**
+     * Set membership
+     *
+     * @param string $membership
+     *
+     * @return User
+     */
+    public function setMembership($membership)
+    {
+        $this->membership = $membership;
+
+        return $this;
+    }
+
+    /**
+     * Get membership
+     *
+     * @return string
+     */
+    public function getMembership()
+    {
+        return $this->membership;
     }
 }

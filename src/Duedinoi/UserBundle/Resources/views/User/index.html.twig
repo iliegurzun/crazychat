@@ -4,7 +4,7 @@
 <div class="wrapper">
     <div class="panel panel-default panel-block">
         <div id="data-table" class="panel-heading datatable-heading col-lg-12">
-            <div class="title col-lg-8">
+            <div class="title col-lg-4">
                 <h4 class="section-title">User List</h4>
                 <a href="{{ path('user_new') }}" class="add">
                     <i class="icon-plus-sign"></i>
@@ -13,12 +13,17 @@
                     </span>
                 </a>
             </div>
-            <div class="input-group col-lg-4 pull-right">
-                <input class="form-control" type="text">
-                <div class="input-group-btn">
-                    <button class="btn btn-default btn-search" type="button"><i class="icon-search"></i></button>
+            <form method="get" action="{{ path('user') }}" novalidate>
+                <div class="input-group col-lg-4 pull-right">
+                    {{ form_widget(search_form.email) }}
+                    <div class="input-group-btn">
+                        <button class="btn btn-default btn-search" type="submit"><i class="icon-search"></i></button>
+                    </div>
                 </div>
-            </div>
+                <div class="input-group col-lg-4 pull-right">
+                    {{ form_widget(search_form.role) }}
+                </div>
+            </form>
         </div>
         <div id="tableSortable_wrapper" class="dataTables_wrapper form-inline" role="grid">
             <table aria-describedby="tableSortable_info" class="table table-bordered table-striped dataTable" id="tableSortable">
@@ -49,7 +54,13 @@
                         <td class="center ">{{ user.genderAdmin }}</td>
                         <td class="center ">{{ user.recruiter|default() }}</td>
                         <td class="center ">{{ user.converter|default() }}</td>
-                        <td class="center ">{{ user.referral|default() }}</td>
+                        <td class="center ">
+                            {% if user.referral is not null %}
+                                <a href="{{ user.referral|default() }}">
+                                    {{ get_user_by_url(user.referral) }}
+                                </a>
+                            {% endif %}
+                        </td>
                         <td class="center ">{{ user.isActiveNow ? 'Online' : 'Offline' }}</td>
                         <td class="center ">{{ user.typeString }}</td>
                         <td class="center ">{{ user.createdAt|date('M d, Y') }}</td>

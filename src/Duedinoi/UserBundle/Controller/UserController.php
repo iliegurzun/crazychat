@@ -2,6 +2,7 @@
 
 namespace Duedinoi\UserBundle\Controller;
 
+use Duedinoi\UserBundle\Form\UserSearchType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,14 +23,20 @@ class UserController extends Controller
      */
     public function indexAction()
     {
+        $filter = $this->getRequest()->get('search');
+        if (!$filter) {
+            $filter = array();
+        }
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
+        $entities = $em->getRepository('DuedinoiUserBundle:User')->findByFiltersSearch($filter, $this->getUser());
 
         $deleteForms = array();
         foreach($entities as $entity) {
             $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
+
+        $searchForm = $this->createForm(new UserSearchType($filter));
         
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -40,7 +47,8 @@ class UserController extends Controller
         
         return $this->render('DuedinoiUserBundle:User:index.html.twig', array(
             'entities' => $pagination,
-            'delete_forms' => $deleteForms
+            'delete_forms' => $deleteForms,
+            'search_form' => $searchForm->createView()
         ));
     }
     /**
@@ -193,6 +201,16 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->bind($request);
+
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'success' => true,
+                'content' => $this->renderView('DuedinoiUserBundle:User:edit_user_form.html.twig', array(
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView()
+                ))
+            ));
+        }
 
         if ($editForm->isValid()) {
             $em->flush();

@@ -42,6 +42,14 @@ class UserType extends AbstractType {
                         'placeholder' => 'Email'
                     )
                 ))
+                ->add('enabled', 'checkbox', array(
+                    'label' => 'Enabled',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
+                    )
+                ))
                 ->add('dateOfBirth', 'date', array(
                     'property_path' => 'profile.dateOfBirth',
                     'label'  => 'Date Of Birth',
@@ -94,14 +102,6 @@ class UserType extends AbstractType {
                         'placeholder' => 'City'
                     )
                 ))
-                ->add('enabled', 'checkbox', array(
-                    'label' => 'Enabled',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                    )
-                ))
                 ->add('plainPassword', 'repeated', array(
                     'type' => 'password',
                     'required' => true,
@@ -127,48 +127,6 @@ class UserType extends AbstractType {
                     ),
                     'invalid_message' => 'Password does not match'
                 ))
-                ->add('recruiter', 'entity', array(
-                    'label' => 'Recruiter',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Recruiter',
-                        'disabled' => 'disabled'
-                    ),
-                    'empty_value' => 'Recruiter...',
-                    'class' => \Duedinoi\UserBundle\Entity\User::class
-                ))
-                ->add('referral', 'url', array(
-                    'label' => 'Referral',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Referral',
-                        'disabled' => 'disabled'
-                    )
-                ))
-                ->add('converter', 'entity', array(
-                    'label' => 'Converter',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Converter',
-                    ),
-                    'empty_value' => 'Converter...',
-                    'class' => \Duedinoi\UserBundle\Entity\User::class,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere('u.roles LIKE :admin')
-                            ->setParameter('admin', '%ROLE_ADMIN%')
-                        ;
-                    },
-                ))
                 ->add('role', 'choice', array(
                     'choices' => array(
                         'ROLE_USER' => 'User', 
@@ -185,15 +143,21 @@ class UserType extends AbstractType {
                         'placeholder' => 'User Type'
                     )
                 ))
-                ->add('site', \Symfony\Component\Form\Extension\Core\Type\UrlType::class, array(
-                    'label'     => 'Site',
+                ->add('membership', 'choice', array(
+                    'choices' => array(
+                        'base' => 'Base',
+                        'silver'=> 'Silver',
+                        'gold' => 'Oro',
+                        'vip' => 'VIP'
+                    ),
+                    'label' => 'Membership',
                     'label_attr' => array(
                         'class' => 'col-lg-4 control-label'
                     ),
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Site'
-                    )
+                    ),
+                    'placeholder' => 'Membership'
                 ))
         ;
 
@@ -207,7 +171,8 @@ class UserType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Duedinoi\UserBundle\Entity\User',
             'novalidate' => 'novalidate',
-            'validation_groups' => array('admin')
+            'allow_extra_fields' => true
+//            'validation_groups' => array('admin')
         ));
     }
 
