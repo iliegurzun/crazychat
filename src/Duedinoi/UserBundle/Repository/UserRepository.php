@@ -73,9 +73,9 @@ class UserRepository extends EntityRepository
             if ($result->hasRole('ROLE_ROBOT')) {
                 if ($result->getRecruiter() != $currentUser) {
                     unset($results[$key]);
-                } else {
-                    unset($results[$key]);
                 }
+            } else {
+                unset($results[$key]);
             }
         }
 
