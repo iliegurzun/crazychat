@@ -964,4 +964,18 @@ class User extends BaseUser implements AuthorInterface
     {
         return $this->membership;
     }
+
+    protected $isViewingSelf = false;
+
+    public function setIsViewingSelf($isViewingSelf)
+    {
+        $this->isViewingSelf = $isViewingSelf;
+
+        return $this;
+    }
+
+    public function getIsViewingSelf()
+    {
+        return $this->isViewingSelf;
+    }
 }

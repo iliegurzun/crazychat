@@ -14,6 +14,8 @@ register:
     submit_button: "Sign up"
     choose_country: "Country"
     choose_city: "City"
+    username_taken: "This username is already taken!"
+    email_taken: "This email is already used!"
     terms_conditions: "I have read and accepted the <a href='#' class='underline'>Conditions of Use</a>, <a href='#' class='underline'>Privacy Statement</a> and <a href='#' class='underline'>Cookies</a>"
 homepage:
     left_title: "Lorem ipsum"

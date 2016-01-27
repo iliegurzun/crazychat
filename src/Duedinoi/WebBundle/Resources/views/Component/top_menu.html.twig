@@ -6,9 +6,11 @@
                 <li class="{{ app.request.get('_route') in ['duedinoi_dashboard'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_dashboard') }}">{{ 'menu.dashboard'|trans }}</a>
                 </li>
-                <li class="{{ app.request.get('_route') in ['duedinoi_edit_profile', 'duedinoi_my_profile'] ? 'active' : '' }}">
-                    <a href="{{ path('duedinoi_my_profile') }}">{{ 'menu.edit_profile'|trans }}</a>
-                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="{{ app.request.get('_route') in ['duedinoi_edit_profile'] ? 'active' : '' }} {{ app.user.isViewingSelf ? 'active': '' }}">
+                        <a href="{{ path('duedinoi_user_profile', {userslug: app.user.slug|default}) }}">{{ 'menu.edit_profile'|trans }}</a>
+                    </li>
+                {% endif %}
                 <li class="{{ app.request.get('_route') in ['duedinoi_photos'] ? 'active' : '' }}">
                     <a href="{{ path('duedinoi_photos') }}">{{ 'menu.photos'|trans }}</a>
                 </li>

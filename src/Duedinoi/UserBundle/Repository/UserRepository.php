@@ -74,8 +74,6 @@ class UserRepository extends EntityRepository
                 if ($result->getRecruiter() != $currentUser) {
                     unset($results[$key]);
                 }
-            } else {
-                unset($results[$key]);
             }
         }
 

@@ -24,9 +24,9 @@ Duedinoi\UserBundle\Entity\User:
     properties:
         profile:
             - Valid: ~
-        email:
-            - NotBlank: { groups: [registration, admin] }
-        plainPassword:
-            - NotBlank: { groups: [registration] }
+#        email:
+#            - NotBlank: { groups: [registration, admin] }
+#        plainPassword:
+#            - NotBlank: { groups: [registration] }
         username:
             - NotBlank: { groups: [registration, admin] }

@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $entity = new User();
         $entity->setRecruiter($this->getUser());
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $request->isXmlHttpRequest());
         $form->handleRequest($request);
         if ($request->isXmlHttpRequest()) {
             return new JsonResponse(array(
@@ -92,9 +92,9 @@ class UserController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(User $entity)
+    private function createCreateForm(User $entity, $isAjax)
     {
-        $form = $this->createForm(new UserType(), $entity, array(
+        $form = $this->createForm(new UserType($isAjax), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
         ));
@@ -111,7 +111,7 @@ class UserController extends Controller
     {
         $entity = new User();
         $entity->setRecruiter($this->getUser());
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, false);
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('DuedinoiUserBundle:User:new.html.twig', array(

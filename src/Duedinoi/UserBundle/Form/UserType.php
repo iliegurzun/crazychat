@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType {
 
+    protected $isAjax = false;
+
+    public function __construct($isAjax = false)
+    {
+        $this->isAjax = $isAjax;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -168,12 +175,16 @@ class UserType extends AbstractType {
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
+        $defaults = array(
             'data_class' => 'Duedinoi\UserBundle\Entity\User',
             'novalidate' => 'novalidate',
             'allow_extra_fields' => true
-//            'validation_groups' => array('admin')
-        ));
+        );
+
+        if (!$this->isAjax) {
+            $defaults['validation_groups'] = array('admin');
+        }
+        $resolver->setDefaults($defaults);
     }
 
     /**
