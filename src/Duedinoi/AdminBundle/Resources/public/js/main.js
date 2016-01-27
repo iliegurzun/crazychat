@@ -73,16 +73,16 @@ $(document).ready(function() {
         updateUserForm();
     }
 
-    if ($('.index-delete-form').length) {
-        $('.index-delete-form').on('submit', function(e) {
-            if (confirm('Are you sure you want to remoe this entry?')) {
-                $(this).submit();
-            } else {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        });
-    }
+    //if ($('.index-delete-form').length) {
+    //    $('.index-delete-form').on('submit', function(e) {
+    //        if (confirm('Are you sure you want to remoe this entry?')) {
+    //            $(this).submit();
+    //        } else {
+    //            e.preventDefault();
+    //            e.stopPropagation();
+    //        }
+    //    });
+    //}
 });
 
 /* labelify */
