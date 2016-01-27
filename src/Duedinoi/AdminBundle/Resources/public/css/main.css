@@ -283,3 +283,6 @@ body { background: #EDEDED; }
 body.scrollable > .wrapper {
     overflow-y: auto;
 }
+.form-horizontal {
+    overflow-x: auto;
+}

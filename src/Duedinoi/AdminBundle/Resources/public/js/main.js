@@ -72,6 +72,17 @@ $(document).ready(function() {
     if ($('#duedinoi_userbundle_user_role').length) {
         updateUserForm();
     }
+
+    if ($('.index-delete-form').length) {
+        $('.index-delete-form').on('submit', function(e) {
+            if (confirm('Are you sure you want to remoe this entry?')) {
+                $(this).submit();
+            } else {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    }
 });
 
 /* labelify */

@@ -2,6 +2,18 @@
 
 {% block content %}
 <div class="wrapper">
+    {% if app.session.getFlashBag.has('notice') %}
+        <div id="Sortable_Responsive_Media_Table" class="row-fluid">
+            <div class="span12 span-table-title">
+                <div class="alert alert-info alert-block">
+                    {% for notice in app.session.getFlashBag.get('notice') %}
+                        <i class="icon-alert icon-alert-info"></i>
+                        <strong>{{ notice|raw }}</strong>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <div class="panel panel-default panel-block">
         <div id="data-table" class="panel-heading datatable-heading col-lg-12">
             <div class="title col-lg-4">

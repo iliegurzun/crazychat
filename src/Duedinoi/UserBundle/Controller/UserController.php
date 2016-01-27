@@ -76,6 +76,11 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'The user was created! <a href="'.$this->generateUrl('user').'">Go to people</a>'
+            );
+
+
             return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
 
@@ -215,10 +220,12 @@ class UserController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'The user was updated! <a href="'.$this->generateUrl('user').'">Go to people</a>'
+            );
+
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
         }
-
-        dump($editForm->getErrors());die;
 
         return $this->render('DuedinoiUserBundle:User:edit.html.twig', array(
             'entity'      => $entity,
