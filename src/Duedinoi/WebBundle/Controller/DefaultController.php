@@ -469,6 +469,7 @@ class DefaultController extends Controller
         if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
             throw $this->createNotFoundException();
         }
+
         
         return $this->render('DuedinoiWebBundle:Default:videostream.html.twig', array(
             'user' => $user,
@@ -496,7 +497,6 @@ class DefaultController extends Controller
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
         $users = $userRepo->getLastRegistered(null);
         $message = new \Cunningsoft\ChatBundle\Entity\Message();
-        $form = $this->createForm(new \Duedinoi\AdminBundle\Form\MassMessageType($users), $message);
         $form = $this->createForm(new \Duedinoi\AdminBundle\Form\MassMessageType($users), $message);
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -658,7 +658,7 @@ class DefaultController extends Controller
 
         return new JsonResponse(array(
             'token' => $videoToken[0]['token'],
-            'user'  => $videoToken[0]['username']
+            'user'  => $videoToken[0]['slug']
         ));
     }
 }

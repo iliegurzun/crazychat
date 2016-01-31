@@ -1,155 +1,316 @@
 {% extends "DuedinoiWebBundle::layout.html.twig" %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets filter="?yui_css, cssrewrite"
-    %}
-    <link href="{{ asset_url }}" rel="stylesheet" media="screen">
-    {% endstylesheets %}
-{% endblock %}
 {% block content %}
     {% include 'DuedinoiWebBundle:Component:header.html.twig' %}
     {% include "DuedinoiWebBundle:Component:top_menu.html.twig" %}
-    <div class="pure-g">
+        <div class="container-fluid egg-green">
+            <div class="container no-margin-top">
 
-        <!-- Video area -->
-        <div class="pure-u-2-3" id="video-container">
-            <video id="their-video" autoplay></video>
-            <video id="my-video" muted="true" autoplay></video>
-        </div>
-
-        <!-- Steps -->
-        <div class="pure-u-1-3">
-            <h2>PeerJS Video Chat</h2>
-
-            <!-- Get local audio/video stream -->
-            <div id="step1">
-                <p>Please click `allow` on the top of the screen so we can access your webcam and microphone for calls.</p>
-                <div id="step1-error">
-                    <p>Failed to access the webcam and microphone. Make sure to run this demo on an http server and click allow when asked for permission by the browser.</p>
-                    <a href="#" class="pure-button pure-button-error" id="step1-retry">Try again</a>
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <!-- MY PHONE NUMBER -->
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <div class="col-sm-6 hidden">
+                <div id="my-number-section" class="text-center">
+                    <div id="my-number">LOADING</div>
+                    <div id="my-number-title" class="hidden-sm hidden-xs">
+                        this is <strong>your phone number</strong>
+                    </div>
+                    <div id="my-number-permalink">
+                        <span class="glyphicon glyphicon-link"></span>
+                        call link:
+                        <a id="my-number-link" href="...">https://...</a>
+                    </div>
+                </div>
+                <div id="pubnub-chat-section" class="text-center">
+                    <input id="pubnub-chat-input" type="text" placeholder="chat here">
+                    <div id="pubnub-chat-output"><div></div></div>
                 </div>
             </div>
 
-            <!-- Make calls to others -->
-            <div id="step2">
-                <p>Your id: <span id="my-id">...</span></p>
-                <p>Share this id with others so they can call you.</p>
-                <h3>Make a call</h3>
-                <div class="pure-form">
-                    <input type="text" placeholder="Call user id..." id="callto-id">
-                    <a href="#" class="pure-button pure-button-success" id="make-call">Call</a>
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <!-- Video -->
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+            <div class="col-sm-12 col-lg-12">
+                <!-- DISPLAY -->
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <div id="video-border">
+                            <div class="pubnub-relative">
+                                <div id="video-self">...834y8uask</div>
+                            </div>
+                            <div id="video-display">
+                                <span class="glyphicon glyphicon-flash"></span>
+                            </div>
+                        </div>
+                        <div id="pubnub-relative">
+                            <div id="video-thumbnail"></div>
+                            <div id="pubnub-logo">
+                                <div id="pubnub-logo-img"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Call in progress -->
-            <div id="step3">
-                <p>Currently in call with <span id="their-id">...</span></p>
-                <p><a href="#" class="pure-button pure-button-error" id="end-call">End call</a></p>
+                <!-- DIAL CONTROLS -->
+                <div class="row hidden">
+                    <div class="col-sm-6 col-xs-7">
+                        <div class="form-group"><div class="input-group">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                                <input id="number" class="form-control" type="number" placeholder="Type Recipient's #">
+                            </div></div>
+                    </div>
+                    <div class="col-sm-6 col-xs-5 dial-buttons">
+                        <button id="dial" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-earphone"></span>
+                        </button>
+                        <button id="snap" class="btn btn-success">
+                            <span class="glyphicon glyphicon-camera"></span>
+                        </button>
+                        <button id="hangup" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-ban-circle"></span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.js"></script>
-    {#{% javascripts filter="?yui_js"#}
-    {#"@DuedinoiWebBundle/Resources/public/js/peer.js"#}
-    {#%}#}
-    {#<script type="text/javascript" src="{{ asset_url }}"></script>#}
-    {#{% endjavascripts %}#}
-    <script type="text/javascript">
-        var token = '{{ token }}';
-        var block = true;
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- WebRTC Peer Connections -->
+<!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+<!-- IMPORTANT: THIS IS AN UNMINIFIED DEVELOPMENT PUBNUB LIBRARY
+    replace this with the latest versioned, minified CDN lib link before
+    you deploy your app to a production enviornment.
+    https://github.com/pubnub/javascript#cdn-links
+-->
+<script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
+<script src="{{ asset('bundles/duedinoiweb/js/webrtc.js') }}"></script>
+<script src="{{ asset('bundles/duedinoiweb/js/sound.js') }}"></script>
+<script>
+    (function(){
 
-        // PeerJS object
-        var peer = new Peer({id: '{{ app.user.slug }}', key: '2xikd0hcajqvvx6r', debug: 3});
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Generate Random Number if Needed
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        var urlargs         = urlparams();
+        var my_number       = PUBNUB.$('my-number');
+        var my_link         = PUBNUB.$('my-number-link');
+        var number          = urlargs.number || Math.floor(Math.random()*999+1);
 
-        peer.on('open', function() {
-            $.ajax({
-                'url': "{{ path('duedinoi_send_video_token', {userslug: user.slug}) }}",
-                'data': {
-                    'videotoken': peer.id
-                },
-                type: 'post'
-            });
-        });
+        my_number.number    = number;
+        my_number.innerHTML = ''+my_number.number;
+        my_link.href        = location.href.split('?')[0] + '?call=' + number;
+        my_link.innerHTML   = my_link.href;
 
-        if (token !=='') {
-            var call = peer.call(token, window.localStream);
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Update Location if Not Set
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        if (!('number' in urlargs)) {
+            urlargs.number = my_number.number;
+            location.href = urlstring(urlargs);
+            return;
         }
 
-        // Receiving a call
-        peer.on('call', function(call){
-            // Answer the call automatically (instead of prompting user) for demo purposes
-            call.answer(window.localStream);
-            step3(call);
-        });
-        peer.on('error', function(err){
-            alert(err.message);
-            // Return to step 2 if error occurs
-            step2();
-        });
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Get URL Params
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function urlparams() {
+            var params = {};
+            if (location.href.indexOf('?') < 0) return params;
 
-        // Click handlers setup
-        $(function(){
-            $('#make-call').click(function(){
-                // Initiate a call!
-                var call = peer.call($('#callto-id').val(), window.localStream);
+            PUBNUB.each(
+                    location.href.split('?')[1].split('&'),
+                    function(data) { var d = data.split('='); params[d[0]] = d[1]; }
+            );
 
-                step3(call);
-            });
-
-            $('#end-call').click(function(){
-                window.existingCall.close();
-                step2();
-            });
-
-            // Retry if getUserMedia fails
-            $('#step1-retry').click(function(){
-                $('#step1-error').hide();
-                step1();
-            });
-
-            // Get things started
-            step1();
-        });
-
-        function step1 () {
-            // Get audio/video stream
-            navigator.getUserMedia({audio: true, video: true}, function(stream){
-                // Set your video displays
-                $('#my-video').prop('src', URL.createObjectURL(stream));
-
-                window.localStream = stream;
-                step2();
-            }, function(){ $('#step1-error').show(); });
+            return params;
         }
 
-        function step2 () {
-            $('#step1, #step3').hide();
-            $('#step2').show();
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Construct URL Param String
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function urlstring(params) {
+            return location.href.split('?')[0] + '?' + PUBNUB.map(
+                            params, function( key, val) { return key + '=' + val }
+                    ).join('&');
         }
 
-        function step3 (call) {
-            // Hang up on an existing call if present
-            if (window.existingCall) {
-                window.existingCall.close();
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Calling & Answering Service
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        var video_out = PUBNUB.$('video-display');
+        var img_out   = PUBNUB.$('video-thumbnail');
+        var img_self  = PUBNUB.$('video-self');
+
+        var phone     = window.phone = PHONE({
+            number        : my_number.number, // listen on this line
+            publish_key   : 'pub-c-8f3b63db-6722-4f62-8d4d-150bd19c09d6',
+            subscribe_key : 'sub-c-8e6f4ca6-c814-11e5-a9b2-02ee2ddab7fe',
+            ssl           : true
+        });
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Video Session Connected
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function connected(session) {
+            video_out.innerHTML = '';
+            video_out.appendChild(session.video);
+
+            PUBNUB.$('number').value = ''+session.number;
+            sounds.play('/bundles/duedinoiweb/sound/hi');
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Video Session Ended
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function ended(session) {
+            set_icon('facetime-video');
+            img_out.innerHTML = '';
+            sounds.play('/bundles/duedinoiweb/sound/goodbye');
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Video Session Ended
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function set_icon(icon) {
+            video_out.innerHTML = '<span class="glyphicon glyphicon-' +
+                    icon + '"></span>';
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Start Phone Call
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function dial(number) {
+            // Dial Number
+            var session = phone.dial(number);
+
+            // No Dupelicate Dialing Allowed
+            if (!session) return;
+
+            // Show Connecting Status
+            set_icon('send');
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Ready to Send or Receive Calls
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        phone.ready(function(){
+            // Ready To Call
+            set_icon('facetime-video');
+
+            // Auto Call
+            if ('call' in urlargs) {
+                var number = urlargs['call'];
+                PUBNUB.$('number').value = number;
+                dial(number);
             }
 
-            // Wait for stream on the call, then set peer video display
-            call.on('stream', function(stream) {
-                console.log(stream);
-                $('#their-video').prop('src', URL.createObjectURL(stream));
-            });
+            // Make a Phone Call
+            PUBNUB.bind( 'mousedown,touchstart', PUBNUB.$('dial'), function(){
+                var number = PUBNUB.$('number').value;
+                if (!number) return;
+                dial(number);
+            } );
 
-            // UI stuff
-            window.existingCall = call;
-            $('#their-id').text(call.peer);
-            call.on('close', step2);
-            $('#step1, #step2').hide();
-            $('#step3').show();
+            // Hanup Call
+            PUBNUB.bind( 'mousedown,touchstart', PUBNUB.$('hangup'), function() {
+                phone.hangup();
+                set_icon('facetime-video');
+            } );
+
+            // Take Picture
+            PUBNUB.bind( 'mousedown,touchstart', PUBNUB.$('snap'), function() {
+                var photo = phone.snap();
+                img_self.innerHTML = ' ';
+                img_self.appendChild(photo.image);
+                setTimeout( function() { img_self.innerHTML = ' ' }, 750 );
+            } );
+        });
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Received Call Thumbnail
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function thumbnail(session) {
+            img_out.innerHTML = '';
+            img_out.appendChild(session.image);
+            img_out.appendChild(phone.snap().image);
         }
-    </script>
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Receiver for Calls
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        phone.receive(function(session){
+//            session.message(message);
+//            session.thumbnail(thumbnail);
+            session.connected(connected);
+            session.ended(ended);
+        });
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Chat
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        var chat_in  = PUBNUB.$('pubnub-chat-input');
+        var chat_out = PUBNUB.$('pubnub-chat-output');
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Send Chat MSG and update UI for Sending Messages
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        PUBNUB.bind( 'keydown', chat_in, function(e) {
+            if ((e.keyCode || e.charCode) !== 13)     return true;
+            if (!chat_in.value.replace( /\s+/g, '' )) return true;
+
+            phone.send({ text : chat_in.value });
+            add_chat( my_number.number + " (Me)", chat_in.value );
+            chat_in.value = '';
+        } )
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Update Local GUI
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function add_chat( number, text ) {
+            if (!text.replace( /\s+/g, '' )) return true;
+
+            var newchat       = document.createElement('div');
+            newchat.innerHTML = PUBNUB.supplant(
+                    '<strong>{number}: </strong> {message}', {
+                        message : safetxt(text),
+                        number  : safetxt(number)
+                    } );
+            chat_out.insertBefore( newchat, chat_out.firstChild );
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// WebRTC Message Callback
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function message( session, message ) {
+            add_chat( session.number, message.text );
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// XSS Prevent
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        function safetxt(text) {
+            return (''+text).replace( /[<>]/g, '' );
+        }
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Problem Occured During Init
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        phone.unable(function(details){
+            console.log("Alert! - Reload Page.");
+            console.log(details);
+            set_icon('remove');
+        });
+
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Debug Output
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        phone.debug(function(details){
+            // console.log(details);
+        });
+
+    })();</script>
 {% endblock %}

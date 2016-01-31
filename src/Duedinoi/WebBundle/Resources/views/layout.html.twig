@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>{% block title %}{{ seo_title() }}{% endblock title %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <head>
         {% stylesheets filter="?yui_css, cssrewrite"
             'bundles/duedinoiadmin/css/bootstrap/bootstrap.css'
@@ -13,52 +14,6 @@
         <link href="{{ asset_url }}" rel="stylesheet" media="screen">
         {% endstylesheets %}
         {% block stylesheets %}{% endblock stylesheets %}
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
-         {% javascripts filter="?yui_js"
-            "@DuedinoiAdminBundle/Resources/public/js/jquery-1.11.0.js"
-            "@DuedinoiAdminBundle/Resources/public/js/bootstrap.js"
-            "@DuedinoiWebBundle/Resources/public/js/bootstrap-growl.js"
-            "@DuedinoiWebBundle/Resources/public/js/lightslider.js"
-            "@DuedinoiWebBundle/Resources/public/js/jquery.jqtransform.js"
-            "@DuedinoiWebBundle/Resources/public/js/autosize.js"
-            "@DuedinoiWebBundle/Resources/public/js/desktop-notify-min.js"
-            "@DuedinoiWebBundle/Resources/public/js/main.js"
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-
-        <script type="text/javascript">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                var getTokenUrl = '{{ path('duedinoi_get_video_token') }}';
-                function NotificationCenter($scope) {
-                    var permissionLevels = {};
-                    permissionLevels[notify.PERMISSION_GRANTED] = 0;
-                    permissionLevels[notify.PERMISSION_DEFAULT] = 1;
-                    permissionLevels[notify.PERMISSION_DENIED] = 2;
-                    $scope.isSupported = notify.isSupported;
-                    $scope.permissionLevel = permissionLevels[notify.permissionLevel()];
-                    $scope.getClassName = function() {
-                        if ($scope.permissionLevel === 0) {
-                            return "allowed"
-                        } else if ($scope.permissionLevel === 1) {
-                            return "default"
-                        } else {
-                            return "denied"
-                        }
-                    }
-                    $scope.callback = function() {
-                        console.log("test");
-                    }
-                    $scope.requestPermissions = function() {
-                        notify.requestPermission(function() {
-                            $scope.$apply($scope.permissionLevel = permissionLevels[notify.permissionLevel()]);
-                        });
-                    }
-                }
-            {% endif %}
-        </script>
-
-        {% block javascripts %}{% endblock javascripts %}
     </head>
     <body class="{% block body_class %}{% endblock %}">
     {% include "DuedinoiWebBundle:Component:flash.html.twig" %}
@@ -67,5 +22,18 @@
     {% block footer %}
         {%  include "DuedinoiWebBundle:Component:footer.html.twig" %}
     {% endblock %}
+    {% javascripts filter="?yui_js"
+    "@DuedinoiAdminBundle/Resources/public/js/jquery-1.11.0.js"
+    "@DuedinoiAdminBundle/Resources/public/js/bootstrap.js"
+    "@DuedinoiWebBundle/Resources/public/js/bootstrap-growl.js"
+    "@DuedinoiWebBundle/Resources/public/js/lightslider.js"
+    "@DuedinoiWebBundle/Resources/public/js/jquery.jqtransform.js"
+    "@DuedinoiWebBundle/Resources/public/js/autosize.js"
+    "@DuedinoiWebBundle/Resources/public/js/main.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% block javascripts %}{% endblock javascripts %}
     </body>
 </html>

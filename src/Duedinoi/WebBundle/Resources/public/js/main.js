@@ -42,9 +42,9 @@ $(function () {
     if ($('.remove-comment').length) {
         removeComment($('.remove-comment'));
     }
-    if (typeof getTokenUrl !=='undefined') {
-        getVideoToken();
-    }
+    //if (typeof getTokenUrl !=='undefined') {
+    //    getVideoToken();
+    //}
 });
 $(window).load(function () {
     if ($('.carousel').length) {
@@ -137,11 +137,26 @@ var getVideoToken = function ()
         }).done(function(data)
         {
             if (typeof data.token !=='undefined') {
-                if (confirm('User '+data.user + ' is trying to call you. Accept call?')) {
-                    window.location.href = '/it/videostream/'+ data.user+'/'+data.token;
+                var cookieExists = getCookie(data.token);
+                if (cookieExists == '') {
+                    document.cookie=data.token+'='+data.token;
+                    if (confirm('User '+data.user + ' is trying to call you. Accept call?')) {
+                        window.location.href = '/it/videostream/'+ data.user+'/'+data.token;
+                    }
                 }
             }
         });
         this.timer = setTimeout('getVideoToken()', 10000);
     }
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
 }

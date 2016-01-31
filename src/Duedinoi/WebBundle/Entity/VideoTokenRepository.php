@@ -15,7 +15,7 @@ class VideoTokenRepository extends \Doctrine\ORM\EntityRepository
         $delay = new \DateTime('1 minute ago');
         $qb = $this->createQueryBuilder('vt')
             ->join('vt.fromUser', 'u')
-            ->select('u.username, vt.token, vt.updatedAt')
+            ->select('u.slug, vt.token, vt.updatedAt')
             ->andWhere('vt.toUser = :user')
 //            ->andWhere('vt.updatedAt > :lastMin')
             ->setParameter('user', $user->getId())
