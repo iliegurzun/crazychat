@@ -17,9 +17,9 @@ class VideoTokenRepository extends \Doctrine\ORM\EntityRepository
             ->join('vt.fromUser', 'u')
             ->select('u.slug, vt.token, vt.updatedAt')
             ->andWhere('vt.toUser = :user')
-//            ->andWhere('vt.updatedAt > :lastMin')
+            ->andWhere('vt.updatedAt > :lastMin')
             ->setParameter('user', $user->getId())
-//            ->setParameter('lastMin', $delay)
+            ->setParameter('lastMin', $delay)
             ->orderBy('vt.updatedAt' , 'desc')
             ->setMaxResults(1);
 
