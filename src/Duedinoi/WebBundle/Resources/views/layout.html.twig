@@ -33,6 +33,11 @@
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script type="text/javascript">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        var getTokenUrl = '{{ path('duedinoi_get_video_token') }}';
+        {% endif %}
+    </script>
 
     {% block javascripts %}{% endblock javascripts %}
     </body>
