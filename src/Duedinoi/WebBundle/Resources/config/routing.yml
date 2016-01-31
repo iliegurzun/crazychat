@@ -41,8 +41,8 @@ duedinoi_about:
     pattern: /{_locale}/about-us
     defaults: { _controller: DuedinoiWebBundle:Default:about, _locale: it }
 duedinoi_videostream:
-    pattern: /{_locale}/videostream/{userslug}/{token}
-    defaults: { _controller: DuedinoiWebBundle:Default:videostream, _locale: it, token: null }
+    pattern: /{_locale}/videostream/{userslug}
+    defaults: { _controller: DuedinoiWebBundle:Default:videostream, _locale: it }
 duedinoi_answer_call:
     pattern: /{_locale}/answer-call/{userslug}
     defaults: { _controller: DuedinoiWebBundle:Default:answerCall, _locale: it }

@@ -78,6 +78,7 @@
     </div>
 {% endblock %}
 {% block javascripts %}
+    {{ parent() }}
 <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
 <!-- WebRTC Peer Connections -->
 <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
@@ -90,6 +91,7 @@
 <script src="{{ asset('bundles/duedinoiweb/js/webrtc.js') }}"></script>
 <script src="{{ asset('bundles/duedinoiweb/js/sound.js') }}"></script>
 <script>
+    var block = true;
     (function(){
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -309,7 +311,7 @@
 // Debug Output
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         phone.debug(function(details){
-            // console.log(details);
+             console.log(details);
         });
 
     })();</script>

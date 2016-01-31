@@ -42,9 +42,9 @@ $(function () {
     if ($('.remove-comment').length) {
         removeComment($('.remove-comment'));
     }
-    //if (typeof getTokenUrl !=='undefined') {
-    //    getVideoToken();
-    //}
+    if (typeof getTokenUrl !=='undefined') {
+        getVideoToken();
+    }
 });
 $(window).load(function () {
     if ($('.carousel').length) {
@@ -141,7 +141,7 @@ var getVideoToken = function ()
                 if (cookieExists == '') {
                     document.cookie=data.token+'='+data.token;
                     if (confirm('User '+data.user + ' is trying to call you. Accept call?')) {
-                        window.location.href = '/it/videostream/'+ data.user+'/'+data.token;
+                        window.location.href = data.token;
                     }
                 }
             }

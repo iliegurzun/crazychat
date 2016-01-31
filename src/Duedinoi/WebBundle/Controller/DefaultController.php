@@ -461,7 +461,7 @@ class DefaultController extends Controller
         
     }
 
-    public function videostreamAction($userslug, $token = null)
+    public function videostreamAction($userslug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('DuedinoiUserBundle:User');
@@ -469,11 +469,22 @@ class DefaultController extends Controller
         if (!$user instanceof \Duedinoi\UserBundle\Entity\User) {
             throw $this->createNotFoundException();
         }
+        $requestParams = $request->query->all();
+        if (isset($requestParams['number']) && !isset($requestParams['call'])) {
+            $token = new VideoToken();
+            $token
+                ->setToken($this->generateUrl('duedinoi_videostream', array(
+                    'userslug' => $this->getUser()->getSlug(),
+                    'call'     => $requestParams['number']
+                )))
+                ->setFromUser($this->getUser())
+                ->setToUser($user);
+            $em->persist($token);
+            $em->flush();
+        }
 
-        
         return $this->render('DuedinoiWebBundle:Default:videostream.html.twig', array(
-            'user' => $user,
-            'token'=> $token
+            'user' => $user
         ));
     }
     
