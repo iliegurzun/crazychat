@@ -7,23 +7,11 @@
             <div id="input-fields-horizontal" class="list-group-item">
                 <h4 class="section-title">Edit user {{ entity }}</h4>
                 <form method="post" action="{{ path('recruitedmember_update', {id: entity.id}) }}" {{ form_enctype(edit_form) }} class="form-horizontal" role="form" novalidate>
-                    {% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: edit_form } %}
-                    <div class="form-group">
-                        {{ form_label(edit_form.username) }}
-                        <div class="col-lg-8">
-                            {{ form_widget(edit_form.username) }}
-                        </div>
-                    </div>
+                    {#{% include 'DuedinoiAdminBundle:Component:error_panel.html.twig' with { form: edit_form } %}#}
                     <div class="form-group">
                         {{ form_label(edit_form.email) }}
                         <div class="col-lg-8">
                             {{ form_widget(edit_form.email) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(edit_form.referral) }}
-                        <div class="col-lg-8">
-                            {{ form_widget(edit_form.referral) }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -38,10 +26,40 @@
                             {{ form_widget(edit_form.converter) }}
                         </div>
                     </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.age) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.age) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.location) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.location) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.siteName) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.siteName) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.siteUser) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.siteUser) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.comments) }}
+                        <div class="col-lg-8">
+                            {{ form_widget(edit_form.comments) }}
+                        </div>
+                    </div>
                     {{ form_rest(edit_form) }}
                     <div class="form-group">
                         <div class="col-lg-8">
-                            <button class="btn btn-success">Edit</button>
+                            <button class="btn btn-success">Save</button>
                         </div>
                     </div>
                 </form>

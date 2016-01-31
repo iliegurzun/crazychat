@@ -234,13 +234,21 @@ class DefaultController extends Controller
             throw $this->createNotFoundException();
         }
         if ($this->getUser() instanceof User) {
-            if ($user->getProfile()->getGender() == $this->getUser()->getProfile()->getGender()) {
-                throw $this->createNotFoundException();
+            if (!$this->getUser()->isSameUser($user)) {
+                if ($user->getProfile()->getGender() == $this->getUser()->getProfile()->getGender()) {
+                    throw $this->createNotFoundException();
+                }
+            } else {
+                $this->getUser()->setIsViewingSelf(true);
             }
         }
-        $dispatcher = $this->get('event_dispatcher');
-        $event = new \Duedinoi\WebBundle\Service\ProfileEvent($user);
-        $dispatcher->dispatch(ProfileEvents::EVENT_VIEW_PROFILE, $event);
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if (!$user->isSameUser($this->getUser())) {
+                $dispatcher = $this->get('event_dispatcher');
+                $event = new \Duedinoi\WebBundle\Service\ProfileEvent($user);
+                $dispatcher->dispatch(ProfileEvents::EVENT_VIEW_PROFILE, $event);
+            }
+        }
         $comment = new \Duedinoi\WebBundle\Entity\Comment();
         $comment->setAuthor($this->getUser())
             ->setUser($user);

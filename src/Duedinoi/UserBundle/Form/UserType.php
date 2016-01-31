@@ -2,6 +2,7 @@
 
 namespace Duedinoi\UserBundle\Form;
 
+use Duedinoi\UserBundle\EventListener\UserEventSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -10,6 +11,13 @@ use Duedinoi\UserBundle\Entity\Profile;
 use Doctrine\ORM\EntityRepository;
 
 class UserType extends AbstractType {
+
+    protected $isAjax = false;
+
+    public function __construct($isAjax = false)
+    {
+        $this->isAjax = $isAjax;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -39,6 +47,14 @@ class UserType extends AbstractType {
                     'attr' => array(
                         'class' => 'form-control',
                         'placeholder' => 'Email'
+                    )
+                ))
+                ->add('enabled', 'checkbox', array(
+                    'label' => 'Enabled',
+                    'label_attr' => array(
+                        'class' => 'col-lg-4 control-label'
+                    ),
+                    'attr' => array(
                     )
                 ))
                 ->add('dateOfBirth', 'date', array(
@@ -93,14 +109,6 @@ class UserType extends AbstractType {
                         'placeholder' => 'City'
                     )
                 ))
-                ->add('enabled', 'checkbox', array(
-                    'label' => 'Enabled',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                    )
-                ))
                 ->add('plainPassword', 'repeated', array(
                     'type' => 'password',
                     'required' => true,
@@ -126,47 +134,6 @@ class UserType extends AbstractType {
                     ),
                     'invalid_message' => 'Password does not match'
                 ))
-                ->add('recruiter', 'entity', array(
-                    'label' => 'Recruiter',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Recruiter',
-                        'disabled' => 'disabled'
-                    ),
-                    'empty_value' => 'Recruiter...',
-                    'class' => \Duedinoi\UserBundle\Entity\User::class
-                ))
-                ->add('referral', 'url', array(
-                    'label' => 'Referral',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Referral'
-                    )
-                ))
-                ->add('converter', 'entity', array(
-                    'label' => 'Converter',
-                    'label_attr' => array(
-                        'class' => 'col-lg-4 control-label'
-                    ),
-                    'attr' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Converter',
-                    ),
-                    'empty_value' => 'Converter...',
-                    'class' => \Duedinoi\UserBundle\Entity\User::class,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('u')
-                            ->andWhere('u.roles LIKE :admin')
-                            ->setParameter('admin', '%ROLE_ADMIN%')
-                        ;
-                    },
-                ))
                 ->add('role', 'choice', array(
                     'choices' => array(
                         'ROLE_USER' => 'User', 
@@ -183,28 +150,41 @@ class UserType extends AbstractType {
                         'placeholder' => 'User Type'
                     )
                 ))
-                ->add('site', \Symfony\Component\Form\Extension\Core\Type\UrlType::class, array(
-                    'label'     => 'Site',
+                ->add('membership', 'choice', array(
+                    'choices' => array(
+                        'base' => 'Base',
+                        'silver'=> 'Silver',
+                        'gold' => 'Oro',
+                        'vip' => 'VIP'
+                    ),
+                    'label' => 'Membership',
                     'label_attr' => array(
                         'class' => 'col-lg-4 control-label'
                     ),
                     'attr' => array(
                         'class' => 'form-control',
-                        'placeholder' => 'Site'
-                    )
+                    ),
+                    'placeholder' => 'Membership'
                 ))
         ;
+
+        $builder->addEventSubscriber(new UserEventSubscriber());
     }
 
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
+        $defaults = array(
             'data_class' => 'Duedinoi\UserBundle\Entity\User',
             'novalidate' => 'novalidate',
-            'validation_groups' => array('admin')
-        ));
+            'allow_extra_fields' => true
+        );
+
+        if (!$this->isAjax) {
+            $defaults['validation_groups'] = array('admin');
+        }
+        $resolver->setDefaults($defaults);
     }
 
     /**

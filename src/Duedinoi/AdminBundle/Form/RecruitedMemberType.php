@@ -22,14 +22,54 @@ class RecruitedMemberType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', array(
-                'label' => 'Username',
+            ->add('siteUser', 'text', array(
+                'label' => 'Site User',
                 'label_attr' => array(
                     'class' => 'col-lg-4 control-label'
                 ),
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Username'
+                    'placeholder' => 'Site User'
+                )
+            ))
+            ->add('age', 'number', array(
+                'label' => 'Age',
+                'label_attr' => array(
+                    'class' => 'col-lg-4 control-label'
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Age'
+                )
+            ))
+            ->add('location', 'text', array(
+                'label' => 'Location',
+                'label_attr' => array(
+                    'class' => 'col-lg-4 control-label'
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Location'
+                )
+            ))
+            ->add('siteName', 'text', array(
+                'label' => 'Site Name',
+                'label_attr' => array(
+                    'class' => 'col-lg-4 control-label'
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Site Name'
+                )
+            ))
+            ->add('comments', 'text', array(
+                'label' => 'Comments',
+                'label_attr' => array(
+                    'class' => 'col-lg-4 control-label'
+                ),
+                'attr' => array(
+                    'class' => 'form-control',
+                    'placeholder' => 'Comments'
                 )
             ))
             ->add('email', 'email', array(
@@ -40,16 +80,6 @@ class RecruitedMemberType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control',
                     'placeholder' => 'Email'
-                )
-            ))
-            ->add('referral', 'url', array(
-                'label' => 'Referral',
-                'label_attr' => array(
-                    'class' => 'col-lg-4 control-label'
-                ),
-                'attr' => array(
-                    'class' => 'form-control',
-                    'placeholder' => 'Referral'
                 )
             ))
             ->add('recruiter', 'entity', array(

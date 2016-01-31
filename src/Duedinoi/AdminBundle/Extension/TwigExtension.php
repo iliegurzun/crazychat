@@ -55,6 +55,7 @@ class TwigExtension extends \Twig_Extension
         'get_user_image' => new \Twig_Function_Method($this, 'getUserImage'),
         'unread_messages' => new \Twig_Function_Method($this, 'getUnreadMessages'),
         'unread_notifications' => new \Twig_Function_Method($this, 'getUnreadNotifications'),
+        'get_user_by_url' => new \Twig_Function_Method($this, 'getUserByUrl'),
         );
   }
   
@@ -255,5 +256,20 @@ class TwigExtension extends \Twig_Extension
         ));
 
         return count($messages);
+    }
+
+    public function getUserByUrl($url)
+    {
+        $route = array();
+        $ref = str_replace("app_dev.php/", "", parse_url($url,PHP_URL_PATH ));
+        try {
+            $route = $this->service_container->get('router')->match($ref);
+        } catch (\Exception $ex) {
+        }
+        if (isset($route['userslug'])) {
+            return $route['userslug'];
+        }
+
+        return '';
     }
 }

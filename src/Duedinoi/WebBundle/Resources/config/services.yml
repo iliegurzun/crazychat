@@ -29,12 +29,16 @@ services:
             - { name: kernel.event_listener, event: view.profile, method: logNotification }
             - { name: kernel.event_listener, event: like.profile, method: logNotification }
         arguments: [@doctrine.orm.entity_manager, @security.context, @session, @router]
-    profile_listener:
-        class: Duedinoi\WebBundle\Service\ProfileListener
+#    profile_listener:
+#        class: Duedinoi\WebBundle\Service\ProfileListener
+#        tags:
+#            - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#        arguments: [@doctrine.orm.entity_manager, @security.context, @router]
+    registration_listener:
+        class: Duedinoi\WebBundle\Service\RegistrationListener
         tags:
-            - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - {name: kernel.event_listener, event: fos_user.registration.success, method: onRegister }
         arguments: [@doctrine.orm.entity_manager, @security.context, @router]
-                
     chat_thread_service:
         class: Duedinoi\WebBundle\Service\ChatThreadService
         arguments: [@doctrine.orm.entity_manager, @security.context]

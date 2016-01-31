@@ -2,6 +2,8 @@
 
 namespace Duedinoi\UserBundle\Controller;
 
+use Duedinoi\UserBundle\Form\UserSearchType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -21,14 +23,20 @@ class UserController extends Controller
      */
     public function indexAction()
     {
+        $filter = $this->getRequest()->get('search');
+        if (!$filter) {
+            $filter = array();
+        }
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('DuedinoiUserBundle:User')->findAll();
+        $entities = $em->getRepository('DuedinoiUserBundle:User')->findByFiltersSearch($filter, $this->getUser());
 
         $deleteForms = array();
         foreach($entities as $entity) {
             $deleteForms[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
+
+        $searchForm = $this->createForm(new UserSearchType($filter));
         
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -39,7 +47,8 @@ class UserController extends Controller
         
         return $this->render('DuedinoiUserBundle:User:index.html.twig', array(
             'entities' => $pagination,
-            'delete_forms' => $deleteForms
+            'delete_forms' => $deleteForms,
+            'search_form' => $searchForm->createView()
         ));
     }
     /**
@@ -50,13 +59,27 @@ class UserController extends Controller
     {
         $entity = new User();
         $entity->setRecruiter($this->getUser());
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $request->isXmlHttpRequest());
         $form->handleRequest($request);
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'success' => true,
+                'content' => $this->renderView('DuedinoiUserBundle:User:new_user_form.html.twig', array(
+                    'entity' => $entity,
+                    'form' => $form->createView()
+                ))
+            ));
+        }
         $em = $this->getDoctrine()->getManager();
         if ($form->isValid()) {
             $entity->setRecruiter($this->getUser());
             $em->persist($entity);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'The user was created! <a href="'.$this->generateUrl('user').'">Go to people</a>'
+            );
+
 
             return $this->redirect($this->generateUrl('user_edit', array('id' => $entity->getId())));
         }
@@ -74,9 +97,9 @@ class UserController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(User $entity)
+    private function createCreateForm(User $entity, $isAjax)
     {
-        $form = $this->createForm(new UserType(), $entity, array(
+        $form = $this->createForm(new UserType($isAjax), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
         ));
@@ -93,7 +116,7 @@ class UserController extends Controller
     {
         $entity = new User();
         $entity->setRecruiter($this->getUser());
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity, false);
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('DuedinoiUserBundle:User:new.html.twig', array(
@@ -184,13 +207,25 @@ class UserController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->bind($request);
 
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse(array(
+                'success' => true,
+                'content' => $this->renderView('DuedinoiUserBundle:User:edit_user_form.html.twig', array(
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView()
+                ))
+            ));
+        }
+
         if ($editForm->isValid()) {
             $em->flush();
 
+            $this->get('session')->getFlashBag()->add(
+                'notice', 'The user was updated! <a href="'.$this->generateUrl('user').'">Go to people</a>'
+            );
+
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
         }
-
-        dump($editForm->getErrors());die;
 
         return $this->render('DuedinoiUserBundle:User:edit.html.twig', array(
             'entity'      => $entity,

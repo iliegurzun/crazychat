@@ -54,6 +54,31 @@ class UserRepository extends EntityRepository
         
         return $qb->getQuery()->execute();
     }
+
+    public function findByFiltersSearch(array $filters = array(), $currentUser)
+    {
+        $qb = $this->createQueryBuilder('u');
+        if (isset($filters['role'])) {
+            $qb
+                ->where('u.roles LIKE :admin')
+                ->setParameter('admin', '%'.$filters['role'].'%');
+        }
+        if (isset($filters['email'])) {
+            $qb
+                ->andWhere('u.email LIKE :email')
+                ->setParameter('email', '%'.$filters['email'].'%');
+        }
+        $results = $qb->getQuery()->execute();
+        foreach ($results as $key => $result) {
+            if ($result->hasRole('ROLE_ROBOT')) {
+                if ($result->getRecruiter() != $currentUser) {
+                    unset($results[$key]);
+                }
+            }
+        }
+
+        return $results;
+    }
     
     public function findByFilters(array $filters = array())
     {

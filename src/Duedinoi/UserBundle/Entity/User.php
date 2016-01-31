@@ -412,6 +412,7 @@ class User extends BaseUser implements AuthorInterface
 
     public function setRole($role)
     {
+        $this->role = $role;
         $this->roles = array($role);
 
         return $this;
@@ -434,7 +435,7 @@ class User extends BaseUser implements AuthorInterface
         if ($this->hasRole('ROLE_ADMIN')) {
             return 'Admin';
         }
-        if ($this->hasRole('ROLE_BOT')) {
+        if ($this->hasRole('ROLE_ROBOT')) {
             return 'Robot';
         }
         
@@ -904,5 +905,77 @@ class User extends BaseUser implements AuthorInterface
     public function hasBeenReported()
     {
         return $this->userReports->count() > 0;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $confirmedAt;
+
+
+    /**
+     * Set confirmedAt
+     *
+     * @param \DateTime $confirmedAt
+     *
+     * @return User
+     */
+    public function setConfirmedAt($confirmedAt)
+    {
+        $this->confirmedAt = $confirmedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmedAt
+     *
+     * @return \DateTime
+     */
+    public function getConfirmedAt()
+    {
+        return $this->confirmedAt;
+    }
+    /**
+     * @var string
+     */
+    private $membership;
+
+
+    /**
+     * Set membership
+     *
+     * @param string $membership
+     *
+     * @return User
+     */
+    public function setMembership($membership)
+    {
+        $this->membership = $membership;
+
+        return $this;
+    }
+
+    /**
+     * Get membership
+     *
+     * @return string
+     */
+    public function getMembership()
+    {
+        return $this->membership;
+    }
+
+    protected $isViewingSelf = false;
+
+    public function setIsViewingSelf($isViewingSelf)
+    {
+        $this->isViewingSelf = $isViewingSelf;
+
+        return $this;
+    }
+
+    public function getIsViewingSelf()
+    {
+        return $this->isViewingSelf;
     }
 }

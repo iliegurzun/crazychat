@@ -973,6 +973,10 @@ textarea {padding: 10px;}
     #page {width: 100%;}
     .bg {width: 125%;}
 }
+.radio-genders input {
+    float: left;
+    width: auto;
+}
 /*::-webkit-input-placeholder {
    color: red;
 }

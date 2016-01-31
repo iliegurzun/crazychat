@@ -1,18 +1,32 @@
 Duedinoi\AdminBundle\Entity\Page:
-  properties:
-    path:
-      - NotBlank: ~
-    title:
-      - NotBlank: ~  
+    properties:
+        path:
+            - NotBlank: ~
+        title:
+            - NotBlank: ~
+Duedinoi\AdminBundle\Entity\RecruitedMember:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        siteUser:
+             - NotBlank: ~
+        email:
+            - Email: ~
+        siteName:
+            - NotBlank: ~
+        recruiter:
+            - NotBlank: ~
+        converter:
+            - NotBlank: ~
 Duedinoi\UserBundle\Entity\User:
     constraints:
         - Duedinoi\WebBundle\Validator\Constraints\UniqueUser: { groups: [registration, admin] }
     properties:
         profile:
             - Valid: ~
-        email:
-            - NotBlank: { groups: [registration, admin] }
-        plainPassword:
-            - NotBlank: { groups: [registration] }
+#        email:
+#            - NotBlank: { groups: [registration, admin] }
+#        plainPassword:
+#            - NotBlank: { groups: [registration] }
         username:
             - NotBlank: { groups: [registration, admin] }
