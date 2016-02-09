@@ -23,13 +23,13 @@ class RecruitedMemberType extends AbstractType
     {
         $builder
             ->add('siteUser', 'text', array(
-                'label' => 'Site User',
+                'label' => 'Nickname',
                 'label_attr' => array(
                     'class' => 'col-lg-4 control-label'
                 ),
                 'attr' => array(
                     'class' => 'form-control',
-                    'placeholder' => 'Site User'
+                    'placeholder' => 'Nickname'
                 )
             ))
             ->add('age', 'number', array(

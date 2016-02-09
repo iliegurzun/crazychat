@@ -25,13 +25,13 @@
                 <thead>
                     <tr role="row">
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting_asc">Id</th>
+                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Nickname</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Email</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Recruiter</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Converter</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Age</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Location</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Site Name</th>
-                        <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Site User</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Added On</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Comments</th>
                         <th colspan="1" rowspan="1" aria-controls="tableSortable" tabindex="0" role="columnheader" class="sorting">Actions</th>
@@ -42,13 +42,14 @@
                 {% for member in entities %}
                     <tr class="gradeA {% if loop.index % 2 == 1  %} odd {% else %} even {% endif %}">
                         <td class="sorting_1">{{ member.id }}</td>
+                        <td class=" ">{{ member.siteUser|default('-') }}</td>
+
                         <td class=" ">{{ member.email|default('-') }}</td>
                         <td class=" ">{{ member.recruiter|default('-') }}</td>
                         <td class=" ">{{ member.converter|default('-') }}</td>
                         <td class=" ">{{ member.age|default('-') }}</td>
                         <td class=" ">{{ member.location|default('-') }}</td>
                         <td class=" ">{{ member.siteName|default('-') }}</td>
-                        <td class=" ">{{ member.siteUser|default('-') }}</td>
                         <td class=" ">{{ member.createdAt|date('M d, Y') }}</td>
                         <td class=" ">{{ member.comments|default() }}</td>
                         <td class="center ">
