@@ -5,6 +5,9 @@ $(function () {
     if ($('#send-message').length) {
         submitMessage($('#send-message'));
     }
+    if ($('.new-window-popup').length) {
+        openWindow($('.new-window-popup'));
+    }
 //    $(".secondary-photos").lightSlider({
 //        loop: false,
 //        keyPress: true
@@ -159,4 +162,15 @@ function getCookie(cname) {
         if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
     }
     return "";
+}
+
+var openWindow = function($element) {
+    $element.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $this = $(this);
+        window.open($this.attr('href'), 'newwindow', config='height=500, width=500, '
+            + 'toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, '
+            + 'directories=no, status=no');
+    });
 }

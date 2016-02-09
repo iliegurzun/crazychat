@@ -10,4 +10,15 @@ namespace Duedinoi\AdminBundle\Repository;
  */
 class RecruitedMemberRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllBySearch($search = null)
+    {
+        $qb = $this->createQueryBuilder('rm');
+        if ($search) {
+            $qb->orWhere('rm.email LIKE :search')
+                ->orWhere('rm.siteUser LIKE :search')
+                ->setParameter('search', '%'.$search.'%');
+        }
+
+        return $qb->getQuery()->execute();
+    }
 }

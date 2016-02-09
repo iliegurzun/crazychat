@@ -25,8 +25,9 @@ class RecruitedMemberController  extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $search = $this->getRequest()->get('search');
 
-        $entities = $em->getRepository('DuedinoiAdminBundle:RecruitedMember')->findAll();
+        $entities = $em->getRepository('DuedinoiAdminBundle:RecruitedMember')->findAllBySearch($search);
 
         $deleteForms = array();
         foreach($entities as $entity) {
