@@ -286,4 +286,5 @@ body.scrollable > .wrapper {
 .form-horizontal {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
 }
