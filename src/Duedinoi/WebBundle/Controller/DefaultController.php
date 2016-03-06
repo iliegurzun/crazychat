@@ -242,12 +242,10 @@ class DefaultController extends Controller
                 $this->getUser()->setIsViewingSelf(true);
             }
         }
-        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            if (!$user->isSameUser($this->getUser())) {
-                $dispatcher = $this->get('event_dispatcher');
-                $event = new \Duedinoi\WebBundle\Service\ProfileEvent($user);
-                $dispatcher->dispatch(ProfileEvents::EVENT_VIEW_PROFILE, $event);
-            }
+        if (!$user->isSameUser($this->getUser())) {
+            $dispatcher = $this->get('event_dispatcher');
+            $event = new \Duedinoi\WebBundle\Service\ProfileEvent($user);
+            $dispatcher->dispatch(ProfileEvents::EVENT_VIEW_PROFILE, $event);
         }
         $comment = new \Duedinoi\WebBundle\Entity\Comment();
         $comment->setAuthor($this->getUser())

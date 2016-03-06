@@ -394,7 +394,7 @@ class User extends BaseUser implements AuthorInterface
         return;
     }
 
-    public function isSameUser($user)
+    public function isSameUser($user = null)
     {
         return $this === $user;
     }
